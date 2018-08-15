@@ -16,6 +16,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 课时4：在Android上使用SVG矢（读音:[shǐ]）量图
+ * 课时5：在Android中使用iconfont图标
  * 课时6：自定义iconfont
  */
 public class IconicsActivity extends AppCompatActivity {
@@ -25,6 +27,7 @@ public class IconicsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //必须在super前
         LayoutInflaterCompat.setFactory2(getLayoutInflater(), new IconicsLayoutInflater2(getDelegate()));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iconics);
@@ -32,7 +35,7 @@ public class IconicsActivity extends AppCompatActivity {
         Drawable drawable = new IconicsDrawable(this)
                 .icon(Ionicons.Icon.ion_ios_telephone_outline)
                 .color(Color.RED)
-                .sizeDp(45);
+                .sizeDp(50);
         ivTelephone.setImageDrawable(drawable);
 
     }
