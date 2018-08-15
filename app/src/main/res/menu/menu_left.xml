@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/menu_app_update"
-        android:icon="@mipmap/refresh"
+        android:icon="@mipmap/icon_refresh"
         android:title="应用更新" />
 
     <item
         android:id="@+id/menu_message"
-        android:icon="@mipmap/comments"
+        android:icon="@mipmap/icon_comments"
         android:title="消息中心" />
 
     <item
         android:id="@+id/menu_setting"
-        android:icon="@mipmap/set"
+        android:icon="@mipmap/icon_setting"
         android:title="设置" />
 
 </menu>
