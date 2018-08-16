@@ -34,4 +34,11 @@ dependencies {
     //the core iconcis library (without any widgets)
     implementation "com.mikepenz:iconics-core:3.0.0@aar"
     implementation 'com.mikepenz:ionicons-typeface:2.0.1.4@aar'
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }
