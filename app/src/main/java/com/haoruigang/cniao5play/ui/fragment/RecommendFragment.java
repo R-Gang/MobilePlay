@@ -1,8 +1,12 @@
 package com.haoruigang.cniao5play.ui.fragment;
 
+import android.annotation.TargetApi;
+import android.app.ProgressDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -18,9 +22,12 @@ import com.haoruigang.cniao5play.bean.AppInfo;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.http.ApiService;
 import com.haoruigang.cniao5play.http.HttpManager;
+import com.haoruigang.cniao5play.presenter.RecommendPresenter;
+import com.haoruigang.cniao5play.presenter.contract.RecommendContract;
 import com.haoruigang.cniao5play.ui.adapter.RecommendAdapter;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,49 +39,70 @@ import retrofit2.Response;
 /**
  * 推荐
  */
-public class RecommendFragment extends Fragment {
+public class RecommendFragment extends Fragment implements RecommendContract.View {
 
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
     private RecommendAdapter mAdapter;
-    private List<AppInfo> datas;
+
+    private ProgressDialog mProgressDialog;
+    private RecommendPresenter mPresenter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommend, container, false);
         ButterKnife.bind(this, view);
+
         initData();
 
         return view;
     }
 
     private void initData() {
-        HttpManager.getInstance().getRetrofit().create(ApiService.class).getApps("{“page”:0}").enqueue(new Callback<PageBean<AppInfo>>() {
-            @Override
-            public void onResponse(Call<PageBean<AppInfo>> call, Response<PageBean<AppInfo>> response) {
-                PageBean<AppInfo> pageBean = response.body();
-                datas = pageBean.getDatas();
-                initRecyclerView();
-            }
-
-            @Override
-            public void onFailure(Call<PageBean<AppInfo>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        mProgressDialog = new ProgressDialog(getActivity());
+        mPresenter = new RecommendPresenter(this);
+        mPresenter.requestDatas();
     }
 
-    private void initRecyclerView() {
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void initRecyclerView(List<AppInfo> datas) {
         //为RecyClerView设置布局管理器
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //为RecyClerView设置分割线(这个DividerItemDecoration可以自定义)
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), DividerItemDecoration.HORIZONTAL));
         //动画
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new RecommendAdapter(getActivity(), datas);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void showResult(List<AppInfo> datas) {
+        initRecyclerView(datas);
+    }
+
+    @Override
+    public void showNoData() {
+        Toast.makeText(getActivity(), "暂无数据", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showError(String msg) {
+        Toast.makeText(getActivity(), "服务器异常:" + msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading() {
+        mProgressDialog.show();
+    }
+
+    @Override
+    public void dimissLoading() {
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 }
