@@ -16,12 +16,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.haoruigang.cniao5play.R;
+import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.ui.adapter.ViewPagerAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -37,10 +38,17 @@ public class MainActivity extends AppCompatActivity {
     View headerView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    public int setLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void setupActivityComponent(AppComponent appComponent) {
+
+    }
+
+    @Override
+    public void init() {
         initDrawerLayout();
         initTabLayout();
     }

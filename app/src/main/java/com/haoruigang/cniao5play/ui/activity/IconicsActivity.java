@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.haoruigang.cniao5play.R;
+import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
@@ -20,23 +21,27 @@ import butterknife.ButterKnife;
  * 课时5：在Android中使用iconfont图标
  * 课时6：自定义iconfont
  */
-public class IconicsActivity extends AppCompatActivity {
+public class IconicsActivity extends BaseActivity {
 
     @BindView(R.id.iv_telephone)
     ImageView ivTelephone;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        //必须在super前
-        LayoutInflaterCompat.setFactory2(getLayoutInflater(), new IconicsLayoutInflater2(getDelegate()));
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_iconics);
-        ButterKnife.bind(this);
+    public int setLayout() {
+        return R.layout.activity_iconics;
+    }
+
+    @Override
+    public void setupActivityComponent(AppComponent appComponent) {
+
+    }
+
+    @Override
+    public void init() {
         Drawable drawable = new IconicsDrawable(this)
                 .icon(Ionicons.Icon.ion_ios_telephone_outline)
                 .color(Color.RED)
                 .sizeDp(50);
         ivTelephone.setImageDrawable(drawable);
-
     }
 }
