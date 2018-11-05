@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -17,24 +16,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.haoruigang.cniao5play.AppApplication;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfo;
-import com.haoruigang.cniao5play.bean.PageBean;
-import com.haoruigang.cniao5play.http.ApiService;
-import com.haoruigang.cniao5play.http.HttpManager;
-import com.haoruigang.cniao5play.presenter.RecommendPresenter;
+import com.haoruigang.cniao5play.di.component.DaggerRecommendComponent;
+import com.haoruigang.cniao5play.di.module.RecommendModule;
 import com.haoruigang.cniao5play.presenter.contract.RecommendContract;
 import com.haoruigang.cniao5play.ui.adapter.RecommendAdapter;
 
 import java.util.List;
 import java.util.Objects;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * 推荐
@@ -47,8 +43,10 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 
     private RecommendAdapter mAdapter;
 
-    private ProgressDialog mProgressDialog;
-    private RecommendPresenter mPresenter;
+    @Inject
+    ProgressDialog mProgressDialog;
+    @Inject
+    RecommendContract.Presenter mPresenter;
 
     @Nullable
     @Override
@@ -61,9 +59,15 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         return view;
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private void initData() {
-        mProgressDialog = new ProgressDialog(getActivity());
-        mPresenter = new RecommendPresenter(this);
+        //做了关联，相当于  mPresenter = new RecommendPresenter(this);
+        // mProgressDialog = new ProgressDialog(getActivity());
+        DaggerRecommendComponent.builder()
+                .appComponent(AppApplication.get(Objects.requireNonNull(getActivity())).getmAppComponent())
+                .recommendModule(new RecommendModule(this))
+                .build().inject(this);//注入
+
         mPresenter.requestDatas();
     }
 
@@ -72,7 +76,7 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         //为RecyClerView设置布局管理器
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //为RecyClerView设置分割线(这个DividerItemDecoration可以自定义)
-        recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), DividerItemDecoration.HORIZONTAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), DividerItemDecoration.VERTICAL));
         //动画
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new RecommendAdapter(getActivity(), datas);

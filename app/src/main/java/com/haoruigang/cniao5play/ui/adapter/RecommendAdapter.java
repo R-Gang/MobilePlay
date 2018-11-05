@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfo;
-import com.haoruigang.cniao5play.http.ApiService;
+import com.haoruigang.cniao5play.data.http.ApiService;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
