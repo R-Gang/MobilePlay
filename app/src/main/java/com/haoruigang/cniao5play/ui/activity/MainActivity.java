@@ -22,6 +22,9 @@ import com.haoruigang.cniao5play.ui.adapter.ViewPagerAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 主页
+ */
 public class MainActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)

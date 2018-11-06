@@ -54,15 +54,17 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
                 .build().inject(this);//注入
     }
 
+
     @Override
     public void init() {
+
         mPresenter.requestDatas();
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void initRecyclerView(List<AppInfo> datas) {
         //为RecyClerView设置布局管理器
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(mApplication));
         //为RecyClerView设置分割线(这个DividerItemDecoration可以自定义)
         recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()),
                 DividerItemDecoration.VERTICAL));

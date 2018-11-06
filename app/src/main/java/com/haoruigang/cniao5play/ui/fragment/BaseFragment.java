@@ -24,18 +24,16 @@ import butterknife.Unbinder;
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
     private Unbinder mUnbinder;
-    private AppApplication mApplication;
+    public AppApplication mApplication;
 
     @Inject
     T mPresenter;
 
-    private View mRootView;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(setLayout(), container, false);
-        mUnbinder = ButterKnife.bind(mRootView);
+        View mRootView = inflater.inflate(setLayout(), container, false);
+        mUnbinder = ButterKnife.bind(this, mRootView);
 
         return mRootView;
     }
@@ -44,7 +42,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        this.mApplication = (AppApplication) Objects.requireNonNull(getActivity()).getApplication();
+        this.mApplication = AppApplication.get(Objects.requireNonNull(getActivity()));
         setupActivityComponent(mApplication.getmAppComponent());
 
         init();

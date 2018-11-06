@@ -15,6 +15,11 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+/**
+ * 基类
+ *
+ * @param <T>
+ */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 
     private Unbinder mUnbinder;

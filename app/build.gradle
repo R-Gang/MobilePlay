@@ -46,4 +46,7 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.16'  //dagger公用api
     annotationProcessor 'com.google.dagger:dagger-compiler:2.16' //指定注解处理器
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'  //添加android缺失的部分javax注解
+
+    // Path(贝塞尔曲线)
+    implementation 'com.eftimoff:android-pathview:1.0.8@aar'
 }
