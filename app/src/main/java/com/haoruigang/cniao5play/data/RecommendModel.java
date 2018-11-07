@@ -5,7 +5,6 @@ import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.data.http.ApiService;
 
 import io.reactivex.Observable;
-import retrofit2.Callback;
 
 public class RecommendModel {
 

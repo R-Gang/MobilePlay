@@ -2,7 +2,7 @@ package com.haoruigang.cniao5play.bean;
 
 import java.util.List;
 
-public class PageBean<T> {
+public class PageBean<T> extends BaseBean {
 
 
     /**
@@ -13,8 +13,6 @@ public class PageBean<T> {
      */
 
     private boolean hasMore;
-    private int status;
-    private String message;
     private List<T> datas;
 
     public boolean isHasMore() {
@@ -23,22 +21,6 @@ public class PageBean<T> {
 
     public void setHasMore(boolean hasMore) {
         this.hasMore = hasMore;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public List<T> getDatas() {

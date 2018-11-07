@@ -1,23 +1,18 @@
 package com.haoruigang.cniao5play.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.haoruigang.cniao5play.bean.AppInfo;
+import com.haoruigang.cniao5play.bean.BaseBean;
 import com.haoruigang.cniao5play.bean.PageBean;
+import com.haoruigang.cniao5play.common.rx.RxHttpResponseCompat;
 import com.haoruigang.cniao5play.data.RecommendModel;
 import com.haoruigang.cniao5play.presenter.contract.RecommendContract;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.Subject;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendContract.View> {
 
@@ -32,6 +27,7 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
         mModel.getApps()
                 .subscribeOn(Schedulers.io())//前面请求的网络放入线程
                 .observeOn(AndroidSchedulers.mainThread())//下面要执行的请求切换成主线程
+//                .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
                 .subscribe(new Observer<PageBean<AppInfo>>() {
 
                     @Override
