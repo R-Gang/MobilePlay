@@ -23,6 +23,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
+    private View mRootView;
     private Unbinder mUnbinder;
     public AppApplication mApplication;
 
@@ -32,9 +33,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mRootView = inflater.inflate(setLayout(), container, false);
+        mRootView = inflater.inflate(setLayout(), container, false);
         mUnbinder = ButterKnife.bind(this, mRootView);
-
         return mRootView;
     }
 

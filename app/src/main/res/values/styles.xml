@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Notitle.Fullscreen" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+
     <style name="AppTheme.ToolTheme" parent="AppTheme">
         <!--左箭头-->
         <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>

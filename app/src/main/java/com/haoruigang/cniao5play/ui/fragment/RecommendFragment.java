@@ -18,6 +18,7 @@ import com.haoruigang.cniao5play.presenter.RecommendPresenter;
 import com.haoruigang.cniao5play.presenter.contract.RecommendContract;
 import com.haoruigang.cniao5play.ui.adapter.RecommendAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,10 +35,11 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    private RecommendAdapter mAdapter;
-
     @Inject
     ProgressDialog mProgressDialog;
+
+    private RecommendAdapter mAdapter;
+    private List<AppInfo> datas = new ArrayList<>();
 
     @Override
     public int setLayout() {
@@ -57,12 +59,12 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
 
     @Override
     public void init() {
-
+        initRecyclerView();
         mPresenter.requestDatas();
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    private void initRecyclerView(List<AppInfo> datas) {
+    private void initRecyclerView() {
         //为RecyClerView设置布局管理器
         recyclerView.setLayoutManager(new LinearLayoutManager(mApplication));
         //为RecyClerView设置分割线(这个DividerItemDecoration可以自定义)
@@ -76,7 +78,7 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
 
     @Override
     public void showResult(List<AppInfo> datas) {
-        initRecyclerView(datas);
+        mAdapter.setData(datas);
     }
 
     @Override

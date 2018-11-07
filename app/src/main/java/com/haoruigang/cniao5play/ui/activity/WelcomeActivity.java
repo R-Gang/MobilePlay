@@ -49,7 +49,7 @@ public class WelcomeActivity extends BaseActivity {
 
     //跳转方法
     private void jump() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, GuideActivity.class));
         finish();
     }
 

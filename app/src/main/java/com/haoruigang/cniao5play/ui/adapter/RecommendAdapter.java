@@ -47,6 +47,12 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
         holder.textSize.setText(String.format("%sMB", appInfo.getApkSize() / 1024 / 1024));
     }
 
+    public void setData(List<AppInfo> datas) {
+        this.datas.clear();
+        this.datas.addAll(datas);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return datas.size();
