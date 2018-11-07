@@ -9,6 +9,12 @@ import com.haoruigang.cniao5play.presenter.contract.RecommendContract;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.Subject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,22 +29,36 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
 
 
     public void requestDatas() {
-        mRootView.showLoading();
-        mModel.getApps(new Callback<PageBean<AppInfo>>() {
-            @Override
-            public void onResponse(@NonNull Call<PageBean<AppInfo>> call, @NonNull Response<PageBean<AppInfo>> response) {
-                if (response.body() != null) {
-                    mRootView.showResult(response.body().getDatas());
-                } else {
-                    mRootView.showNoData();
-                }
-                mRootView.dimissLoading();
-            }
+        mModel.getApps()
+                .subscribeOn(Schedulers.io())//前面请求的网络放入线程
+                .observeOn(AndroidSchedulers.mainThread())//下面要执行的请求切换成主线程
+                .subscribe(new Observer<PageBean<AppInfo>>() {
 
-            @Override
-            public void onFailure(@NonNull Call<PageBean<AppInfo>> call, @NonNull Throwable t) {
-                mRootView.showError(t.getMessage());
-            }
-        });
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mRootView.showLoading();
+                    }
+
+                    @Override
+                    public void onNext(PageBean<AppInfo> appInfoPageBean) {
+                        if (appInfoPageBean != null) {
+                            mRootView.showResult(appInfoPageBean.getDatas());
+                        } else {
+                            mRootView.showNoData();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mRootView.dimissLoading();
+                        //handle error
+                        mRootView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mRootView.dimissLoading();
+                    }
+                });
     }
 }

@@ -10,6 +10,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
@@ -39,7 +40,7 @@ public class HttpModule {
         Retrofit retrofit2 = new Retrofit.Builder()
                 .baseUrl(ApiService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())//自动转换JSON需引入依赖 com.squareup.retrofit2:converter-gson
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//与RxJava2结合使用
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//与RxJava2结合使用
                 .client(okHttpClient)
                 .build();
         return retrofit2;
