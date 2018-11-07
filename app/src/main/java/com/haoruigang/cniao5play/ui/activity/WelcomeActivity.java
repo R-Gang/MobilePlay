@@ -1,12 +1,15 @@
 package com.haoruigang.cniao5play.ui.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.eftimoff.androipathview.PathView;
 import com.haoruigang.cniao5play.R;
+import com.haoruigang.cniao5play.common.Constant;
+import com.haoruigang.cniao5play.common.util.ACache;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 
 import butterknife.BindView;
@@ -49,7 +52,13 @@ public class WelcomeActivity extends BaseActivity {
 
     //跳转方法
     private void jump() {
-        startActivity(new Intent(this, GuideActivity.class));
+//        String isShow = ACache.get(this).getAsString(Constant.IS_SHOW_GUIDE);
+        String isShow = "";
+        if (TextUtils.isEmpty(isShow)) {
+            startActivity(new Intent(this, GuideActivity.class));
+        } else {
+            startActivity(new Intent(this, MainActivity.class));
+        }
         finish();
     }
 

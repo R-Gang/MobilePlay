@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.haoruigang.cniao5play.R;
+import com.haoruigang.cniao5play.common.Constant;
+import com.haoruigang.cniao5play.common.util.ACache;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.ui.adapter.GuidePageAdapter;
 import com.haoruigang.cniao5play.ui.fragment.GuideFragment;
@@ -76,6 +78,8 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_start:
+                //保存一天，如果超过一天去获取这个key，将为null
+                ACache.get(this).put(Constant.IS_SHOW_GUIDE, "SHOW", ACache.TIME_DAY);
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
