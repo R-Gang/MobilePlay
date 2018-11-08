@@ -1,62 +1,51 @@
 package com.haoruigang.cniao5play.common.rx.observer;
 
-import com.haoruigang.cniao5play.common.rx.RxErrorHandler;
-import com.haoruigang.cniao5play.ui.BaseView;
+import android.content.Context;
+
+import com.haoruigang.cniao5play.common.rx.ProgressDialogHandler;
 
 import io.reactivex.disposables.Disposable;
 
-public abstract class ProgressDialogObserver<T> extends ErrorHeadleObserver<T> {
+public abstract class ProgressDialogObserver<T> extends ErrorHeadleObserver<T> implements ProgressDialogHandler.OnProgressCancelListener {
 
-    private BaseView baseView;
-//    private ProgressDialog mProgress;
+    private ProgressDialogHandler mProgressDialogHandle;
 
-    protected ProgressDialogObserver(BaseView view, RxErrorHandler rxErrorHandler) {
-        super(rxErrorHandler);
-        this.baseView = view;
+    /**
+     * @param context
+     * @param isCancelDialog 设置该对话框是否可取消 true 可取消,false 不可取消
+     */
+    protected ProgressDialogObserver(Context context, boolean isCancelDialog) {
+        super(context);
+        mProgressDialogHandle = new ProgressDialogHandler(mContext, isCancelDialog, this);
     }
 
     //默认显示Dialog
-    protected boolean isShowDialog() {
+    protected boolean isShowProgressDialog() {
         return true;
     }
 
     @Override
+    public void onCancelProgress() {
+
+    }
+
+    @Override
     public void onSubscribe(Disposable d) {
-        if (isShowDialog())
-            showProgressDialog();
+        if (isShowProgressDialog())
+            mProgressDialogHandle.showProgressDialog();
     }
 
     @Override
     public void onError(Throwable e) {
         super.onError(e);
-        if (isShowDialog())
-            dismissProgressDiolog();
+        if (isShowProgressDialog())
+            mProgressDialogHandle.dismissProgressDiolog();
     }
 
     @Override
     public void onComplete() {
-        if (isShowDialog())
-            dismissProgressDiolog();
+        if (isShowProgressDialog())
+            mProgressDialogHandle.dismissProgressDiolog();
     }
-
-//    private void initProgressDiolog() {
-//        if (mProgress == null) {
-//            mProgress = new ProgressDialog(mContext);
-//            mProgress.setMessage("loading......");
-//        }
-//    }
-
-    private void showProgressDialog() {
-//        initProgressDiolog();
-        baseView.showLoading();
-    }
-
-    private void dismissProgressDiolog() {
-//        if (mProgress != null && mProgress.isShowing()) {
-//            mProgress.dismiss();
-//        }
-        baseView.dimissLoading();
-    }
-
 
 }

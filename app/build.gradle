@@ -55,4 +55,10 @@ dependencies {
 
     // Path(贝塞尔曲线)
     implementation 'com.eftimoff:android-pathview:1.0.8@aar'
+
+    // sweetalert 1.需添加tools:replace,
+    // 2.在proguard-rules.pro文件中加混淆,
+    // 3.及gradle.properties文件
+    // implementation 'cn.pedant.sweetalert:library:1.3'
+    implementation project(':sweetalert')// 4.注释到 apply from: 最后一行代码
 }

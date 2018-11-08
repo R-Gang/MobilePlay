@@ -11,7 +11,7 @@ public class BasePresenter<M, V extends BaseView> {
     M mModel;
     V mRootView;
 
-    Context mContext = null;
+    Context mContext;
 
     BasePresenter(M m, V v) {
         this.mModel = m;
