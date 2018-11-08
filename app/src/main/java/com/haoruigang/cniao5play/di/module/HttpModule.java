@@ -1,5 +1,8 @@
 package com.haoruigang.cniao5play.di.module;
 
+import android.app.Application;
+
+import com.haoruigang.cniao5play.common.rx.RxErrorHandler;
 import com.haoruigang.cniao5play.data.http.ApiService;
 
 import java.util.concurrent.TimeUnit;
@@ -22,8 +25,7 @@ public class HttpModule {
     @Provides
     @Singleton
     public OkHttpClient provideOkHttpClient() {
-        // log 用拦截器
-        //
+        /* log 用拦截器 */
         return new OkHttpClient.Builder()
                 // 连接超时时间设置
                 .connectTimeout(DEFAULT_MILLISECONDS, TimeUnit.SECONDS)
@@ -37,19 +39,24 @@ public class HttpModule {
     @Provides
     @Singleton
     public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
-        Retrofit retrofit2 = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl(ApiService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())//自动转换JSON需引入依赖 com.squareup.retrofit2:converter-gson
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//与RxJava2结合使用
                 .client(okHttpClient)
                 .build();
-        return retrofit2;
     }
 
     @Provides
     @Singleton
     public ApiService provideApiService(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    public RxErrorHandler provideRxErrorHander(Application application) {
+        return new RxErrorHandler(application);
     }
 
 }

@@ -17,9 +17,9 @@ public class BaseException extends Exception {
     /*无法解析该域名*/
     public static final int UNKOWNHOST_ERROR = 0x6;
     /*连接网络超时*/
-    public static final int SCOKET_TIMEOUT_ERROR = 0x7;
+    public static final int SOCKET_TIMEOUT_ERROR = 0x7;
     /*无网络连接*/
-    public static final int SCOKET_ERROR = 0x8;
+    public static final int SOCKET_ERROR = 0x8;
 
     //===================Api异常====================
     //服务器错误

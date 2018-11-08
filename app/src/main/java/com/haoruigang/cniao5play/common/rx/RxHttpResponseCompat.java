@@ -41,8 +41,8 @@ public class RxHttpResponseCompat {
                             return Observable.error(new ApiException(tBaseBean.getStatus(), tBaseBean.getMessage()));
                         }
                     }
-                }).observeOn(AndroidSchedulers.mainThread())//请求放入线程
-                        .subscribeOn(Schedulers.io());//线程切换成主线程
+                }).observeOn(AndroidSchedulers.mainThread())//要执行的请求切换成主线程
+                        .subscribeOn(Schedulers.io());//请求的网络放入线程
             }
         };
     }

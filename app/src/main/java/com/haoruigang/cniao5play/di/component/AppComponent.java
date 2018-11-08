@@ -1,5 +1,8 @@
 package com.haoruigang.cniao5play.di.component;
 
+import android.app.Application;
+
+import com.haoruigang.cniao5play.common.rx.RxErrorHandler;
 import com.haoruigang.cniao5play.data.http.ApiService;
 import com.haoruigang.cniao5play.di.module.AppModule;
 import com.haoruigang.cniao5play.di.module.HttpModule;
@@ -13,5 +16,9 @@ import dagger.Component;
 public interface AppComponent {
 
     ApiService getApiService();
+
+    Application getApplication();
+
+    RxErrorHandler getRxErrorHandle();
 
 }
