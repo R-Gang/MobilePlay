@@ -1,6 +1,7 @@
 package com.haoruigang.cniao5play.ui.fragment;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import com.haoruigang.cniao5play.AppApplication;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.presenter.BasePresenter;
+import com.haoruigang.cniao5play.ui.BaseView;
 
 import java.util.Objects;
 
@@ -21,7 +23,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
+public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseView {
 
     private View mRootView;
     private Unbinder mUnbinder;
@@ -29,6 +31,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
     @Inject
     T mPresenter;
+    private ProgressDialog mProgress;
 
     @Nullable
     @Override
@@ -63,4 +66,17 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         }
     }
 
+    @Override
+    public void showLoading() {
+        mProgress = new ProgressDialog(getActivity());
+        mProgress.setMessage("loading......");
+        mProgress.show();
+    }
+
+    @Override
+    public void dimissLoading() {
+        if (mProgress.isShowing()) {
+            mProgress.dismiss();
+        }
+    }
 }

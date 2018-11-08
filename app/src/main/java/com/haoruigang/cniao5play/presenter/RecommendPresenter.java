@@ -1,16 +1,17 @@
 package com.haoruigang.cniao5play.presenter;
 
+import android.app.Activity;
+import android.support.v4.app.Fragment;
+
 import com.haoruigang.cniao5play.bean.AppInfo;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.common.rx.RxErrorHandler;
 import com.haoruigang.cniao5play.common.rx.RxHttpResponseCompat;
-import com.haoruigang.cniao5play.common.rx.observer.ErrorHeadleObserver;
+import com.haoruigang.cniao5play.common.rx.observer.ProgressDialogObserver;
 import com.haoruigang.cniao5play.data.RecommendModel;
 import com.haoruigang.cniao5play.presenter.contract.RecommendContract;
 
 import javax.inject.Inject;
-
-import io.reactivex.disposables.Disposable;
 
 public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendContract.View> {
 
@@ -26,12 +27,7 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
     public void requestDatas() {
         mModel.getApps()
                 .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
-                .subscribe(new ErrorHeadleObserver<PageBean<AppInfo>>(rxErrorHandler) {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        mRootView.showLoading();
-                    }
-
+                .subscribe(new ProgressDialogObserver<PageBean<AppInfo>>(mRootView, rxErrorHandler) {
                     @Override
                     public void onNext(PageBean<AppInfo> appInfoPageBean) {
                         if (appInfoPageBean != null) {
@@ -42,33 +38,9 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
                     }
 
                     @Override
-                    public void onComplete() {
-                        mRootView.dimissLoading();
+                    protected boolean isShowDialog() {
+                        return false;//不显示Dialog
                     }
                 });
-//                .subscribe(new Observer<PageBean<AppInfo>>() {
-//
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(PageBean<AppInfo> appInfoPageBean) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        mRootView.dimissLoading();
-//                        //handle error
-//                        mRootView.showError(e.getMessage());
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
     }
 }
