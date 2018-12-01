@@ -1,6 +1,7 @@
 package com.haoruigang.cniao5play.di.module;
 
 import android.app.Application;
+import android.net.SSLCertificateSocketFactory;
 
 import com.haoruigang.cniao5play.common.rx.RxErrorHandler;
 import com.haoruigang.cniao5play.data.http.ApiService;
@@ -8,10 +9,13 @@ import com.haoruigang.cniao5play.data.http.ApiService;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
+import javax.net.ssl.SSLSocketFactory;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,7 +30,14 @@ public class HttpModule {
     @Singleton
     public OkHttpClient provideOkHttpClient() {
         /* log 用拦截器 */
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        // 开发模式记录整个body,否则只记录基本信息如返回200,http协议版本等
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        //如果使用HTTPS,我们需要创建SSLSocketFactory,并设置到client
+        SSLSocketFactory sslSocketFactory = new SSLCertificateSocketFactory(DEFAULT_MILLISECONDS);
         return new OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .socketFactory(sslSocketFactory)
                 // 连接超时时间设置
                 .connectTimeout(DEFAULT_MILLISECONDS, TimeUnit.SECONDS)
                 // 读取超时时间设置
@@ -41,7 +52,8 @@ public class HttpModule {
     public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .baseUrl(ApiService.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())//自动转换JSON需引入依赖 com.squareup.retrofit2:converter-gson
+                //需引入依赖 com.squareup.retrofit2:converter-gson
+                .addConverterFactory(GsonConverterFactory.create())//自动转换JSON
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//与RxJava2结合使用
                 .client(okHttpClient)
                 .build();

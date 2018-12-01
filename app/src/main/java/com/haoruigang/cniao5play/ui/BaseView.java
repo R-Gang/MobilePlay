@@ -4,5 +4,7 @@ public interface BaseView {
 
     void showLoading();
 
-    void dimissLoading();
+    void showError(String msg);
+
+    void dismissLoading();
 }

@@ -4,6 +4,7 @@ import com.haoruigang.cniao5play.bean.AppInfo;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.common.rx.RxHttpResponseCompat;
 import com.haoruigang.cniao5play.common.rx.observer.ProgressDialogObserver;
+import com.haoruigang.cniao5play.common.rx.observer.ProgressObserver;
 import com.haoruigang.cniao5play.data.RecommendModel;
 import com.haoruigang.cniao5play.presenter.contract.RecommendContract;
 
@@ -20,7 +21,7 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
     public void requestDatas() {
         mModel.getApps()
                 .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
-                .subscribe(new ProgressDialogObserver<PageBean<AppInfo>>(mContext, false) {
+                .subscribe(new ProgressObserver<PageBean<AppInfo>>(mContext, mRootView) {
                     @Override
                     public void onNext(PageBean<AppInfo> appInfoPageBean) {
                         if (appInfoPageBean != null) {

@@ -35,9 +35,6 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    @Inject
-    ProgressDialog mProgressDialog;
-
     private RecommendAdapter mAdapter;
     private List<AppInfo> datas = new ArrayList<>();
 
@@ -89,18 +86,6 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     @Override
     public void showError(String msg) {
         Toast.makeText(getActivity(), "服务器异常:" + msg, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showLoading() {
-        mProgressDialog.show();
-    }
-
-    @Override
-    public void dimissLoading() {
-        if (mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
     }
 
 }

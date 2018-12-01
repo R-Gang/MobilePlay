@@ -31,7 +31,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     @Inject
     T mPresenter;
-    private ProgressDialog mProgress;
 
     @Nullable
     @Override
@@ -68,15 +67,14 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     @Override
     public void showLoading() {
-        mProgress = new ProgressDialog(getActivity());
-        mProgress.setMessage("loading......");
-        mProgress.show();
     }
 
     @Override
-    public void dimissLoading() {
-        if (mProgress.isShowing()) {
-            mProgress.dismiss();
-        }
+    public void showError(String msg) {
+        
+    }
+
+    @Override
+    public void dismissLoading() {
     }
 }

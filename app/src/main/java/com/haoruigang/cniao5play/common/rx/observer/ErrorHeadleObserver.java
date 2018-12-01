@@ -9,7 +9,7 @@ import com.haoruigang.cniao5play.common.rx.RxErrorHandler;
 public abstract class ErrorHeadleObserver<T> extends BaseObserver<T> {
 
     Context mContext;
-    private RxErrorHandler rxErrorHandler;
+    RxErrorHandler rxErrorHandler;
 
     ErrorHeadleObserver(Context context) {
         this.mContext = context;
