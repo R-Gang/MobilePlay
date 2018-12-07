@@ -3,6 +3,7 @@ package com.haoruigang.cniao5play.di.module;
 import android.app.Application;
 import android.net.SSLCertificateSocketFactory;
 
+import com.haoruigang.cniao5play.common.http.CommonParamsInterceptor;
 import com.haoruigang.cniao5play.common.rx.RxErrorHandler;
 import com.haoruigang.cniao5play.data.http.ApiService;
 
@@ -37,6 +38,7 @@ public class HttpModule {
         SSLSocketFactory sslSocketFactory = new SSLCertificateSocketFactory(DEFAULT_MILLISECONDS);
         return new OkHttpClient.Builder()
                 .addInterceptor(logging)
+                .addInterceptor(new CommonParamsInterceptor())
                 .socketFactory(sslSocketFactory)
                 // 连接超时时间设置
                 .connectTimeout(DEFAULT_MILLISECONDS, TimeUnit.SECONDS)
