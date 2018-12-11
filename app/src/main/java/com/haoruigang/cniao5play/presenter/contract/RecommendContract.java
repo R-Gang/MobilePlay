@@ -16,6 +16,9 @@ public interface RecommendContract {
 
         void showError(String msg);
 
+        void onRequestPermissionSuccess();
+
+        void onRequestPermissionFail();
 
     }
 

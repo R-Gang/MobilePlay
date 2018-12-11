@@ -57,6 +57,7 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     @Override
     public void init() {
         initRecyclerView();
+//        mPresenter.requestPermission();
         mPresenter.requestDatas();
     }
 
@@ -86,6 +87,16 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     @Override
     public void showError(String msg) {
         Toast.makeText(getActivity(), "服务器异常:" + msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionSuccess() {
+        mPresenter.requestDatas();
+    }
+
+    @Override
+    public void onRequestPermissionFail() {
+        Toast.makeText(getActivity(), "授权失败", Toast.LENGTH_LONG).show();
     }
 
 }

@@ -13,7 +13,7 @@ public class BaseBean<T> implements Serializable {
 
     private int status;
     private String message;
-    private T data;
+    private T datas;
 
     public boolean success() {
         return (status == SUCCESS);
@@ -35,12 +35,12 @@ public class BaseBean<T> implements Serializable {
         this.message = message;
     }
 
-    public T getData() {
-        return data;
+    public T getDatas() {
+        return datas;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setDatas(T datas) {
+        this.datas = datas;
     }
 
 }

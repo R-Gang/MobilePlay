@@ -2,24 +2,35 @@ package com.haoruigang.cniao5play.common.http;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.common.util.DeviceUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
+import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.Buffer;
 
 /**
  * 公共参数拦截器
  */
 public class CommonParamsInterceptor implements Interceptor {
+
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
 
     private Context mContext;
     private Gson mGson;
@@ -31,38 +42,88 @@ public class CommonParamsInterceptor implements Interceptor {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    public Response intercept(Chain chain) throws IOException {
-        Request request = chain.request();
+    public Response intercept(@NonNull Chain chain) throws IOException {
+        Request request = chain.request();// http://112.124.22.238:8081/course_api/cniaoplay/featured?p={'page':0}
 
-        String method = request.method();
+        try {
+            String method = request.method();
 
-        HashMap<String, Object> commomParamesMap = new HashMap<>();
-        commomParamesMap.put(Constant.IMEI, DeviceUtils.getIMEI(mContext));
-        commomParamesMap.put(Constant.MODEL, DeviceUtils.getModel());
-        commomParamesMap.put(Constant.LANGUAGE, DeviceUtils.getLanguage());
-        commomParamesMap.put(Constant.OS, DeviceUtils.getBuildVersionIncremental());
-        commomParamesMap.put(Constant.RESOLUTION, DeviceUtils.getScreenDisplayID(mContext));
-        commomParamesMap.put(Constant.SDK, DeviceUtils.getBuildVersionSDK() + "");
-        commomParamesMap.put(Constant.DENSITY_SCALE_FACTOR, mContext.getResources().getDisplayMetrics().density + "");
+            HashMap<String, Object> commomParamesMap = new HashMap<>();
+            commomParamesMap.put(Constant.IMEI, DeviceUtils.getIMEI(mContext));
+            commomParamesMap.put(Constant.MODEL, DeviceUtils.getModel());
+            commomParamesMap.put(Constant.LANGUAGE, DeviceUtils.getLanguage());
+            commomParamesMap.put(Constant.OS, DeviceUtils.getBuildVersionIncremental());
+            commomParamesMap.put(Constant.RESOLUTION, DeviceUtils.getScreenDisplayID(mContext));
+            commomParamesMap.put(Constant.SDK, DeviceUtils.getBuildVersionSDK() + "");
+            commomParamesMap.put(Constant.DENSITY_SCALE_FACTOR, mContext.getResources().getDisplayMetrics().density + "");
 
-        if (method.equals("GET")) {
+            if (method.equals("GET")) {
 
-            HttpUrl httpUrl = request.url();
-            String oldParamJson = httpUrl.queryParameter(Constant.PARAM);
+                HttpUrl httpUrl = request.url();
 
-            HashMap rootMap = mGson.fromJson(oldParamJson, HashMap.class);//原始参数
+                Set<String> paramNames = httpUrl.queryParameterNames();
+                HashMap<String, Object> rootMap = new HashMap<>();
+                for (String key : paramNames) {
+                    if (Constant.PARAM.equals(key)) {// p={'page':0}&page=0&number=1 格式的解析方式
+                        String oldParamJson = httpUrl.queryParameter(Constant.PARAM);
+                        if (oldParamJson != null) {//非空验证
+                            HashMap<String, Object> p = mGson.fromJson(oldParamJson, HashMap.class);//原始参数
+                            if (p != null) {
+                                for (Map.Entry<String, Object> entry : p.entrySet()) {
+                                    rootMap.put(entry.getKey(), entry.getValue());
+                                }
+                            }
+                        }
+                    } else {
+                        rootMap.put(key, httpUrl.queryParameter(key));
+                    }
+                }
 
-            rootMap.put("publicParams", commomParamesMap);//重新组装公共参数
+                rootMap.put("publicParams", commomParamesMap);//重新组装公共参数
 
-            String newJsonParams = mGson.toJson(rootMap);
+                String newJsonParams = mGson.toJson(rootMap);// {'page':0,'publicParams':{'imei':xxx,'model':xxx,...}}
 
-            String url = httpUrl.toString();
-            url = url.substring(0, url.indexOf("?")) + "?" + Constant.PARAM;
+                String url = httpUrl.toString();
 
-        } else if (method.equals("POST")) {
+                int index = url.indexOf("?");
+                if (index > 0) {// ? 存在,说明带有参数
+                    url = url.substring(0, index);
+                }
+                // http://112.124.22.238:8081/course_api/cniaoplay/featured?p={'page':0,'publicParams':{'imei':xxx,'model':xxx,...}}
+                url = url + "?" + Constant.PARAM + "=" + newJsonParams;
 
+                request = request.newBuilder().url(url).build();//重新构建路径
+
+            } else if (method.equals("POST")) {
+
+                RequestBody body = request.body();
+
+                HashMap<String, Object> rootMap = new HashMap<>();
+                if (body instanceof FormBody) {// form 表单形式
+                    for (int i = 0; i < ((FormBody) body).size(); i++) {
+                        rootMap.put(((FormBody) body).encodedName(i), ((FormBody) body).encodedValue(i));
+                    }
+                } else {// json 格式
+                    Buffer buffer = new Buffer();
+
+                    body.writeTo(buffer);
+
+                    String oldJsonParams = buffer.readUtf8();
+
+                    rootMap = mGson.fromJson(oldJsonParams, HashMap.class);//原始参数
+                    rootMap.put("publicParams", commomParamesMap);//重新组装公共参数
+                    String newJsonParams = mGson.toJson(rootMap);// {'page':0,'publicParams':{'imei':xxx,'model':xxx,...}}
+
+                    request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
+                }
+
+            }
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        return null;
+        return chain.proceed(request);// 重新发起请求
     }
 }

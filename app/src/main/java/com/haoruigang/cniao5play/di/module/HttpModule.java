@@ -3,6 +3,7 @@ package com.haoruigang.cniao5play.di.module;
 import android.app.Application;
 import android.net.SSLCertificateSocketFactory;
 
+import com.google.gson.Gson;
 import com.haoruigang.cniao5play.common.http.CommonParamsInterceptor;
 import com.haoruigang.cniao5play.common.rx.RxErrorHandler;
 import com.haoruigang.cniao5play.data.http.ApiService;
@@ -29,17 +30,17 @@ public class HttpModule {
 
     @Provides
     @Singleton
-    public OkHttpClient provideOkHttpClient() {
+    public OkHttpClient provideOkHttpClient(Application application, Gson gson) {
         /* log 用拦截器 */
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // 开发模式记录整个body,否则只记录基本信息如返回200,http协议版本等
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         //如果使用HTTPS,我们需要创建SSLSocketFactory,并设置到client
-        SSLSocketFactory sslSocketFactory = new SSLCertificateSocketFactory(DEFAULT_MILLISECONDS);
+//        SSLSocketFactory sslSocketFactory = new SSLCertificateSocketFactory(DEFAULT_MILLISECONDS);
         return new OkHttpClient.Builder()
-                .addInterceptor(logging)
-                .addInterceptor(new CommonParamsInterceptor())
-                .socketFactory(sslSocketFactory)
+//                .addInterceptor(logging)
+                .addInterceptor(new CommonParamsInterceptor(application, gson))
+//                .socketFactory(sslSocketFactory)
                 // 连接超时时间设置
                 .connectTimeout(DEFAULT_MILLISECONDS, TimeUnit.SECONDS)
                 // 读取超时时间设置
