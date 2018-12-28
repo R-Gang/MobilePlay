@@ -2,6 +2,7 @@ package com.haoruigang.cniao5play.data.http;
 
 import com.haoruigang.cniao5play.bean.AppInfo;
 import com.haoruigang.cniao5play.bean.BaseBean;
+import com.haoruigang.cniao5play.bean.IndexBean;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.bean.requestbean.LoginRequestBean;
 
@@ -23,7 +24,7 @@ public interface ApiService {
     Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);// p={"page":0}
 
     @GET("index")
-    Observable<BaseBean<PageBean<AppInfo>>> index();
+    Observable<BaseBean<IndexBean>> index();
 
     @GET("toplist")
     Observable<BaseBean<PageBean<AppInfo>>> topList(@Query("page") int page);// {"page":0}

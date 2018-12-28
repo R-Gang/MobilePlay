@@ -52,12 +52,11 @@ public class WelcomeActivity extends BaseActivity {
 
     //跳转方法
     private void jump() {
-//        String isShow = ACache.get(this).getAsString(Constant.IS_SHOW_GUIDE);
-        String isShow = "";
+        String isShow = ACache.get(this).getAsString(Constant.IS_SHOW_GUIDE);
         if (TextUtils.isEmpty(isShow)) {
             startActivity(new Intent(this, GuideActivity.class));
         } else {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }
         finish();
     }

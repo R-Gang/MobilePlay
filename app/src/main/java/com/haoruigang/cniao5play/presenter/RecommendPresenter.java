@@ -1,6 +1,7 @@
 package com.haoruigang.cniao5play.presenter;
 
 import android.Manifest;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.haoruigang.cniao5play.bean.AppInfo;
@@ -28,7 +29,7 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
     }
 
     public void requestPermission() {
-        RxPermissions rxPermissions = new RxPermissions((FragmentActivity) mContext);
+        RxPermissions rxPermissions = new RxPermissions((Fragment) mRootView);
         rxPermissions.request(Manifest.permission.READ_PHONE_STATE)
                 .subscribe(new Observer<Boolean>() {
                     @Override
@@ -61,7 +62,7 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
 
 
     public void requestDatas() {
-        RxPermissions rxPermissions = new RxPermissions((FragmentActivity) mContext);
+        RxPermissions rxPermissions = new RxPermissions((Fragment) mRootView);
         rxPermissions.request(Manifest.permission.READ_PHONE_STATE)
                 .flatMap(new Function<Boolean, ObservableSource<PageBean<AppInfo>>>() {
                     @Override

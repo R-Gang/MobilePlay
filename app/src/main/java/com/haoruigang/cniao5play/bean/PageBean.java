@@ -2,6 +2,11 @@ package com.haoruigang.cniao5play.bean;
 
 import java.util.List;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class PageBean<T> extends BaseBean {
 
 
@@ -15,20 +20,5 @@ public class PageBean<T> extends BaseBean {
     private boolean hasMore;
     private List<T> datas;
 
-    public boolean isHasMore() {
-        return hasMore;
-    }
-
-    public void setHasMore(boolean hasMore) {
-        this.hasMore = hasMore;
-    }
-
-    public List<T> getDatas() {
-        return datas;
-    }
-
-    public void setDatas(List<T> datas) {
-        this.datas = datas;
-    }
 
 }

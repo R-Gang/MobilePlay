@@ -16,7 +16,7 @@ public class RecommendModel {
     }
 
     public Observable<BaseBean<PageBean<AppInfo>>> getApps() {
-        return apiService.getApps("{‘page’:0}");
+        return apiService.getApps("{\"page\":0}");
     }
 
 }

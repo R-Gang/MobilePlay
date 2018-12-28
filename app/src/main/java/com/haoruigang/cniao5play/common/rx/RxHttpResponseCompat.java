@@ -30,7 +30,7 @@ public class RxHttpResponseCompat {
                                 @Override
                                 public void subscribe(ObservableEmitter<T> emitter) {
                                     try {
-                                        emitter.onNext(tBaseBean.getDatas());
+                                        emitter.onNext(tBaseBean.getData());
                                         emitter.onComplete();
                                     } catch (Exception e) {
                                         emitter.onError(e);

@@ -36,9 +36,9 @@ public class HttpModule {
         // 开发模式记录整个body,否则只记录基本信息如返回200,http协议版本等
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         //如果使用HTTPS,我们需要创建SSLSocketFactory,并设置到client
-//        SSLSocketFactory sslSocketFactory = new SSLCertificateSocketFactory(DEFAULT_MILLISECONDS);
+        SSLSocketFactory sslSocketFactory = new SSLCertificateSocketFactory(DEFAULT_MILLISECONDS);
         return new OkHttpClient.Builder()
-//                .addInterceptor(logging)
+                .addInterceptor(logging)
                 .addInterceptor(new CommonParamsInterceptor(application, gson))
 //                .socketFactory(sslSocketFactory)
                 // 连接超时时间设置

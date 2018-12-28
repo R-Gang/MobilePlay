@@ -1,19 +1,25 @@
 package com.haoruigang.cniao5play.ui.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.haoruigang.cniao5play.R;
+import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.common.util.DeviceUtils;
 import com.haoruigang.cniao5play.di.component.AppComponent;
+
+import java.util.HashMap;
+import java.util.logging.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,9 +61,18 @@ public class LoginActivity extends BaseActivity {
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATE_CODE);
                 } else {
+                    Log.i("IMEI", DeviceUtils.getIMEI(this));
+                    Log.i("Model", DeviceUtils.getModel());
+                    Log.i("LANGUAGE", DeviceUtils.getLanguage());
+                    Log.i("OS", DeviceUtils.getBuildVersionIncremental());
+                    Log.i("RESOLUTION", DeviceUtils.getScreenDisplayID(this));
+                    Log.i("SDK", DeviceUtils.getBuildVersionSDK() + "");
+                    Log.i("DENSITY_SCALE_FACTOR", getResources().getDisplayMetrics().density + "");
                     // 授权成功
                     String imes = DeviceUtils.getIMEI(this);
                     Toast.makeText(this, imes, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
                 }
                 break;
         }
