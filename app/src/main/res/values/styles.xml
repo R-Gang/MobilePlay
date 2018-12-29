@@ -95,7 +95,7 @@
     <style name="btn" parent="Base.TextAppearance.AppCompat.Widget.Button">
 
         <item name="android:background">@drawable/bg_btn</item>
-        <item name="android:textColor">@color/color_btn</item>
+        <item name="android:textColor">@drawable/color_btn</item>
     </style>
 
     <style name="btn_small" parent="btn">

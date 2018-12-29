@@ -16,8 +16,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:theme">
         <activity
-            android:name=".ui.activity.WelcomeActivity"
-            android:theme="@style/AppTheme.Notitle.Fullscreen">
+            android:name=".ui.activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +25,7 @@
         </activity>
         <activity android:name=".ui.activity.IconicsActivity" />
         <activity
-            android:name=".ui.activity.GuideActivity"
-            android:theme="@style/AppTheme.Notitle.Fullscreen" />
+            android:name=".ui.activity.GuideActivity" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask" />

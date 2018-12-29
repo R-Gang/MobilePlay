@@ -45,8 +45,8 @@ public class ImageLoader {
             setAsBitmap(true).
 //            setPlaceHolderResId(R.drawable.bg_loading).
 //            setErrorResId(R.drawable.bg_error).
-            setDiskCacheStrategy(ImageLoadConfig.DiskCache.SOURCE).
-            setPrioriy(ImageLoadConfig.LoadPriority.HIGH).build();
+        setDiskCacheStrategy(ImageLoadConfig.DiskCache.SOURCE).
+                    setPrioriy(ImageLoadConfig.LoadPriority.HIGH).build();
 
     /**
      * 加载String类型的资源
@@ -80,12 +80,11 @@ public class ImageLoader {
     }
 
 
-    public static void load(String url ,ImageView imageView){
+    public static void load(String url, ImageView imageView) {
 
-        load(imageView.getContext(),imageView,url,null,null);
+        load(imageView.getContext(), imageView, url, null, null);
 
     }
-
 
 
     public static void loadGif(ImageView view, String gifUrl, ImageLoadConfig config, LoaderListener listener) {
@@ -310,14 +309,17 @@ public class ImageLoader {
             }
         }).start();
     }
+
     /**
      * 清除所有缓存
+     *
      * @param context
      */
     public static void cleanAll(Context context) {
         clearDiskCache(context);
         Glide.get(context).clearMemory();
     }
+
     /**
      * 获取缓存大小
      *
@@ -345,7 +347,6 @@ public class ImageLoader {
 //
 //        return size;
 //    }
-
     public static void clearTarget(Context context, String uri) {
 //        if (SimpleGlideModule.cache != null && uri != null) {
 //            SimpleGlideModule.cache.delete(new StringSignature(uri));

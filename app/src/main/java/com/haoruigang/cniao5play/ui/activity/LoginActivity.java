@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -14,15 +13,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.haoruigang.cniao5play.R;
-import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.common.util.DeviceUtils;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 
-import java.util.HashMap;
-import java.util.logging.Logger;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
