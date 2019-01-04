@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="@style/AppTheme.Notitle"
+                android:theme="@style/AppTheme.ToolBar"
                 app:title="@string/app_name" />
 
             <!--app:tabMode="fixed" fixed:Tab不可滑动 scrollable:超出屏幕Tab可滑动-->

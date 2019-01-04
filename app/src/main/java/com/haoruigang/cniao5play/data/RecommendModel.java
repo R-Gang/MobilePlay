@@ -2,6 +2,7 @@ package com.haoruigang.cniao5play.data;
 
 import com.haoruigang.cniao5play.bean.AppInfo;
 import com.haoruigang.cniao5play.bean.BaseBean;
+import com.haoruigang.cniao5play.bean.IndexBean;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.data.http.ApiService;
 
@@ -17,6 +18,10 @@ public class RecommendModel {
 
     public Observable<BaseBean<PageBean<AppInfo>>> getApps() {
         return apiService.getApps("{\"page\":0}");
+    }
+
+    public Observable<BaseBean<IndexBean>> index() {
+        return apiService.index();
     }
 
 }

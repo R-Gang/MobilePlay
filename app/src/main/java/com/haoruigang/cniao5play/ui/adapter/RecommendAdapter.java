@@ -36,15 +36,15 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext)
-                .inflate(R.layout.template_recommend_app, parent, false));
+                .inflate(R.layout.template_appinfo2, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         AppInfo appInfo = datas.get(position);
         Picasso.with(mContext).load(ApiService.BASE_IMG_URL + appInfo.getIcon()).into(holder.imgIcon);
-        holder.textTitle.setText(appInfo.getDisplayName());
-        holder.textSize.setText(String.format("%sMB", appInfo.getApkSize() / 1024 / 1024));
+        holder.tvAppName.setText(appInfo.getDisplayName());
+        holder.tvBrief.setText(String.format("%sMB", appInfo.getApkSize() / 1024 / 1024));
     }
 
     public void setData(List<AppInfo> datas) {
@@ -61,14 +61,14 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.img_icon)
         ImageView imgIcon;
-        @BindView(R.id.text_title)
-        TextView textTitle;
-        @BindView(R.id.text_size)
-        TextView textSize;
-        @BindView(R.id.btn_dl)
-        Button btnDl;
+        @BindView(R.id.tv_app_name)
+        TextView tvAppName;
+        @BindView(R.id.tv_brief)
+        TextView tvBrief;
+        @BindView(R.id.iv_dl)
+        ImageView ivDl;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

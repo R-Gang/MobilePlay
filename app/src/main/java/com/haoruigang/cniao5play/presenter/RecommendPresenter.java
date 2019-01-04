@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.haoruigang.cniao5play.bean.AppInfo;
 import com.haoruigang.cniao5play.bean.BaseBean;
+import com.haoruigang.cniao5play.bean.IndexBean;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.common.rx.RxHttpResponseCompat;
 import com.haoruigang.cniao5play.common.rx.observer.ProgressObserver;
@@ -62,44 +63,12 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
 
 
     public void requestDatas() {
-        RxPermissions rxPermissions = new RxPermissions((Fragment) mRootView);
-        rxPermissions.request(Manifest.permission.READ_PHONE_STATE)
-                .flatMap(new Function<Boolean, ObservableSource<PageBean<AppInfo>>>() {
+        mModel.index().compose(RxHttpResponseCompat.<IndexBean>compatResult())
+                .subscribe(new ProgressObserver<IndexBean>(mContext, mRootView) {
                     @Override
-                    public ObservableSource<PageBean<AppInfo>> apply(Boolean aBoolean) {
-                        if (aBoolean) { // Always true pre-M
-                            // I can control the camera now
-//                            mRootView.onRequestPermissionSuccess();
-                            return mModel.getApps()
-                                    .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult());
-                        } else {
-                            // Oups permission denied
-                            mRootView.onRequestPermissionFail();
-                            return Observable.empty();
-                        }
-                    }
-                })
-                .subscribe(new ProgressObserver<PageBean<AppInfo>>(mContext, mRootView) {
-                    @Override
-                    public void onNext(PageBean<AppInfo> appInfoPageBean) {
-                        if (appInfoPageBean != null) {
-                            mRootView.showResult(appInfoPageBean.getDatas());
-                        } else {
-                            mRootView.showNoData();
-                        }
+                    public void onNext(IndexBean indexBean) {
+                        mRootView.showResult(indexBean);
                     }
                 });
-//        mModel.getApps()
-//                .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
-//                .subscribe(new ProgressObserver<PageBean<AppInfo>>(mContext, mRootView) {
-//                    @Override
-//                    public void onNext(PageBean<AppInfo> appInfoPageBean) {
-//                        if (appInfoPageBean != null) {
-//                            mRootView.showResult(appInfoPageBean.getDatas());
-//                        } else {
-//                            mRootView.showNoData();
-//                        }
-//                    }
-//                });
     }
 }

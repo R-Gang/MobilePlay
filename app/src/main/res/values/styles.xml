@@ -10,39 +10,37 @@
 
 
     <style name="AppTheme.Notitle" parent="AppTheme">
+        <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
 
 
     <style name="AppTheme.Notitle.FullScreen" parent="AppTheme.Notitle">
+        <!-- Customize your theme here. -->
         <item name="android:windowFullscreen">true</item>
-
     </style>
 
 
     <style name="AppTheme.Transparent" parent="AppTheme">
-        　　
         <item name="android:windowBackground">@android:color/transparent</item>
-        　　
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
 
     <style name="AppTheme.ToolBar" parent="AppTheme">
-
-        <!-- 箭头 -->
+        <!--左箭头-->
         <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
+        <!--右边的三个点图标-->
         <item name="android:windowActionBarOverlay">@style/ActionButton.Overflow</item>
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow</item>
+        <!--标题文字颜色-->
         <item name="titleTextColor">@android:color/white</item>
     </style>
 
-
-    <style name="ActionButton.Overflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
-        <item name="android:src">@mipmap/ic_menu_more_overflow</item>
+    <style name="ActionButton.Overflow" parent="Base.Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@mipmap/icon_report</item>
     </style>
-
 
     <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
@@ -56,7 +54,7 @@
     <style name="Text_Title">
 
         <item name="android:layout_marginTop">5dp</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/md_black_1000</item>
 
 
@@ -64,20 +62,20 @@
 
     <style name="Text_Content">
 
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/md_grey_400</item>
     </style>
 
     <style name="Text_Content_grey_800">
 
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/md_grey_800</item>
     </style>
 
 
     <style name="Text_Title_Large" parent="Text_Title">
 
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 
