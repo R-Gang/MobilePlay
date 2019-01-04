@@ -1,22 +1,36 @@
 package com.haoruigang.cniao5play.ui.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import com.haoruigang.cniao5play.di.component.AppComponent;
+import com.haoruigang.cniao5play.di.component.DaggerAppInfoComponent;
+import com.haoruigang.cniao5play.di.module.AppInfoModule;
+import com.haoruigang.cniao5play.presenter.AppInfoPresenter;
+import com.haoruigang.cniao5play.ui.adapter.AppInfoAdapter;
 
-import com.haoruigang.cniao5play.R;
+/**
+ * 游戏
+ */
+public class GamesFragment extends BaseAppInfoFragment {
 
-public class GamesFragment extends Fragment {
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_games, container, false);
+    public void setupActivityComponent(AppComponent appComponent) {
+        DaggerAppInfoComponent.builder()
+                .appComponent(appComponent)
+                .appInfoModule(new AppInfoModule(this))
+                .build().injectG(this);
 
-        return view;
+    }
+
+    @Override
+    int type() {
+        return AppInfoPresenter.GAME;
+    }
+
+    @Override
+    AppInfoAdapter buildAdapter() {
+        return AppInfoAdapter.builder()
+                .showPosition(false)
+                .showBrief(true)
+                .showCategoryName(true)
+                .build();
     }
 }

@@ -29,6 +29,9 @@ public interface ApiService {
     @GET("toplist")
     Observable<BaseBean<PageBean<AppInfo>>> topList(@Query("page") int page);// {"page":0}
 
+    @GET("game")
+    Observable<BaseBean<PageBean<AppInfo>>> games(@Query("page") int page);// {"page":0}
+
     @POST("login")
     Observable<BaseBean> login(@Body LoginRequestBean bean);
 //  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓

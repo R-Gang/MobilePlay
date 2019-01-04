@@ -1,6 +1,7 @@
 package com.haoruigang.cniao5play.presenter;
 
 import com.haoruigang.cniao5play.bean.AppInfo;
+import com.haoruigang.cniao5play.bean.BaseBean;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.common.rx.RxHttpResponseCompat;
 import com.haoruigang.cniao5play.common.rx.observer.ErrorHeadleObserver;
@@ -10,22 +11,25 @@ import com.haoruigang.cniao5play.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * 排行
+ * 排行/游戏
  */
-public class TopListPresenter extends BasePresenter<AppInfoModel, AppInfoContract.TopListView> {
+public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContract.AppInfoView> {
+
+    public static final int TOP_LIST = 1;
+    public static final int GAME = 2;
 
     @Inject
-    TopListPresenter(AppInfoModel appInfoModel, AppInfoContract.TopListView topListView) {
+    AppInfoPresenter(AppInfoModel appInfoModel, AppInfoContract.AppInfoView topListView) {
         super(appInfoModel, topListView);
     }
 
-    public void getTopListApps(int page) {
-
-        Observer observer = null;
+    public void requestData(int type, int page) {
+        Observer observer;
         if (page == 0) {
             // 第一页显示 loading
             observer = new ProgressObserver<PageBean<AppInfo>>(mContext, mRootView) {
@@ -54,10 +58,20 @@ public class TopListPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
                 }
             };
         }
-
-        mModel.topList(page)
+        getObservable(type, page)
                 .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
                 .subscribe(observer);
-
     }
+
+    private Observable<BaseBean<PageBean<AppInfo>>> getObservable(int type, int page) {
+        switch (type) {
+            case TOP_LIST:
+                return mModel.topList(page);
+            case GAME:
+                return mModel.games(page);
+            default:
+                return Observable.empty();
+        }
+    }
+
 }
