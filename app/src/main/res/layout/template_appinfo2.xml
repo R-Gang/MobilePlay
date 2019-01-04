@@ -4,43 +4,64 @@
     android:layout_height="80dp"
     android:gravity="center">
 
+    <TextView
+        android:id="@+id/tv_position"
+        style="@style/Text_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="20dp"
+        android:ems="2"
+        android:text="123." />
+
     <ImageView
         android:id="@+id/img_icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="@dimen/dp_10"
+        android:layout_toEndOf="@id/tv_position"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/tv_app_name"
+        style="@style/Text_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@id/img_icon"
-        android:text="微信"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:text="微信" />
 
     <TextView
-        android:id="@+id/tv_brief"
+        android:id="@+id/tv_catenory"
+        style="@style/Text_Content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_app_name"
-        android:layout_marginStart="22dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:layout_toEndOf="@id/img_icon"
-        android:text="社交"
-        android:textSize="@dimen/sp_14" />
+        android:text="社交" />
+
+    <TextView
+        android:id="@+id/tv_brief"
+        style="@style/Text_Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_app_name"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/img_icon"
+        android:text="社交" />
 
     <ImageView
         android:id="@+id/iv_dl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="16dp"
         android:background="@mipmap/icn_download_cloud_48"
         android:padding="@dimen/sp_12"
         android:scaleType="centerCrop" />

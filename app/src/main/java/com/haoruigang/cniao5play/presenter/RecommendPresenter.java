@@ -2,30 +2,26 @@ package com.haoruigang.cniao5play.presenter;
 
 import android.Manifest;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 
-import com.haoruigang.cniao5play.bean.AppInfo;
-import com.haoruigang.cniao5play.bean.BaseBean;
 import com.haoruigang.cniao5play.bean.IndexBean;
-import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.common.rx.RxHttpResponseCompat;
 import com.haoruigang.cniao5play.common.rx.observer.ProgressObserver;
-import com.haoruigang.cniao5play.data.RecommendModel;
-import com.haoruigang.cniao5play.presenter.contract.RecommendContract;
+import com.haoruigang.cniao5play.data.AppInfoModel;
+import com.haoruigang.cniao5play.presenter.contract.AppInfoContract;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 
-public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendContract.View> {
+/**
+ * 推荐
+ */
+public class RecommendPresenter extends BasePresenter<AppInfoModel, AppInfoContract.View> {
 
     @Inject
-    public RecommendPresenter(RecommendModel model, RecommendContract.View view) {
+    public RecommendPresenter(AppInfoModel model, AppInfoContract.View view) {
         super(model, view);
     }
 

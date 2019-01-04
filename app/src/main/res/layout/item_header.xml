@@ -6,7 +6,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ic_head_bg"
+        android:background="@color/colorPrimary"
         android:scaleType="center" />
 
 </LinearLayout>

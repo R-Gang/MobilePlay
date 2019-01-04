@@ -1,9 +1,7 @@
 package com.haoruigang.cniao5play.ui.adapter;
 
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -26,7 +24,6 @@ import com.haoruigang.cniao5play.ui.widget.BannerLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,7 +82,8 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             navIconViewHolder.layoutHotSubject.setOnClickListener(this);
         } else {
             AppGamesViewHolder viewHolder = (AppGamesViewHolder) holder;
-            AppInfoAdapter appInfoAdapter = new AppInfoAdapter();
+            AppInfoAdapter appInfoAdapter = AppInfoAdapter.builder().showPosition(false)
+                    .showBrief(true).showCategoryName(false).build();
             if (viewHolder.viewType == TYPE_APPS) {
                 viewHolder.text.setText("热门应用");
                 appInfoAdapter.addData(mIndexBean.getRecommendApps());

@@ -3,11 +3,9 @@ package com.haoruigang.cniao5play.bean;
 import java.util.List;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class PageBean<T> extends BaseBean {
+public class PageBean<T> {
 
 
     /**
@@ -19,6 +17,8 @@ public class PageBean<T> extends BaseBean {
 
     private boolean hasMore;
     private List<T> datas;
+    private int status;
+    private String message;
 
 
 }

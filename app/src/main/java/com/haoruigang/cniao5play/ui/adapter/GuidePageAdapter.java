@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 引导页
+ */
 public class GuidePageAdapter extends FragmentPagerAdapter {
 
     List<Fragment> fragments;

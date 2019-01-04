@@ -11,7 +11,7 @@ public abstract class ErrorHeadleObserver<T> extends BaseObserver<T> {
     Context mContext;
     RxErrorHandler rxErrorHandler;
 
-    ErrorHeadleObserver(Context context) {
+    public ErrorHeadleObserver(Context context) {
         this.mContext = context;
         rxErrorHandler = new RxErrorHandler(context);
     }

@@ -13,7 +13,7 @@ import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.di.component.DaggerRecommendComponent;
 import com.haoruigang.cniao5play.di.module.RecommendModule;
 import com.haoruigang.cniao5play.presenter.RecommendPresenter;
-import com.haoruigang.cniao5play.presenter.contract.RecommendContract;
+import com.haoruigang.cniao5play.presenter.contract.AppInfoContract;
 import com.haoruigang.cniao5play.ui.adapter.IndexMutilAdapter;
 
 import butterknife.BindView;
@@ -21,7 +21,7 @@ import butterknife.BindView;
 /**
  * 推荐
  */
-public class RecommendFragment extends BaseFragment<RecommendPresenter> implements RecommendContract.View {
+public class RecommendFragment extends BaseFragment<RecommendPresenter> implements AppInfoContract.View {
 
 
     @BindView(R.id.recycler_view)
@@ -31,7 +31,7 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
 
     @Override
     public int setLayout() {
-        return R.layout.fragment_recommend;
+        return R.layout.template_recycler_view;
     }
 
     @Override

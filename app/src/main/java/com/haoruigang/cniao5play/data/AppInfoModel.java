@@ -8,11 +8,11 @@ import com.haoruigang.cniao5play.data.http.ApiService;
 
 import io.reactivex.Observable;
 
-public class RecommendModel {
+public class AppInfoModel {
 
     private ApiService apiService;
 
-    public RecommendModel(ApiService apiService) {
+    public AppInfoModel(ApiService apiService) {
         this.apiService = apiService;
     }
 
@@ -22,6 +22,10 @@ public class RecommendModel {
 
     public Observable<BaseBean<IndexBean>> index() {
         return apiService.index();
+    }
+
+    public Observable<BaseBean<PageBean<AppInfo>>> topList(int page) {
+        return apiService.topList(page);
     }
 
 }
