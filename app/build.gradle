@@ -80,4 +80,7 @@ dependencies {
     // BRVAH
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.36'
 
+    // rxbinding
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
+
 }

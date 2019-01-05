@@ -3,6 +3,7 @@ package com.haoruigang.cniao5play.data.http;
 import com.haoruigang.cniao5play.bean.AppInfo;
 import com.haoruigang.cniao5play.bean.BaseBean;
 import com.haoruigang.cniao5play.bean.IndexBean;
+import com.haoruigang.cniao5play.bean.LoginBean;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.bean.requestbean.LoginRequestBean;
 
@@ -33,7 +34,7 @@ public interface ApiService {
     Observable<BaseBean<PageBean<AppInfo>>> games(@Query("page") int page);// {"page":0}
 
     @POST("login")
-    Observable<BaseBean> login(@Body LoginRequestBean bean);
+    Observable<BaseBean<LoginBean>> login(@Body LoginRequestBean bean);
 //  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 //    public static final MediaType JSON
 //            = MediaType.parse("application/json; charset=utf-8");

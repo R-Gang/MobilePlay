@@ -4,13 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_w"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
     tools:context=".ui.activity.LoginActivity">
 
+    <com.eftimoff.androipathview.PathView
+        android:id="@+id/pathView"
+        android:layout_width="300dp"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        app:pathColor="@color/colorPrimary"
+        app:pathWidth="2dp"
+        app:svg="@raw/mobile" />
 
-    <Button
-        android:id="@+id/btn"
+    <ImageView
+        android:id="@+id/iv_mobile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="获取权限" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/icon_mobile"
+        android:visibility="gone" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/view_mobile_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pathView"
+        android:layout_marginTop="30dp">
+
+        <EditText
+            android:id="@+id/et_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="1234567890"
+            android:hint="@string/mobi"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:singleLine="true" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/view_password_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_mobile_wrapper"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_password_wrapper"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_btn1"
+        android:enabled="false"
+        android:text="@string/login"
+        android:textColor="@drawable/color_btn"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/btn_login"
+        android:layout_marginTop="10dp"
+        android:text="注册功能未开放" />
 
 </RelativeLayout>

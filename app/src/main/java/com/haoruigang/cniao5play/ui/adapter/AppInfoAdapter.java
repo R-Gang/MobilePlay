@@ -37,7 +37,7 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, AppInfoAdapter.Vie
         helper.tvCatenory.setText(appInfo.getLevel1CategoryName());
 
         helper.tvBrief.setVisibility(builder.isShowBrief ? View.VISIBLE : View.GONE);
-        helper.tvBrief.setText(appInfo.getBriefShow());
+        helper.tvBrief.setText(appInfo.getPublisherName());
 
         helper.tvPosition.setVisibility(builder.isShowPosition ? View.VISIBLE : View.GONE);
         helper.tvPosition.setText(String.format("%s.", appInfo.getPosition() + 1));

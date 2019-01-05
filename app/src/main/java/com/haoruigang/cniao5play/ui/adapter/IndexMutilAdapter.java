@@ -72,7 +72,6 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             bannerViewHolder.mBanner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
-                    Toast.makeText(mContext, position, Toast.LENGTH_SHORT).show();
                 }
             });
         } else if (holder instanceof NavIconViewHolder) {// or position ==1

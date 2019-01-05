@@ -37,8 +37,8 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     public void init() {
         pathView.getPathAnimator()
-                .delay(100)//停留延迟
-                .duration(5000)//持续时间
+                .delay(1000)//停留延迟
+                .duration(3000)//持续时间
                 .interpolator(new AccelerateDecelerateInterpolator())
                 .listenerEnd(new PathView.AnimatorBuilder.ListenerEnd() {
                     @Override

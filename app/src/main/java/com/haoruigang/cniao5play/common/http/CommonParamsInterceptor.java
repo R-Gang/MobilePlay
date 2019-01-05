@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -48,14 +49,30 @@ public class CommonParamsInterceptor implements Interceptor {
         try {
             String method = request.method();
 
+            String imei = DeviceUtils.getIMEI(mContext);
+            String model = DeviceUtils.getModel();
+            String language = DeviceUtils.getLanguage();
+            String os = DeviceUtils.getBuildVersionIncremental();
+            String resolution = DeviceUtils.getScreenDisplayID(mContext);
+            String sdk = DeviceUtils.getBuildVersionSDK() + "";
+            String densityScaleFactor = mContext.getResources().getDisplayMetrics().density + "";
+
+            Log.i("IMEI", imei);
+            Log.i("Model", model);
+            Log.i("LANGUAGE", language);
+            Log.i("OS", os);
+            Log.i("RESOLUTION", resolution);
+            Log.i("SDK", sdk);
+            Log.i("DENSITY_SCALE_FACTOR", densityScaleFactor);
+
             HashMap<String, Object> commomParamesMap = new HashMap<>();
-            commomParamesMap.put(Constant.IMEI, DeviceUtils.getIMEI(mContext));
-            commomParamesMap.put(Constant.MODEL, DeviceUtils.getModel());
-            commomParamesMap.put(Constant.LANGUAGE, DeviceUtils.getLanguage());
-            commomParamesMap.put(Constant.OS, DeviceUtils.getBuildVersionIncremental());
-            commomParamesMap.put(Constant.RESOLUTION, DeviceUtils.getScreenDisplayID(mContext));
-            commomParamesMap.put(Constant.SDK, DeviceUtils.getBuildVersionSDK() + "");
-            commomParamesMap.put(Constant.DENSITY_SCALE_FACTOR, mContext.getResources().getDisplayMetrics().density + "");
+            commomParamesMap.put(Constant.IMEI, imei);
+            commomParamesMap.put(Constant.MODEL, model);
+            commomParamesMap.put(Constant.LANGUAGE, language);
+            commomParamesMap.put(Constant.OS, os);
+            commomParamesMap.put(Constant.RESOLUTION, resolution);
+            commomParamesMap.put(Constant.SDK, sdk);
+            commomParamesMap.put(Constant.DENSITY_SCALE_FACTOR, densityScaleFactor);
 
             if (method.equals("GET")) {
 

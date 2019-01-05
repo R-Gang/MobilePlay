@@ -2,15 +2,15 @@ package com.haoruigang.cniao5play.bean.requestbean;
 
 public class LoginRequestBean {
 
-    private String phone;
+    private String email;
     private String password;
 
     public String getPhone() {
-        return phone;
+        return email;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhone(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

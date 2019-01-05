@@ -28,6 +28,7 @@
     <string name="mobi">手机号</string>
     <string name="password">密码</string>
     <string name="login">登录</string>
+    <string name="reg">注册</string>
     <string name="default_loading">loading</string>
 
     <string name="app_uninstall">应用卸载</string>
@@ -49,4 +50,5 @@
     <string name="key_clear_cache">key_clear_cache</string>
     <string name="key_apk_download_dir">key_apk_download_dir</string>
     <string name="key_about_me">key_about_me</string>
+
 </resources>
