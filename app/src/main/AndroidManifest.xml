@@ -30,9 +30,7 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask" />
-        <activity
-            android:name=".ui.activity.LoginActivity"
-            android:theme="@style/AppTheme.Notitle.FullScreen" />
+        <activity android:name=".ui.activity.LoginActivity" />
     </application>
 
 </manifest>

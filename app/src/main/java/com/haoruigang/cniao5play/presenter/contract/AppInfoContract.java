@@ -1,12 +1,9 @@
 package com.haoruigang.cniao5play.presenter.contract;
 
-import com.haoruigang.cniao5play.bean.AppInfo;
+import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.bean.IndexBean;
 import com.haoruigang.cniao5play.bean.PageBean;
-import com.haoruigang.cniao5play.presenter.BasePresenter;
 import com.haoruigang.cniao5play.ui.BaseView;
-
-import java.util.List;
 
 public interface AppInfoContract {
 
@@ -22,7 +19,7 @@ public interface AppInfoContract {
 
     interface AppInfoView extends BaseView {
 
-        void showResult(PageBean<AppInfo> appInfoBean);
+        void showResult(PageBean<AppInfoBean> appInfoBean);
 
         void onLoadMoreComplete();
 

@@ -1,10 +1,12 @@
 package com.haoruigang.cniao5play.common.rx.observer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.haoruigang.cniao5play.common.exception.BaseException;
 import com.haoruigang.cniao5play.common.rx.RxErrorHandler;
+import com.haoruigang.cniao5play.ui.activity.LoginActivity;
 
 public abstract class ErrorHeadleObserver<T> extends BaseObserver<T> {
 
@@ -24,7 +26,16 @@ public abstract class ErrorHeadleObserver<T> extends BaseObserver<T> {
             Log.d("ErrorHeadleObserver", e.getMessage());
         } else {
             rxErrorHandler.showErrorMessage(exception);
+            if (exception.getCode() == BaseException.ERROR_TOKEN) {
+                // token 失效跳转至登录界面
+                toLogin();
+            }
         }
+    }
+
+    private void toLogin() {
+        Intent intent = new Intent(mContext, LoginActivity.class);
+        mContext.startActivity(intent);
     }
 
 }

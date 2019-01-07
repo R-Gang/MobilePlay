@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class AppInfo extends PageBean {
+public class AppInfoBean extends PageBean {
 
 
     /**

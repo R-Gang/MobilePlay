@@ -21,7 +21,7 @@ import butterknife.BindView;
 /**
  * 推荐
  */
-public class RecommendFragment extends BaseFragment<RecommendPresenter> implements AppInfoContract.View {
+public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements AppInfoContract.View {
 
 
     @BindView(R.id.recycler_view)

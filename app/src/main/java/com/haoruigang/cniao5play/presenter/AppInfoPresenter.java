@@ -1,6 +1,6 @@
 package com.haoruigang.cniao5play.presenter;
 
-import com.haoruigang.cniao5play.bean.AppInfo;
+import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.bean.BaseBean;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.common.rx.RxHttpResponseCompat;
@@ -32,15 +32,15 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
         Observer observer;
         if (page == 0) {
             // 第一页显示 loading
-            observer = new ProgressObserver<PageBean<AppInfo>>(mContext, mRootView) {
+            observer = new ProgressObserver<PageBean<AppInfoBean>>(mContext, mRootView) {
                 @Override
-                public void onNext(PageBean<AppInfo> appInfoPageBean) {
+                public void onNext(PageBean<AppInfoBean> appInfoPageBean) {
                     mRootView.showResult(appInfoPageBean);
                 }
             };
         } else {
             // 加载下一页
-            observer = new ErrorHeadleObserver<PageBean<AppInfo>>(mContext) {
+            observer = new ErrorHeadleObserver<PageBean<AppInfoBean>>(mContext) {
 
                 @Override
                 public void onSubscribe(Disposable d) {
@@ -48,7 +48,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
                 }
 
                 @Override
-                public void onNext(PageBean<AppInfo> appInfoPageBean) {
+                public void onNext(PageBean<AppInfoBean> appInfoPageBean) {
                     mRootView.showResult(appInfoPageBean);
                 }
 
@@ -59,11 +59,11 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
             };
         }
         getObservable(type, page)
-                .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
+                .compose(RxHttpResponseCompat.<PageBean<AppInfoBean>>compatResult())
                 .subscribe(observer);
     }
 
-    private Observable<BaseBean<PageBean<AppInfo>>> getObservable(int type, int page) {
+    private Observable<BaseBean<PageBean<AppInfoBean>>> getObservable(int type, int page) {
         switch (type) {
             case TOP_LIST:
                 return mModel.topList(page);

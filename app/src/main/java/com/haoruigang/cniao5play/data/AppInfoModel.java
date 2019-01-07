@@ -1,6 +1,6 @@
 package com.haoruigang.cniao5play.data;
 
-import com.haoruigang.cniao5play.bean.AppInfo;
+import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.bean.BaseBean;
 import com.haoruigang.cniao5play.bean.IndexBean;
 import com.haoruigang.cniao5play.bean.PageBean;
@@ -16,7 +16,7 @@ public class AppInfoModel {
         this.apiService = apiService;
     }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> getApps() {
+    public Observable<BaseBean<PageBean<AppInfoBean>>> getApps() {
         return apiService.getApps("{\"page\":0}");
     }
 
@@ -24,11 +24,11 @@ public class AppInfoModel {
         return apiService.index();
     }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> topList(int page) {
+    public Observable<BaseBean<PageBean<AppInfoBean>>> topList(int page) {
         return apiService.topList(page);
     }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> games(int page) {
+    public Observable<BaseBean<PageBean<AppInfoBean>>> games(int page) {
         return apiService.games(page);
     }
 

@@ -6,16 +6,23 @@
     android:layout_height="match_parent"
     android:background="@color/color_w"
     android:paddingBottom="10dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
     tools:context=".ui.activity.LoginActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/AppTheme.ToolBar" />
 
     <com.eftimoff.androipathview.PathView
         android:id="@+id/pathView"
         android:layout_width="300dp"
         android:layout_height="160dp"
+        android:layout_below="@id/tool_bar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         app:pathColor="@color/colorPrimary"
         app:pathWidth="2dp"
         app:svg="@raw/mobile" />
@@ -24,8 +31,9 @@
         android:id="@+id/iv_mobile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tool_bar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:scaleType="centerInside"
         android:src="@mipmap/icon_mobile"
         android:visibility="gone" />
@@ -35,6 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/pathView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="30dp">
 
         <EditText
@@ -55,6 +65,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/view_mobile_wrapper"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="10dp">
 
         <EditText
@@ -71,6 +83,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/view_password_wrapper"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/bg_btn1"
         android:enabled="false"
@@ -85,6 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/btn_login"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:text="注册功能未开放" />
 
@@ -97,6 +112,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
         android:src="@drawable/ic_cart" />
 
     <TextView
@@ -113,6 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp" />
 
 </RelativeLayout>

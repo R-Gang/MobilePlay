@@ -1,11 +1,14 @@
 package com.haoruigang.cniao5play.data.http;
 
-import com.haoruigang.cniao5play.bean.AppInfo;
+import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.bean.BaseBean;
+import com.haoruigang.cniao5play.bean.CategoryBean;
 import com.haoruigang.cniao5play.bean.IndexBean;
 import com.haoruigang.cniao5play.bean.LoginBean;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.bean.requestbean.LoginRequestBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -22,16 +25,16 @@ public interface ApiService {
     String BASE_IMG_URL = "http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
 
     @GET("featured")
-    Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);// p={"page":0}
+    Observable<BaseBean<PageBean<AppInfoBean>>> getApps(@Query("p") String jsonParam);// p={"page":0}
 
     @GET("index")
     Observable<BaseBean<IndexBean>> index();
 
     @GET("toplist")
-    Observable<BaseBean<PageBean<AppInfo>>> topList(@Query("page") int page);// {"page":0}
+    Observable<BaseBean<PageBean<AppInfoBean>>> topList(@Query("page") int page);// {"page":0}
 
     @GET("game")
-    Observable<BaseBean<PageBean<AppInfo>>> games(@Query("page") int page);// {"page":0}
+    Observable<BaseBean<PageBean<AppInfoBean>>> games(@Query("page") int page);// {"page":0}
 
     @POST("login")
     Observable<BaseBean<LoginBean>> login(@Body LoginRequestBean bean);
@@ -65,4 +68,7 @@ public interface ApiService {
 //        Response response = client.newCall(request).execute();
 //        return response.body().string();
 //    }
+
+    @GET("category")
+    Observable<BaseBean<List<CategoryBean>>> category();
 }

@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.haoruigang.cniao5play.R;
-import com.haoruigang.cniao5play.bean.AppInfo;
+import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.presenter.AppInfoPresenter;
 import com.haoruigang.cniao5play.presenter.contract.AppInfoContract;
@@ -18,7 +18,7 @@ import butterknife.BindView;
 /**
  * 排行/游戏 共用基类
  */
-public abstract class BaseAppInfoFragment extends BaseFragment<AppInfoPresenter>
+public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresenter>
         implements AppInfoContract.AppInfoView, BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.recycler_view)
@@ -57,7 +57,7 @@ public abstract class BaseAppInfoFragment extends BaseFragment<AppInfoPresenter>
     }
 
     @Override
-    public void showResult(PageBean<AppInfo> appInfoBean) {
+    public void showResult(PageBean<AppInfoBean> appInfoBean) {
         mAdapter.addData(appInfoBean.getDatas());
         if (appInfoBean.isHasMore()) {
             page++;

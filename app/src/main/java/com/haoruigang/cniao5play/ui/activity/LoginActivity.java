@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
@@ -53,6 +54,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     private final int READ_PHONE_STATE_CODE = 1000;
 
+    @BindView(R.id.tool_bar)
+    Toolbar mToolBar;
     @BindView(R.id.pathView)
     PathView pathView;
     @BindView(R.id.iv_mobile)
@@ -86,6 +89,21 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void init() {
+        mToolBar.setNavigationIcon(
+                new IconicsDrawable(this)
+                        .icon(Ionicons.Icon.ion_ios_arrow_back)
+                        .sizeDp(16)
+                        .color(getResources().getColor(R.color.md_white_1000)
+                        )
+        );
+        mToolBar.setTitle(R.string.login);
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         //SVG矢量图
         Drawable drawable = new IconicsDrawable(this)
                 .icon(Ionicons.Icon.ion_ios_telephone_outline)

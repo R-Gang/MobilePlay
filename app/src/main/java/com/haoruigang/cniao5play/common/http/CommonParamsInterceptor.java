@@ -4,11 +4,13 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.haoruigang.cniao5play.common.Constant;
+import com.haoruigang.cniao5play.common.util.ACache;
 import com.haoruigang.cniao5play.common.util.DeviceUtils;
 
 import java.io.IOException;
@@ -57,6 +59,8 @@ public class CommonParamsInterceptor implements Interceptor {
             String sdk = DeviceUtils.getBuildVersionSDK() + "";
             String densityScaleFactor = mContext.getResources().getDisplayMetrics().density + "";
 
+            String token = ACache.get(mContext).getAsString(Constant.TOKEN);
+
             Log.i("IMEI", imei);
             Log.i("Model", model);
             Log.i("LANGUAGE", language);
@@ -64,6 +68,7 @@ public class CommonParamsInterceptor implements Interceptor {
             Log.i("RESOLUTION", resolution);
             Log.i("SDK", sdk);
             Log.i("DENSITY_SCALE_FACTOR", densityScaleFactor);
+            Log.i("TOKEN", token);
 
             HashMap<String, Object> commomParamesMap = new HashMap<>();
             commomParamesMap.put(Constant.IMEI, imei);
@@ -73,6 +78,8 @@ public class CommonParamsInterceptor implements Interceptor {
             commomParamesMap.put(Constant.RESOLUTION, resolution);
             commomParamesMap.put(Constant.SDK, sdk);
             commomParamesMap.put(Constant.DENSITY_SCALE_FACTOR, densityScaleFactor);
+
+            commomParamesMap.put(Constant.TOKEN, TextUtils.isEmpty(token) ? "" : token);
 
             if (method.equals("GET")) {
 
@@ -126,14 +133,16 @@ public class CommonParamsInterceptor implements Interceptor {
                     body.writeTo(buffer);
 
                     String oldJsonParams = buffer.readUtf8();
+                    if (!TextUtils.isEmpty(oldJsonParams)) {
+                        rootMap = mGson.fromJson(oldJsonParams, HashMap.class);//原始参数
+                        if (rootMap != null) {
+                            rootMap.put("publicParams", commomParamesMap);//重新组装公共参数
+                            String newJsonParams = mGson.toJson(rootMap);// {'page':0,'publicParams':{'imei':xxx,'model':xxx,...}}
 
-                    rootMap = mGson.fromJson(oldJsonParams, HashMap.class);//原始参数
-                    rootMap.put("publicParams", commomParamesMap);//重新组装公共参数
-                    String newJsonParams = mGson.toJson(rootMap);// {'page':0,'publicParams':{'imei':xxx,'model':xxx,...}}
-
-                    request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
+                            request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
+                        }
+                    }
                 }
-
             }
         } catch (JsonSyntaxException e) {
             e.printStackTrace();

@@ -8,8 +8,8 @@ import lombok.Data;
 public class IndexBean {
 
     private List<Banner> banners;
-    private List<AppInfo> recommendApps;
-    private List<AppInfo> recommendGames;
+    private List<AppInfoBean> recommendApps;
+    private List<AppInfoBean> recommendGames;
 
     @Data
     public class Banner {

@@ -1,6 +1,5 @@
 package com.haoruigang.cniao5play.ui.adapter;
 
-import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,7 +7,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haoruigang.cniao5play.R;
-import com.haoruigang.cniao5play.bean.AppInfo;
+import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.common.imageloader.ImageLoader;
 import com.haoruigang.cniao5play.data.http.ApiService;
 
@@ -18,7 +17,7 @@ import butterknife.ButterKnife;
 /**
  * 推荐热门应用游戏
  */
-public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, AppInfoAdapter.ViewHolder> {
+public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, AppInfoAdapter.ViewHolder> {
 
     private Builder builder;
 
@@ -29,7 +28,7 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, AppInfoAdapter.Vie
     }
 
     @Override
-    protected void convert(ViewHolder helper, AppInfo appInfo) {
+    protected void convert(ViewHolder helper, AppInfoBean appInfo) {
         ImageLoader.load(ApiService.BASE_IMG_URL + appInfo.getIcon(), helper.imgIcon);
         helper.tvAppName.setText(appInfo.getDisplayName());
 
