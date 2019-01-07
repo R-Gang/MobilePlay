@@ -4,6 +4,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -29,6 +31,8 @@ import com.haoruigang.cniao5play.presenter.LoginPresenter;
 import com.haoruigang.cniao5play.presenter.contract.LoginContract;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,6 +43,9 @@ import kotlin.Unit;
 
 /**
  * 登录页
+ * 课时4：在Android上使用SVG矢（读音:[shǐ]）量图
+ * 课时5：在Android中使用iconfont图标
+ * 课时6：自定义iconfont
  */
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.LoginView {
@@ -60,6 +67,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @BindView(R.id.btn_login)
     Button btnLogin;
 
+    @BindView(R.id.iv_telephone)
+    ImageView ivTelephone;
+
     @Override
     public int setLayout() {
         return R.layout.activity_login;
@@ -75,6 +85,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void init() {
+        //SVG矢量图
+        Drawable drawable = new IconicsDrawable(this)
+                .icon(Ionicons.Icon.ion_ios_telephone_outline)
+                .color(Color.RED)
+                .sizeDp(36);
+        ivTelephone.setImageDrawable(drawable);
+
         pathView.getPathAnimator()
                 .delay(1000)//停留延迟
                 .duration(6000)//持续时间

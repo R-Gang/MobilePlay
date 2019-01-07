@@ -25,9 +25,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.IconicsActivity"
-            android:theme="@style/AppTheme.Notitle.FullScreen" />
-        <activity
             android:name=".ui.activity.GuideActivity"
             android:theme="@style/AppTheme.Notitle.FullScreen" />
         <activity

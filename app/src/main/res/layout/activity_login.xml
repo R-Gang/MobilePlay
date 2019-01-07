@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_w"
+    android:paddingBottom="10dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     tools:context=".ui.activity.LoginActivity">
@@ -84,5 +85,32 @@
         android:layout_below="@id/btn_login"
         android:layout_marginTop="10dp"
         android:text="注册功能未开放" />
+
+
+    <!-- 课时4：在Android上使用SVG矢（读音:[shǐ]）量图-->
+    <!-- 课时5：在Android中使用iconfont图标-->
+    <!-- 课时6：自定义iconfont-->
+    <ImageView
+        android:id="@+id/iv_cart"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_cart" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="{ion_iphone} 手机"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/iv_telephone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>
