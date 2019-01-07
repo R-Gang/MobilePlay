@@ -29,6 +29,7 @@ import com.haoruigang.cniao5play.di.component.DaggerLoginComponent;
 import com.haoruigang.cniao5play.di.module.LoginModule;
 import com.haoruigang.cniao5play.presenter.LoginPresenter;
 import com.haoruigang.cniao5play.presenter.contract.LoginContract;
+import com.haoruigang.cniao5play.ui.widget.LoadingButton;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -65,7 +66,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @BindView(R.id.et_password)
     EditText etPassword;
     @BindView(R.id.btn_login)
-    Button btnLogin;
+    LoadingButton btnLogin;
 
     @BindView(R.id.iv_telephone)
     ImageView ivTelephone;
@@ -175,23 +176,23 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                     new String[]{Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATE_CODE);
         } else {
             // 授权成功
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
     }
 
     @Override
     public void showLoading() {
-
+        btnLogin.showLoading();
     }
 
     @Override
     public void showError(String msg) {
-
+        btnLogin.showButtonText();
     }
 
     @Override
     public void dismissLoading() {
-
+        btnLogin.showButtonText();
     }
 }

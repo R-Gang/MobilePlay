@@ -56,7 +56,7 @@ public class WelcomeActivity extends BaseActivity {
         if (TextUtils.isEmpty(isShow)) {
             startActivity(new Intent(this, GuideActivity.class));
         } else {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
         finish();
     }

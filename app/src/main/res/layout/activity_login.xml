@@ -66,7 +66,7 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <Button
+    <com.haoruigang.cniao5play.ui.widget.LoadingButton
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,9 +74,11 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/bg_btn1"
         android:enabled="false"
-        android:text="@string/login"
-        android:textColor="@drawable/color_btn"
-        android:textSize="@dimen/sp_16" />
+        app:loadingText="登录中..."
+        app:progressColor="@color/color_bg_guide3"
+        app:text="登录"
+        app:textColor="@drawable/color_btn"
+        app:textSize="@dimen/sp_16" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.haoruigang.cniao5play.AppApplication;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.presenter.BasePresenter;
+import com.hwangjr.rxbus.RxBus;
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 
 import javax.inject.Inject;
@@ -38,7 +39,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mUnbinder = ButterKnife.bind(this);
         this.mApplication = (AppApplication) getApplication();
         setupActivityComponent(mApplication.getmAppComponent());
-
+        RxBus.get().register(this);
         init();
     }
 
@@ -54,5 +55,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (mUnbinder != Unbinder.EMPTY) {
             mUnbinder.unbind();
         }
+        RxBus.get().unregister(this);
     }
 }

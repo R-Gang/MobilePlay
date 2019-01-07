@@ -7,6 +7,7 @@ import com.haoruigang.cniao5play.common.rx.observer.ErrorHeadleObserver;
 import com.haoruigang.cniao5play.common.util.ACache;
 import com.haoruigang.cniao5play.common.util.VerificationUtils;
 import com.haoruigang.cniao5play.presenter.contract.LoginContract;
+import com.hwangjr.rxbus.RxBus;
 
 import javax.inject.Inject;
 
@@ -32,20 +33,28 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
         mModel.login(phone, pwd)
                 .compose(RxHttpResponseCompat.<LoginBean>compatResult())
                 .subscribe(new ErrorHeadleObserver<LoginBean>(mContext) {
+
                     @Override
                     public void onSubscribe(Disposable d) {
+                        mRootView.showLoading();
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        mRootView.dismissLoading();
                     }
 
                     @Override
                     public void onNext(LoginBean loginBean) {
                         mRootView.loginSuccess(loginBean);
                         saveUser(loginBean);
+                        RxBus.get().post(loginBean.getUser());
                     }
 
                     @Override
                     public void onComplete() {
-
+                        mRootView.dismissLoading();
                     }
                 });
     }

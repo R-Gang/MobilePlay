@@ -11,11 +11,22 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.haoruigang.cniao5play.R;
+import com.haoruigang.cniao5play.bean.LoginBean;
+import com.haoruigang.cniao5play.common.Constant;
+import com.haoruigang.cniao5play.common.font.HrgFont;
+import com.haoruigang.cniao5play.common.imageloader.GlideCircleTransform;
+import com.haoruigang.cniao5play.common.imageloader.ImageLoader;
+import com.haoruigang.cniao5play.common.util.ACache;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.ui.adapter.ViewPagerAdapter;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import butterknife.BindView;
 
@@ -36,6 +47,8 @@ public class MainActivity extends BaseActivity {
     ViewPager viewPager;
 
     View headerView;
+    ImageView ivUserHeadView;
+    TextView tvUsername;
 
     @Override
     public int setLayout() {
@@ -51,6 +64,7 @@ public class MainActivity extends BaseActivity {
     public void init() {
         initDrawerLayout();
         initTabLayout();
+        initUser();
     }
 
     private void initTabLayout() {
@@ -85,10 +99,14 @@ public class MainActivity extends BaseActivity {
         //     }
         // });
         headerView = navigationView.getHeaderView(0);
+        ivUserHeadView = headerView.findViewById(R.id.img_avatar);
+        ivUserHeadView.setImageDrawable(
+                new IconicsDrawable(this,
+                        HrgFont.Icon.cniao_head).colorRes(R.color.white));
+        tvUsername = headerView.findViewById(R.id.txt_username);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "headerView", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
@@ -99,11 +117,14 @@ public class MainActivity extends BaseActivity {
                     case R.id.menu_app_update:
                         Toast.makeText(MainActivity.this, "menu_app_update", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.menu_message:
+                    case R.id.menu_download_manager:
                         Toast.makeText(MainActivity.this, "menu_message", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.menu_setting:
                         Toast.makeText(MainActivity.this, "menu_setting", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_logout:
+                        logout();// 退出登录
                         break;
                 }
                 return false;
@@ -120,4 +141,41 @@ public class MainActivity extends BaseActivity {
         drawerLayout.addDrawerListener(drawerToggle);
         // ------------------------------ 课时2：DrawerLayout + Toolbar 整合 end -------------------------------
     }
+
+    @Subscribe
+    public void getUser(LoginBean.User user) {
+        initUserHeadView(user);
+    }
+
+    private void initUserHeadView(LoginBean.User user) {
+        Glide.with(this)
+                .load(user.getLogo_url())
+                .transform(new GlideCircleTransform(this))
+                .into(ivUserHeadView);
+        tvUsername.setText(user.getUsername());
+        headerView.setClickable(false);
+    }
+
+    private void initUser() {
+        Object object = ACache.get(MainActivity.this).getAsObject(Constant.USER);
+        if (object != null) {
+            LoginBean.User user = (LoginBean.User) object;
+            initUserHeadView(user);
+        } else {
+            headerView.setFocusable(true);
+        }
+    }
+
+    private void logout() {
+        ACache aCache = ACache.get(this);
+        aCache.put(Constant.TOKEN, "");
+        aCache.put(Constant.USER, "");
+        ivUserHeadView.setImageDrawable(
+                new IconicsDrawable(this,
+                        HrgFont.Icon.cniao_head).colorRes(R.color.white));
+        tvUsername.setText("未登录");
+        headerView.setClickable(true);
+        Toast.makeText(this, "已退出登录", Toast.LENGTH_SHORT).show();
+    }
+
 }

@@ -15,6 +15,7 @@ import com.haoruigang.cniao5play.AppApplication;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.presenter.BasePresenter;
 import com.haoruigang.cniao5play.ui.BaseView;
+import com.hwangjr.rxbus.RxBus;
 
 import java.util.Objects;
 
@@ -37,6 +38,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(setLayout(), container, false);
         mUnbinder = ButterKnife.bind(this, mRootView);
+        RxBus.get().register(this);
         return mRootView;
     }
 
@@ -63,6 +65,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         if (mUnbinder != Unbinder.EMPTY) {
             mUnbinder.unbind();
         }
+        RxBus.get().unregister(this);
     }
 
     @Override
@@ -71,7 +74,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     @Override
     public void showError(String msg) {
-        
+
     }
 
     @Override

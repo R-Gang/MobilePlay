@@ -11,7 +11,7 @@ public class LoginBean implements Serializable {
     private User user;
 
     @Data
-    class User implements Serializable {
+    public class User implements Serializable {
         private String id;
         private String email;
         private String logo_url;
