@@ -80,7 +80,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
             case R.id.btn_start:
                 //保存一天，如果超过一天去获取这个key，将为null
                 ACache.get(this).put(Constant.IS_SHOW_GUIDE, "SHOW", ACache.TIME_DAY);
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
         }

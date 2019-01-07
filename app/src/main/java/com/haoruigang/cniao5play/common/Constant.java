@@ -12,5 +12,7 @@ public class Constant {
     public static String SDK = "sdk";
     public static String DENSITY_SCALE_FACTOR = "densityScaleFactor";
     public static String PARAM = "p";
+    public static String TOKEN = "token";
+    public static String USER = "user";
 
 }

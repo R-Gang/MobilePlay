@@ -7,8 +7,10 @@ import com.haoruigang.cniao5play.data.http.ApiService;
 import com.haoruigang.cniao5play.presenter.contract.LoginContract;
 import com.haoruigang.cniao5play.ui.activity.LoginActivity;
 
+import dagger.Module;
 import dagger.Provides;
 
+@Module
 public class LoginModule {
 
     private LoginContract.LoginView mView;
@@ -23,7 +25,7 @@ public class LoginModule {
     }
 
     @Provides
-    public LoginModel provideModule(ApiService mApiService) {
+    public LoginContract.ILoginModel provideModule(ApiService mApiService) {
         return new LoginModel(mApiService);
     }
 

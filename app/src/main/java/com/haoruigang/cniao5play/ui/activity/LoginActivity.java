@@ -19,8 +19,12 @@ import android.widget.Toast;
 import com.eftimoff.androipathview.PathView;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.LoginBean;
+import com.haoruigang.cniao5play.common.Constant;
+import com.haoruigang.cniao5play.common.util.ACache;
 import com.haoruigang.cniao5play.common.util.DeviceUtils;
 import com.haoruigang.cniao5play.di.component.AppComponent;
+import com.haoruigang.cniao5play.di.component.DaggerLoginComponent;
+import com.haoruigang.cniao5play.di.module.LoginModule;
 import com.haoruigang.cniao5play.presenter.LoginPresenter;
 import com.haoruigang.cniao5play.presenter.contract.LoginContract;
 import com.jakewharton.rxbinding3.view.RxView;
@@ -63,7 +67,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerLoginComponent.builder()
+                .appComponent(appComponent)
+                .loginModule(new LoginModule(this))
+                .build().inject(this);
     }
 
     @Override
@@ -118,24 +125,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         return s.length() == 11;
     }
 
-    @OnClick(R.id.btn_login)
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_login:
-                if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.READ_PHONE_STATE)
-                        != PackageManager.PERMISSION_GRANTED) { // 检查权限,没有授权
-                    // 授权
-                    ActivityCompat.requestPermissions(LoginActivity.this,
-                            new String[]{Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATE_CODE);
-                } else {
-                    // 授权成功
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
-                }
-                break;
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == READ_PHONE_STATE_CODE) {
@@ -162,6 +151,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void loginSuccess(LoginBean loginBean) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+        if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) { // 检查权限,没有授权
+            // 授权
+            ActivityCompat.requestPermissions(LoginActivity.this,
+                    new String[]{Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATE_CODE);
+        } else {
+            // 授权成功
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
     }
 
     @Override
