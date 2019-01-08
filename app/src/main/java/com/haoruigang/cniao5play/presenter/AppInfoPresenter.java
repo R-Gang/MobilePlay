@@ -20,15 +20,14 @@ import io.reactivex.disposables.Disposable;
  */
 public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContract.AppInfoView> {
 
-    public static final int TOP_LIST = 1;
-    public static final int GAME = 2;
+    public static final int TOP_LIST = 0, GAME = 1, FEATURED = 2, TOPLIST = 3, NEWLIST = 4;
 
     @Inject
     AppInfoPresenter(AppInfoModel appInfoModel, AppInfoContract.AppInfoView topListView) {
         super(appInfoModel, topListView);
     }
 
-    public void requestData(int type, int page) {
+    private void request(int type, int page, int categoryId) {
         Observer observer;
         if (page == 0) {
             // 第一页显示 loading
@@ -58,17 +57,31 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
                 }
             };
         }
-        getObservable(type, page)
+        getObservable(type, page, categoryId)
                 .compose(RxHttpResponseCompat.<PageBean<AppInfoBean>>compatResult())
                 .subscribe(observer);
     }
 
-    private Observable<BaseBean<PageBean<AppInfoBean>>> getObservable(int type, int page) {
+    public void requestData(int type, int page) {
+        request(type, page, 0);
+    }
+
+    public void requestData(int type, int page, int categoryId) {
+        request(type, page, categoryId);
+    }
+
+    private Observable<BaseBean<PageBean<AppInfoBean>>> getObservable(int type, int page, int categoryId) {
         switch (type) {
             case TOP_LIST:
                 return mModel.topList(page);
             case GAME:
                 return mModel.games(page);
+            case FEATURED:
+                return mModel.featuredBycategory(categoryId, page);
+            case TOPLIST:
+                return mModel.topListBycategory(categoryId, page);
+            case NEWLIST:
+                return mModel.newListBycategory(categoryId, page);
             default:
                 return Observable.empty();
         }

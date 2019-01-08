@@ -2,6 +2,8 @@ package com.haoruigang.cniao5play.di.component;
 
 import com.haoruigang.cniao5play.di.FragmentScope;
 import com.haoruigang.cniao5play.di.module.AppInfoModule;
+import com.haoruigang.cniao5play.ui.fragment.CategoryAppFragment;
+import com.haoruigang.cniao5play.ui.fragment.CategoryFragment;
 import com.haoruigang.cniao5play.ui.fragment.GamesFragment;
 import com.haoruigang.cniao5play.ui.fragment.TopListFragment;
 
@@ -14,5 +16,7 @@ public interface AppInfoComponent {
     void injectT(TopListFragment fragment);
 
     void injectG(GamesFragment fragment);
+
+    void injectC(CategoryAppFragment fragment);
 
 }

@@ -14,6 +14,9 @@ import com.haoruigang.cniao5play.ui.fragment.RecommendFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 首页
+ */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     List<FragmentInfo> mFragment = new ArrayList<>();

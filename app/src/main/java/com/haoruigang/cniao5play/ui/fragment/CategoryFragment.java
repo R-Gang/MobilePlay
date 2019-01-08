@@ -1,19 +1,25 @@
 package com.haoruigang.cniao5play.ui.fragment;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.CategoryBean;
+import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.di.component.DaggerCategoryComponent;
 import com.haoruigang.cniao5play.di.module.CategoryModule;
 import com.haoruigang.cniao5play.presenter.CategoryPresenter;
 import com.haoruigang.cniao5play.presenter.contract.CategoryContract;
+import com.haoruigang.cniao5play.ui.activity.CategoryAppActivity;
 import com.haoruigang.cniao5play.ui.adapter.CategoryAdapter;
 
 import java.util.List;
@@ -56,6 +62,14 @@ public class CategoryFragment extends ProgressFragment<CategoryPresenter> implem
                 DividerItemDecoration.VERTICAL));
         //动画
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(getActivity(), CategoryAppActivity.class);
+                intent.putExtra(Constant.CATEGORY, mAdapter.getData().get(position));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

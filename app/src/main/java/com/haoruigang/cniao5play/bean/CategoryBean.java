@@ -83,6 +83,6 @@ public class CategoryBean implements Serializable {
     private boolean setHdIcon;
     private int status;
 
-    public static class HdIconBean {
+    private static class HdIconBean implements Serializable {
     }
 }

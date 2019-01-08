@@ -43,7 +43,7 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
 
     abstract AppInfoAdapter buildAdapter();
 
-    private void initRecyclerView() {
+    protected void initRecyclerView() {
         //为RecyClerView设置布局管理器
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //为RecyClerView设置分割线(这个DividerItemDecoration可以自定义)

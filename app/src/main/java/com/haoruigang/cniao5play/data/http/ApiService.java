@@ -16,6 +16,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -71,4 +72,13 @@ public interface ApiService {
 
     @GET("category")
     Observable<BaseBean<List<CategoryBean>>> category();
+
+    @GET("category/featured/{category_id}")
+    Observable<BaseBean<PageBean<AppInfoBean>>> getFeaturedByCategory(@Path("category_id") int category_id, @Query("page") int page);
+
+    @GET("category/toplist/{category_id}")
+    Observable<BaseBean<PageBean<AppInfoBean>>> getTopListByCategory(@Path("category_id") int category_id, @Query("page") int page);
+
+    @GET("category/newlist/{category_id}")
+    Observable<BaseBean<PageBean<AppInfoBean>>> getNewListByCategory(@Path("category_id") int category_id, @Query("page") int page);
 }

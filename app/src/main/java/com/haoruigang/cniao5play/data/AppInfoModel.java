@@ -32,4 +32,16 @@ public class AppInfoModel {
         return apiService.games(page);
     }
 
+    public Observable<BaseBean<PageBean<AppInfoBean>>> featuredBycategory(int categoryId, int page) {
+        return apiService.getFeaturedByCategory(categoryId, page);
+    }
+
+    public Observable<BaseBean<PageBean<AppInfoBean>>> topListBycategory(int categoryId, int page) {
+        return apiService.getTopListByCategory(categoryId, page);
+    }
+
+    public Observable<BaseBean<PageBean<AppInfoBean>>> newListBycategory(int categoryId, int page) {
+        return apiService.getNewListByCategory(categoryId, page);
+    }
+
 }
