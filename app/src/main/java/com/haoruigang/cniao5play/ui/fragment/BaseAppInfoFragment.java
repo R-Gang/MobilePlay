@@ -1,17 +1,22 @@
 package com.haoruigang.cniao5play.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.presenter.AppInfoPresenter;
 import com.haoruigang.cniao5play.presenter.contract.AppInfoContract;
+import com.haoruigang.cniao5play.ui.activity.AppDetailActivity;
 import com.haoruigang.cniao5play.ui.adapter.AppInfoAdapter;
+import com.hwangjr.rxbus.RxBus;
 
 import butterknife.BindView;
 
@@ -54,6 +59,13 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
         mAdapter = buildAdapter();
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(this, recyclerView);// 上拉刷新
+        recyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                mApplication.setView(view);
+                startActivity(new Intent(getActivity(), AppDetailActivity.class));
+            }
+        });
     }
 
     @Override

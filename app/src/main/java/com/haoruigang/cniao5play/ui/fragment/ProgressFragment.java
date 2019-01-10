@@ -16,6 +16,7 @@ import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.presenter.BasePresenter;
 import com.haoruigang.cniao5play.ui.BaseView;
+import com.hwangjr.rxbus.RxBus;
 
 import java.util.Objects;
 
@@ -52,6 +53,7 @@ public abstract class ProgressFragment<T extends BasePresenter> extends Fragment
                 onEmptyViewClick();
             }
         });
+        RxBus.get().register(this);
         return mRootView;
     }
 
@@ -133,5 +135,6 @@ public abstract class ProgressFragment<T extends BasePresenter> extends Fragment
         if (mUnbinder != Unbinder.EMPTY) {
             mUnbinder.unbind();
         }
+        RxBus.get().unregister(this);
     }
 }

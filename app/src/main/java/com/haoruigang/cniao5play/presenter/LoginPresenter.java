@@ -2,6 +2,7 @@ package com.haoruigang.cniao5play.presenter;
 
 import com.haoruigang.cniao5play.bean.LoginBean;
 import com.haoruigang.cniao5play.common.Constant;
+import com.haoruigang.cniao5play.common.ToUIEvent;
 import com.haoruigang.cniao5play.common.rx.RxHttpResponseCompat;
 import com.haoruigang.cniao5play.common.rx.observer.ErrorHeadleObserver;
 import com.haoruigang.cniao5play.common.util.ACache;

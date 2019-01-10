@@ -15,4 +15,5 @@ public class Constant {
     public static String TOKEN = "token";
     public static String USER = "user";
     public static String CATEGORY = "Category";
+
 }
