@@ -5,10 +5,11 @@ import com.haoruigang.cniao5play.bean.BaseBean;
 import com.haoruigang.cniao5play.bean.IndexBean;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.data.http.ApiService;
+import com.haoruigang.cniao5play.presenter.contract.AppInfoContract;
 
 import io.reactivex.Observable;
 
-public class AppInfoModel {
+public class AppInfoModel implements AppInfoContract.IAppInfoModel {
 
     private ApiService apiService;
 

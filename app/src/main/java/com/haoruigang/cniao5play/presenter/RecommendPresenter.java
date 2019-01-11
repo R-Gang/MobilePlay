@@ -18,7 +18,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * 推荐
  */
-public class RecommendPresenter extends BasePresenter<AppInfoModel, AppInfoContract.View> {
+public class RecommendPresenter extends BasePresenter<AppInfoContract.IAppInfoModel, AppInfoContract.View> {
 
     @Inject
     public RecommendPresenter(AppInfoModel model, AppInfoContract.View view) {

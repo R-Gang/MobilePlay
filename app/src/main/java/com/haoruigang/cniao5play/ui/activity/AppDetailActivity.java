@@ -11,16 +11,20 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.haoruigang.cniao5play.R;
+import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.common.util.DensityUtil;
 import com.haoruigang.cniao5play.di.component.AppComponent;
+import com.haoruigang.cniao5play.di.component.DaggerAppDetailComponent;
+import com.haoruigang.cniao5play.di.module.AppDetailModule;
 import com.haoruigang.cniao5play.presenter.AppDetailPresenter;
+import com.haoruigang.cniao5play.presenter.contract.AppDetailContract;
 
 import butterknife.BindView;
 
 /**
  * app详情
  */
-public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
+public class AppDetailActivity extends BaseActivity<AppDetailPresenter> implements AppDetailContract.AppDetailView {
 
     @BindView(R.id.view_content)
     FrameLayout mViewContent;
@@ -32,7 +36,9 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerAppDetailComponent.builder()
+                .appDetailModule(new AppDetailModule(this))
+                .build().inject(this);
     }
 
     @Override
@@ -57,6 +63,9 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
         mViewContent.setLayoutParams(params);
 
         Expand();
+
+        int id = 0;
+        mPresenter.getAppDetail(id);
     }
 
     // 缓存显示view
@@ -93,4 +102,33 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
         animator.start();
     }
 
+    @Override
+    public void showResult(AppInfoBean appInfoBean) {
+
+    }
+
+    @Override
+    public void onRequestPermissionSuccess() {
+
+    }
+
+    @Override
+    public void onRequestPermissionFail() {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
+    }
 }
