@@ -16,6 +16,7 @@ import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.common.imageloader.ImageLoader;
 import com.haoruigang.cniao5play.common.util.DateUtils;
+import com.haoruigang.cniao5play.common.util.DensityUtil;
 import com.haoruigang.cniao5play.data.http.ApiService;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.di.component.DaggerAppDetailComponent;
@@ -132,6 +133,9 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
             imageView.setAdjustViewBounds(true);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(540, 720);
+//            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+//                    DensityUtil.getScreenW(getActivity()) / 2,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT);
             imageView.setLayoutParams(layoutParams);
             ImageLoader.load(ApiService.BASE_IMG_URL + url, imageView);
             viewGallery.addView(imageView);

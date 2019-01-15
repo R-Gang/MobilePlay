@@ -9,6 +9,7 @@ import io.reactivex.disposables.Disposable;
 public abstract class ProgressDialogObserver<T> extends ErrorHeadleObserver<T> implements ProgressDialogHandler.OnProgressCancelListener {
 
     private ProgressDialogHandler mProgressDialogHandle;
+    private Disposable mDisposable;
 
     /**
      * @param context
@@ -26,11 +27,12 @@ public abstract class ProgressDialogObserver<T> extends ErrorHeadleObserver<T> i
 
     @Override
     public void onCancelProgress() {
-
+        mDisposable.dispose();
     }
 
     @Override
     public void onSubscribe(Disposable d) {
+        mDisposable = d;
         if (isShowProgressDialog())
             mProgressDialogHandle.showProgressDialog();
     }

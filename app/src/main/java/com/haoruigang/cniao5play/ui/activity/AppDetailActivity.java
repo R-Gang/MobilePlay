@@ -142,7 +142,7 @@ public class AppDetailActivity extends BaseActivity {
             }
         });
         animator.setStartDelay(300);// 延迟动画启动
-        animator.setDuration(800);// 动画持续时间
+        animator.setDuration(2000);// 动画持续时间
         animator.start();
     }
 

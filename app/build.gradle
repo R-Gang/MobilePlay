@@ -70,7 +70,7 @@ dependencies {
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 
     // Lombok自动生成的构造函数
-    compileOnly 'org.projectlombok:lombok:1.16.20'
+    implementation 'org.projectlombok:lombok:1.16.20'
     annotationProcessor 'org.projectlombok:lombok:1.16.20'
 
     // Glide
