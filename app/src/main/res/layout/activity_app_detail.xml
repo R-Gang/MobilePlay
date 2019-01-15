@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#60000000"
     tools:context="com.haoruigang.cniao5play.ui.activity.AppDetailActivity">
 
-    <FrameLayout
-        android:id="@+id/view_content"
-        android:layout_width="wrap_content"
+    <View
+        android:id="@+id/view_temp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/view_coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:fitsSystemWindows="true"
+        android:visibility="gone">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_gravity="center"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:statusBarScrim="@color/colorPrimary"
+                app:titleEnabled="false">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <FrameLayout
+                android:id="@+id/view_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:elevation="10dp"
+            android:src="@mipmap/ic_launcher"
+            app:dependTargetY="-176dp"
+            app:dependType="y"
+            app:dependsOn="@+id/app_bar"
+            app:layout_behavior="@string/simple_view_behavior"
+            app:targetHeight="8dp"
+            app:targetWidth="8dp"
+            app:targetX="430dp"
+            app:targetY="-5dp" />
+
+        <TextView
+            android:id="@+id/txt_name"
+            style="@style/Text_Title_Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="125dp"
+            android:elevation="5dp"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            app:dependTargetY="-100dp"
+            app:dependType="y"
+            app:dependsOn="@+id/app_bar"
+            app:layout_behavior="@string/simple_view_behavior"
+            app:targetY="16dp" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</FrameLayout>

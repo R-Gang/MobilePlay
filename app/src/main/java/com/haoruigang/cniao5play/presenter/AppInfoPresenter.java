@@ -18,7 +18,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * 排行/游戏
  */
-public class AppInfoPresenter extends BasePresenter<AppInfoContract.IAppInfoModel, AppInfoContract.AppInfoView> {
+public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContract.AppInfoView> {
 
     public static final int TOP_LIST = 0, GAME = 1, FEATURED = 2, TOPLIST = 3, NEWLIST = 4;
 

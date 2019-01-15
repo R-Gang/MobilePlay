@@ -24,8 +24,8 @@ public class AppDetailPresenter extends BasePresenter<AppDetailContract.IAppDeta
                 .compose(RxHttpResponseCompat.<AppInfoBean>compatResult())
                 .subscribe(new ProgressObserver<AppInfoBean>(mContext, mRootView) {
                     @Override
-                    public void onNext(AppInfoBean appInfoBean) {
-                        mRootView.showResult(appInfoBean);
+                    public void onNext(AppInfoBean appInfo) {
+                        mRootView.showDetail(appInfo);
                     }
                 });
     }

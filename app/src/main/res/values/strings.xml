@@ -46,4 +46,6 @@
     <string name="key_apk_download_dir">key_apk_download_dir</string>
     <string name="key_about_me">key_about_me</string>
 
+    <string name="simple_view_behavior">com.zoonref.SimpleViewBehavior</string>
+
 </resources>

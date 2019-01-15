@@ -16,11 +16,7 @@ public interface AppDetailContract {
 
     interface AppDetailView extends BaseView {
 
-        void showResult(AppInfoBean appInfoBean);
-
-        void onRequestPermissionSuccess();
-
-        void onRequestPermissionFail();
+        void showDetail(AppInfoBean appInfo);
 
     }
 

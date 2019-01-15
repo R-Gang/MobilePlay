@@ -1,5 +1,6 @@
 package com.haoruigang.cniao5play.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.Data;
@@ -53,6 +54,7 @@ public class AppInfoBean extends PageBean {
     private int addTime;
     private boolean hasSameDevApp;
     private int videoId;
+    private HdIcon hdIcon;
     private String source;
     private String versionName;
     private Float ratingScore;
@@ -73,23 +75,31 @@ public class AppInfoBean extends PageBean {
     private boolean favorite;
     private boolean isFavorite;
     private int appendSize;
+    private List<AppInfoBean> relateAppInfoList;
     private String level1CategoryName;
     private boolean samDevAppHasMore;
     private String displayName;
     private String icon;
+    private String changeLog;
     private String screenshot;
+    private String permissionIds;
     private int ratingTotalCount;
     private int adType;
+    private String web;
     private int apkSize;
     private String packageName;
+    private String introduction;
     private long updateTime;
     private int grantCode;
+    private String detailHeaderImage;
     private int versionCode;
-    private int diffFileSize;
     private List<AppTagsBean> appTags;
+    private int diffFileSize;
+    private List<AppInfoBean> sameDevAppInfoList;
+    private String categoryId;
 
     @Data
-    private static class AppTagsBean {
+    private static class AppTagsBean implements Serializable {
         /**
          * tagId : 258
          * link : sametag/258
@@ -101,4 +111,16 @@ public class AppInfoBean extends PageBean {
         private String tagName;
 
     }
+
+    @Data
+    private static class HdIcon implements Serializable {
+        /**
+         * main:AppStore/08888245de1fa4a8115cfe21f2c4c05d1ca74c144
+         */
+
+        private String main;
+
+    }
+
+
 }

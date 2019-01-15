@@ -86,4 +86,9 @@ dependencies {
     // rxbus
     implementation 'com.hwangjr.rxbus:rxbus:1.0.6'
 
+    // 展开/折叠 TextView
+    implementation 'com.ms-square:expandableTextView:0.1.4'
+
+    implementation 'com.zoonref:simple-view-behavior:1.0'
+
 }

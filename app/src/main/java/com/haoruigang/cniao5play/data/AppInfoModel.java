@@ -9,7 +9,7 @@ import com.haoruigang.cniao5play.presenter.contract.AppInfoContract;
 
 import io.reactivex.Observable;
 
-public class AppInfoModel implements AppInfoContract.IAppInfoModel {
+public class AppInfoModel {
 
     private ApiService apiService;
 

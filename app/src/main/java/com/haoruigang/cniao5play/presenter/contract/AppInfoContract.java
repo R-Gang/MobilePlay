@@ -11,24 +11,6 @@ import io.reactivex.Observable;
 
 public interface AppInfoContract {
 
-    interface IAppInfoModel {
-
-        Observable<BaseBean<PageBean<AppInfoBean>>> getApps();
-
-        Observable<BaseBean<IndexBean>> index();
-
-        Observable<BaseBean<PageBean<AppInfoBean>>> topList(int page);
-
-        Observable<BaseBean<PageBean<AppInfoBean>>> games(int page);
-
-        Observable<BaseBean<PageBean<AppInfoBean>>> featuredBycategory(int categoryId, int page);
-
-        Observable<BaseBean<PageBean<AppInfoBean>>> topListBycategory(int categoryId, int page);
-
-        Observable<BaseBean<PageBean<AppInfoBean>>> newListBycategory(int categoryId, int page);
-
-    }
-
     interface View extends BaseView {
 
         void showResult(IndexBean indexBean);

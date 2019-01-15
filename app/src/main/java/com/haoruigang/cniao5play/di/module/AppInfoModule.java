@@ -25,7 +25,7 @@ public class AppInfoModule {
     }
 
     @Provides
-    public AppInfoContract.IAppInfoModel provideModule(ApiService mApiService) {
+    public AppInfoModel provideModule(ApiService mApiService) {
         return new AppInfoModel(mApiService);
     }
 

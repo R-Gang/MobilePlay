@@ -1,11 +1,12 @@
 package com.haoruigang.cniao5play.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.Data;
 
 @Data
-public class PageBean<T> {
+public class PageBean<T> implements Serializable {
 
 
     /**
