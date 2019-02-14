@@ -8,7 +8,7 @@
     android:paddingBottom="10dp"
     tools:context=".ui.activity.LoginActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
         android:src="@mipmap/icon_mobile"
         android:visibility="gone" />
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/view_mobile_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,9 +58,9 @@
             android:maxLength="11"
             android:singleLine="true" />
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/view_password_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             android:hint="@string/password"
             android:inputType="textPassword" />
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.haoruigang.cniao5play.ui.widget.LoadingButton
         android:id="@+id/btn_login"

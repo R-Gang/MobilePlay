@@ -1,12 +1,9 @@
 package com.haoruigang.cniao5play.ui.fragment;
 
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,7 +13,6 @@ import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.common.imageloader.ImageLoader;
 import com.haoruigang.cniao5play.common.util.DateUtils;
-import com.haoruigang.cniao5play.common.util.DensityUtil;
 import com.haoruigang.cniao5play.data.http.ApiService;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.di.component.DaggerAppDetailComponent;
@@ -30,7 +26,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 
 /**
  * App详情Fragment

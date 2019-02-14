@@ -200,7 +200,7 @@
             android:layout_height="wrap_content"
             android:text="相同开发者的应用" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_same_dev"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -228,7 +228,7 @@
             android:layout_height="wrap_content"
             android:text="相关的应用" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_relate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

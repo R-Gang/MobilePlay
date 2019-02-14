@@ -1,5 +1,6 @@
 package com.haoruigang.cniao5play.data.http;
 
+import com.haoruigang.cniao5play.bean.AppInfo;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.bean.BaseBean;
 import com.haoruigang.cniao5play.bean.CategoryBean;
@@ -26,7 +27,7 @@ public interface ApiService {
     String BASE_IMG_URL = "http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
 
     @GET("featured")
-    Observable<BaseBean<PageBean<AppInfoBean>>> getApps(@Query("p") String jsonParam);// p={"page":0}
+    Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);// p={"page":0}
 
     @GET("index")
     Observable<BaseBean<IndexBean>> index();

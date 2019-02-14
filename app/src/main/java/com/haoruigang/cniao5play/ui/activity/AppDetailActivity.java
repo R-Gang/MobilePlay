@@ -6,8 +6,10 @@ import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.Toolbar;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -21,11 +23,12 @@ import com.haoruigang.cniao5play.common.util.DensityUtil;
 import com.haoruigang.cniao5play.data.http.ApiService;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.ui.fragment.AppDetailFragment;
+import com.mikepenz.iconics.Iconics;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.ionicons_typeface_library.Ionicons;
+import com.mikepenz.iconics.typeface.IIcon;
+import com.mikepenz.typeicons_typeface_library.Typeicons;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * app详情
@@ -69,7 +72,7 @@ public class AppDetailActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(
                 new IconicsDrawable(this)
-                        .icon(Ionicons.Icon.ion_ios_arrow_back)
+                        .icon((IIcon) Iconics.findFont(Typeicons.Icon.typ_arrow_back))
                         .sizeDp(16)
                         .color(getResources().getColor(R.color.md_white_1000)
                         )

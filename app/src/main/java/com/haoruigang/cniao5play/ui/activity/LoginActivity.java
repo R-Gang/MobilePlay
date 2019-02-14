@@ -6,11 +6,15 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
+import com.google.android.material.textfield.TextInputLayout;
+
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
@@ -29,8 +33,10 @@ import com.haoruigang.cniao5play.presenter.contract.LoginContract;
 import com.haoruigang.cniao5play.ui.widget.LoadingButton;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
+import com.mikepenz.iconics.Iconics;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.ionicons_typeface_library.Ionicons;
+import com.mikepenz.iconics.typeface.IIcon;
+import com.mikepenz.typeicons_typeface_library.Typeicons;
 
 import butterknife.BindView;
 import io.reactivex.Observable;
@@ -86,7 +92,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void init() {
         mToolBar.setNavigationIcon(
                 new IconicsDrawable(this)
-                        .icon(Ionicons.Icon.ion_ios_arrow_back)
+                        .icon((IIcon) Iconics.findFont(Typeicons.Icon.typ_arrow_back))
                         .sizeDp(16)
                         .color(getResources().getColor(R.color.md_white_1000)
                         )
@@ -101,9 +107,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
         //SVG矢量图
         Drawable drawable = new IconicsDrawable(this)
-                .icon(Ionicons.Icon.ion_ios_telephone_outline)
-                .color(Color.RED)
-                .sizeDp(36);
+                .icon((IIcon) Iconics.findFont(Typeicons.Icon.typ_phone_outline))
+                .color(Color.RED).sizeDp(36);
         ivTelephone.setImageDrawable(drawable);
 
         pathView.getPathAnimator()

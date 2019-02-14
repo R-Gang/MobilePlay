@@ -1,7 +1,7 @@
 package com.haoruigang.cniao5play.presenter;
 
 import android.Manifest;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.haoruigang.cniao5play.bean.IndexBean;
 import com.haoruigang.cniao5play.common.rx.RxHttpResponseCompat;

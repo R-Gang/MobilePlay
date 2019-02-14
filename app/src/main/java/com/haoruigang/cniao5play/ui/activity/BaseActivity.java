@@ -1,9 +1,9 @@
 package com.haoruigang.cniao5play.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.view.LayoutInflaterCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.core.view.LayoutInflaterCompat;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.haoruigang.cniao5play.AppApplication;
 import com.haoruigang.cniao5play.di.component.AppComponent;

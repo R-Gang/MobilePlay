@@ -1,10 +1,10 @@
 package com.haoruigang.cniao5play.ui.fragment;
 
 import android.content.Intent;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -16,7 +16,6 @@ import com.haoruigang.cniao5play.presenter.AppInfoPresenter;
 import com.haoruigang.cniao5play.presenter.contract.AppInfoContract;
 import com.haoruigang.cniao5play.ui.activity.AppDetailActivity;
 import com.haoruigang.cniao5play.ui.adapter.AppInfoAdapter;
-import com.hwangjr.rxbus.RxBus;
 
 import butterknife.BindView;
 

@@ -1,22 +1,21 @@
 package com.haoruigang.cniao5play.ui.activity;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.google.android.material.tabs.TabLayout;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.CategoryBean;
 import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.ui.adapter.CategoryAppViewPagerAdapter;
-import com.haoruigang.cniao5play.ui.adapter.ViewPagerAdapter;
+import com.mikepenz.iconics.Iconics;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.ionicons_typeface_library.Ionicons;
+import com.mikepenz.iconics.typeface.IIcon;
+import com.mikepenz.typeicons_typeface_library.Typeicons;
 
-import java.util.List;
-
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 
 /**
@@ -58,7 +57,7 @@ public class CategoryAppActivity extends BaseActivity {
     private void initTabLayout() {
         toolbar.setNavigationIcon(
                 new IconicsDrawable(this)
-                        .icon(Ionicons.Icon.ion_ios_arrow_back)
+                        .icon((IIcon) Iconics.findFont(Typeicons.Icon.typ_arrow_back_outline))
                         .sizeDp(16)
                         .color(getResources().getColor(R.color.md_white_1000)
                         )
