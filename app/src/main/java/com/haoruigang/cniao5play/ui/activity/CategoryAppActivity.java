@@ -1,17 +1,13 @@
 package com.haoruigang.cniao5play.ui.activity;
 
-import android.view.View;
-
 import com.google.android.material.tabs.TabLayout;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.CategoryBean;
 import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.ui.adapter.CategoryAppViewPagerAdapter;
-import com.mikepenz.iconics.Iconics;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.iconics.typeface.IIcon;
-import com.mikepenz.typeicons_typeface_library.Typeicons;
+import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.PagerAdapter;
@@ -57,17 +53,12 @@ public class CategoryAppActivity extends BaseActivity {
     private void initTabLayout() {
         toolbar.setNavigationIcon(
                 new IconicsDrawable(this)
-                        .icon((IIcon) Iconics.findFont(Typeicons.Icon.typ_arrow_back_outline))
+                        .icon(Ionicons.Icon.ion_ios_arrow_back)
                         .sizeDp(16)
                         .color(getResources().getColor(R.color.md_white_1000)
                         )
         );
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
         // -------------------- 课时3：TabLayout_ViewPager_Fragment可滑动的顶部菜单 start -----------------------
         PagerAdapter adapter = new CategoryAppViewPagerAdapter(getSupportFragmentManager(), categoryBean.getId());
         viewPager.setOffscreenPageLimit(adapter.getCount());
