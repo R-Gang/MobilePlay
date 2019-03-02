@@ -34,9 +34,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import butterknife.BindView;
 import io.reactivex.Observable;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Consumer;
-import kotlin.Unit;
 
 /**
  * 登录页
@@ -104,12 +101,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 .delay(1000)//停留延迟
                 .duration(6000)//持续时间
                 .interpolator(new AccelerateDecelerateInterpolator())
-                .listenerEnd(new PathView.AnimatorBuilder.ListenerEnd() {
-                    @Override
-                    public void onAnimationEnd() {
-                        ivMobile.setVisibility(View.VISIBLE);
-                    }
-                })
+                .listenerEnd(() -> ivMobile.setVisibility(View.VISIBLE))
                 .start();
 
         initView();
@@ -120,26 +112,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         Observable.combineLatest(
                 RxTextView.textChanges(etMobile),
                 RxTextView.textChanges(etPassword),
-                new BiFunction<CharSequence, CharSequence, Boolean>() {
-                    @Override
-                    public Boolean apply(CharSequence mobile, CharSequence pwd) {
-                        return isPhoneValid(mobile.toString()) && isPasswordValid(pwd.toString());
-                    }
-                })
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) {
-                        btnLogin.setEnabled(aBoolean);
-                    }
-                });
+                (mobile, pwd) ->
+                        isPhoneValid(mobile.toString()) && isPasswordValid(pwd.toString()))
+                .subscribe(aBoolean ->
+                        btnLogin.setEnabled(aBoolean));
 
-        RxView.clicks(btnLogin).subscribe(new Consumer<Unit>() {
-            @Override
-            public void accept(Unit unit) {
+        RxView.clicks(btnLogin).subscribe(unit ->
                 mPresenter.login(etMobile.getText().toString().trim(),
-                        etPassword.getText().toString().trim());
-            }
-        });
+                        etPassword.getText().toString().trim()));
     }
 
     private boolean isPasswordValid(String s) {
