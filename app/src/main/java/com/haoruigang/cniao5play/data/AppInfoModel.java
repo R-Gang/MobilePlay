@@ -1,6 +1,5 @@
 package com.haoruigang.cniao5play.data;
 
-import com.haoruigang.cniao5play.bean.AppInfo;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.bean.BaseBean;
 import com.haoruigang.cniao5play.bean.IndexBean;
@@ -17,7 +16,7 @@ public class AppInfoModel {
         this.apiService = apiService;
     }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> getApps(int page) {
+    public Observable<BaseBean<PageBean<AppInfoBean>>> getApps(int page) {
         return apiService.getApps(page);
     }
 
