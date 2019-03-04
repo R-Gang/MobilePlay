@@ -1,21 +1,14 @@
 package com.haoruigang.cniao5play.ui.activity;
 
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.LoginBean;
 import com.haoruigang.cniao5play.common.Constant;
@@ -27,6 +20,11 @@ import com.haoruigang.cniao5play.ui.adapter.ViewPagerAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 
 /**
@@ -109,25 +107,22 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menu_app_update:
-                        Toast.makeText(MainActivity.this, "menu_app_update", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_download_manager:
-                        Toast.makeText(MainActivity.this, "menu_message", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_setting:
-                        Toast.makeText(MainActivity.this, "menu_setting", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_logout:
-                        logout();// 退出登录
-                        break;
-                }
-                return false;
+        navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menu_app_update:
+                    Toast.makeText(MainActivity.this, "menu_app_update", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.menu_download_manager:
+                    Toast.makeText(MainActivity.this, "menu_message", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.menu_setting:
+                    Toast.makeText(MainActivity.this, "menu_setting", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.menu_logout:
+                    logout();// 退出登录
+                    break;
             }
+            return false;
         });
         // ----------------------- 课时1：DrawerLayout + NavigationView 实现侧滑菜单 end ------------------------
 

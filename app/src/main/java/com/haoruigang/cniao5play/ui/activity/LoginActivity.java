@@ -6,15 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-
-import com.google.android.material.textfield.TextInputLayout;
-
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
@@ -22,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.eftimoff.androipathview.PathView;
+import com.google.android.material.textfield.TextInputLayout;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.LoginBean;
 import com.haoruigang.cniao5play.common.util.DeviceUtils;
@@ -33,16 +25,15 @@ import com.haoruigang.cniao5play.presenter.contract.LoginContract;
 import com.haoruigang.cniao5play.ui.widget.LoadingButton;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
-import com.mikepenz.iconics.Iconics;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.iconics.typeface.IIcon;
-import com.mikepenz.typeicons_typeface_library.Typeicons;
+import com.mikepenz.ionicons_typeface_library.Ionicons;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import butterknife.BindView;
 import io.reactivex.Observable;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Consumer;
-import kotlin.Unit;
 
 /**
  * 登录页
@@ -92,22 +83,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void init() {
         mToolBar.setNavigationIcon(
                 new IconicsDrawable(this)
-                        .icon((IIcon) Iconics.findFont(Typeicons.Icon.typ_arrow_back))
+                        .icon(Ionicons.Icon.ion_ios_arrow_back)
                         .sizeDp(16)
                         .color(getResources().getColor(R.color.md_white_1000)
                         )
         );
         mToolBar.setTitle(R.string.login);
-        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mToolBar.setNavigationOnClickListener(v -> finish());
 
         //SVG矢量图
         Drawable drawable = new IconicsDrawable(this)
-                .icon((IIcon) Iconics.findFont(Typeicons.Icon.typ_phone_outline))
+                .icon(Ionicons.Icon.ion_ios_telephone_outline)
                 .color(Color.RED).sizeDp(36);
         ivTelephone.setImageDrawable(drawable);
 
@@ -115,12 +101,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 .delay(1000)//停留延迟
                 .duration(6000)//持续时间
                 .interpolator(new AccelerateDecelerateInterpolator())
-                .listenerEnd(new PathView.AnimatorBuilder.ListenerEnd() {
-                    @Override
-                    public void onAnimationEnd() {
-                        ivMobile.setVisibility(View.VISIBLE);
-                    }
-                })
+                .listenerEnd(() -> ivMobile.setVisibility(View.VISIBLE))
                 .start();
 
         initView();
@@ -131,26 +112,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         Observable.combineLatest(
                 RxTextView.textChanges(etMobile),
                 RxTextView.textChanges(etPassword),
-                new BiFunction<CharSequence, CharSequence, Boolean>() {
-                    @Override
-                    public Boolean apply(CharSequence mobile, CharSequence pwd) {
-                        return isPhoneValid(mobile.toString()) && isPasswordValid(pwd.toString());
-                    }
-                })
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) {
-                        btnLogin.setEnabled(aBoolean);
-                    }
-                });
+                (mobile, pwd) ->
+                        isPhoneValid(mobile.toString()) && isPasswordValid(pwd.toString()))
+                .subscribe(aBoolean ->
+                        btnLogin.setEnabled(aBoolean));
 
-        RxView.clicks(btnLogin).subscribe(new Consumer<Unit>() {
-            @Override
-            public void accept(Unit unit) {
+        RxView.clicks(btnLogin).subscribe(unit ->
                 mPresenter.login(etMobile.getText().toString().trim(),
-                        etPassword.getText().toString().trim());
-            }
-        });
+                        etPassword.getText().toString().trim()));
     }
 
     private boolean isPasswordValid(String s) {

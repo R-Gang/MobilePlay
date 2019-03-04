@@ -6,7 +6,6 @@ import com.haoruigang.cniao5play.bean.BaseBean;
 import com.haoruigang.cniao5play.bean.IndexBean;
 import com.haoruigang.cniao5play.bean.PageBean;
 import com.haoruigang.cniao5play.data.http.ApiService;
-import com.haoruigang.cniao5play.presenter.contract.AppInfoContract;
 
 import io.reactivex.Observable;
 
@@ -18,8 +17,8 @@ public class AppInfoModel {
         this.apiService = apiService;
     }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> getApps() {
-        return apiService.getApps("{\"page\":0}");
+    public Observable<BaseBean<PageBean<AppInfo>>> getApps(int page) {
+        return apiService.getApps(page);
     }
 
     public Observable<BaseBean<IndexBean>> index() {

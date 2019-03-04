@@ -27,7 +27,7 @@ public interface ApiService {
     String BASE_IMG_URL = "http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
 
     @GET("featured")
-    Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);// p={"page":0}
+    Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("page") int page);// p={"page":0}
 
     @GET("index")
     Observable<BaseBean<IndexBean>> index();

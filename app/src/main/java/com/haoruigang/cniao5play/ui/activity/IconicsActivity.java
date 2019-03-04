@@ -6,10 +6,8 @@ import android.widget.ImageView;
 
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.di.component.AppComponent;
-import com.mikepenz.iconics.Iconics;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.iconics.typeface.IIcon;
-import com.mikepenz.typeicons_typeface_library.Typeicons;
+import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import butterknife.BindView;
 
@@ -36,7 +34,7 @@ public class IconicsActivity extends BaseActivity {
     @Override
     public void init() {
         Drawable drawable = new IconicsDrawable(this)
-                .icon((IIcon) Iconics.findFont(Typeicons.Icon.typ_phone_outline))
+                .icon(Ionicons.Icon.ion_ios_telephone_outline)
                 .color(Color.RED)
                 .sizeDp(50);
         ivTelephone.setImageDrawable(drawable);
