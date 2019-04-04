@@ -1,8 +1,6 @@
 package com.haoruigang.cniao5play.ui.adapter;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +10,14 @@ import android.widget.TextView;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.data.http.ApiService;
+import com.haoruigang.cniao5play.ui.widget.downloadbutton.DownloadProgressButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -60,15 +61,15 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
         return datas.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.img_icon)
         ImageView imgIcon;
         @BindView(R.id.tv_app_name)
         TextView tvAppName;
         @BindView(R.id.tv_brief)
         TextView tvBrief;
-        @BindView(R.id.iv_dl)
-        ImageView ivDl;
+        @BindView(R.id.btn_download_progress)
+        DownloadProgressButton btnDl;
 
         ViewHolder(View itemView) {
             super(itemView);

@@ -11,9 +11,8 @@ import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.common.imageloader.ImageLoader;
 import com.haoruigang.cniao5play.data.http.ApiService;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.haoruigang.cniao5play.ui.widget.downloadbutton.DownloadButtonConntroller;
+import com.haoruigang.cniao5play.ui.widget.downloadbutton.DownloadProgressButton;
 
 /**
  * 推荐热门应用游戏
@@ -22,7 +21,7 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
 
     private Builder builder;
 
-    AppInfoAdapter(Builder builder) {
+    private AppInfoAdapter(Builder builder) {
         super(builder.layoutId);
         this.builder = builder;
         openLoadAnimation();
@@ -59,40 +58,15 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
             txtApkSize.setText(String.format("%s\tMb", appInfo.getApkSize() / 1014 / 1024));
         }
 
-        ImageView ivDl = helper.itemView.findViewById(R.id.iv_dl);
-        if (ivDl != null) {
-            ivDl.setVisibility(ivDl != null ? View.VISIBLE : View.GONE);
+        DownloadProgressButton btnDl = helper.itemView.findViewById(R.id.btn_download_progress);
+        if (btnDl != null) {
+            btnDl.setVisibility(View.VISIBLE);
+            DownloadButtonConntroller.handClick(btnDl, appInfo);
         }
 
         Button btnDownload = helper.itemView.findViewById(R.id.btn_download);
         if (btnDownload != null) {
-            btnDownload.setVisibility(btnDownload != null ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    public class ViewHolder extends BaseViewHolder {
-
-        @BindView(R.id.tv_position)
-        TextView tvPosition;
-        @BindView(R.id.img_icon)
-        ImageView imgIcon;
-        @BindView(R.id.tv_app_name)
-        TextView tvAppName;
-        @BindView(R.id.tv_catenory)
-        TextView tvCatenory;
-        @BindView(R.id.tv_brief)
-        TextView tvBrief;
-        @BindView(R.id.iv_dl)
-        ImageView ivDl;
-
-        @BindView(R.id.txt_apk_size)
-        TextView txtApkSize;
-        @BindView(R.id.btn_download)
-        Button btnDownload;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+            btnDownload.setVisibility(View.VISIBLE);
         }
     }
 

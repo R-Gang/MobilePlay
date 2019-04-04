@@ -7,10 +7,10 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="10dp"
     android:paddingLeft="15dp"
+    android:paddingTop="10dp"
     android:paddingRight="15dp"
-    android:paddingTop="10dp">
+    android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/img_icon"

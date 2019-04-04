@@ -1,7 +1,7 @@
 {
   "update": "Yes",
-  "new_version_code":"17",
-  "new_version_name": "1.1.7",
+  "new_version_code":"18",
+  "new_version_name": "1.1.8",
   "apk_file_url": "https://newadmin.acz.1bu2bu.com/CareGrowtht_Test.apk",
   "update_log": "1，开发环境。\r\n2，修复已知Bug。\r\n3，优化用户体验。\r\n",
   "target_size": "23.2MB",
