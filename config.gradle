@@ -5,15 +5,28 @@ ext {
             targetSdkVersion      : 28,
 
             appcompatVersion      : "1.1.0-alpha03",
-            retrofit2ConverterGson: "2.4.0"
+            retrofitVersion       : "2.4.0",
+            okhttpVersion           : "3.11.0",
+            okhttpInterVersion           : "3.9.0",
+            rxJavaVersion           : "2.2.6",
+            rxAndroidVersion        : "2.1.0",
+            rxbindingVersion        : "3.0.0-alpha2",
 
     ]
 
     dependencies = [
             "appcompat"     : "androidx.appcompat:appcompat:${android["appcompatVersion"]}",
-            "retrofit"      : "com.squareup.retrofit2:retrofit:${android["retrofit2ConverterGson"]}",
-            "converter-gson": "com.squareup.retrofit2:converter-gson:${android["retrofit2ConverterGson"]}"
 
+            "retrofit"                          : "com.squareup.retrofit2:retrofit:${android["retrofitVersion"]}",
+            "retrofit-adapter-rxjava"           : "com.squareup.retrofit2:adapter-rxjava2:${android["retrofitVersion"]}",
+            "retrofit-converter-gson"           : "com.squareup.retrofit2:converter-gson:${android["retrofitVersion"]}",
+
+            "okhttp"                               : "com.squareup.okhttp3:okhttp:${android["okhttpVersion"]}",
+            "okhttp-logging-interceptor"           : "com.squareup.okhttp3:logging-interceptor:${android["okhttpInterVersion"]}",
+
+            "rxjava"                             : "io.reactivex.rxjava2:rxjava:${android["rxJavaVersion"]}",
+            "rxandroid"                          : "io.reactivex.rxjava2:rxandroid:${android["rxAndroidVersion"]}",
+            "rxbinding"                          : "com.jakewharton.rxbinding3:rxbinding:${android["rxbindingVersion"]}",
     ]
 
 }

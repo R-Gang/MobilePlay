@@ -46,19 +46,6 @@ dependencies {
     implementation "com.mikepenz:iconics-core:3.0.0@aar"// 不能升级
     implementation 'com.mikepenz:ionicons-typeface:2.0.1.4@aar'
 
-    //okhttp
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
-
-    //rxjava2
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-
-    //retrofit
-    implementation rootProject.ext.dependencies["retrofit"]
-    implementation rootProject.ext.dependencies["converter-gson"]
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'//整合适配
-
     //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
@@ -90,9 +77,6 @@ dependencies {
     // BRVAH
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.36'
 
-    // rxbinding
-    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
-
     // rxbus
     implementation 'com.hwangjr.rxbus:rxbus:1.0.6'
 
@@ -102,6 +86,6 @@ dependencies {
     implementation 'com.zoonref:simple-view-behavior:1.0'
 
     // 基于RxJava打造的下载工具, 支持多线程下载和断点续传
-    implementation 'zlc.season:rxdownload3:1.2.7'
-
+//    implementation 'zlc.season:rxdownload3:1.2.7'
+    implementation project(':rxdownload2')
 }
