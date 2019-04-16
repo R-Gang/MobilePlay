@@ -49,6 +49,7 @@ public class CategoryAppFragment extends BaseAppInfoFragment {
                 .showPosition(false)
                 .showBrief(true)
                 .showCategoryName(false)
+                .rxDownload(mRxDownload)
                 .build();
     }
 

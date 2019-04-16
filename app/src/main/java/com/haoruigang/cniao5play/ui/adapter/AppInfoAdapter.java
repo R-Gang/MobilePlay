@@ -14,6 +14,8 @@ import com.haoruigang.cniao5play.data.http.ApiService;
 import com.haoruigang.cniao5play.ui.widget.downloadbutton.DownloadButtonConntroller;
 import com.haoruigang.cniao5play.ui.widget.downloadbutton.DownloadProgressButton;
 
+import zlc.season.rxdownload2.RxDownload;
+
 /**
  * 推荐热门应用游戏
  */
@@ -21,9 +23,12 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
 
     private Builder builder;
 
+    private DownloadButtonConntroller mDownloadButtonConntroller;
+
     private AppInfoAdapter(Builder builder) {
         super(builder.layoutId);
         this.builder = builder;
+        mDownloadButtonConntroller = new DownloadButtonConntroller(builder.mRxDownload);
         openLoadAnimation();
     }
 
@@ -60,8 +65,9 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
 
         DownloadProgressButton btnDl = helper.itemView.findViewById(R.id.btn_download_progress);
         if (btnDl != null) {
+            helper.addOnClickListener(R.id.btn_download_progress);
             btnDl.setVisibility(View.VISIBLE);
-            DownloadButtonConntroller.handClick(btnDl, appInfo);
+            mDownloadButtonConntroller.handClick(btnDl, appInfo);
         }
 
         Button btnDownload = helper.itemView.findViewById(R.id.btn_download);
@@ -74,6 +80,9 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
         private boolean isShowPosition;
         private boolean isShowCategoryName;
         private boolean isShowBrief;
+
+        private RxDownload mRxDownload;
+
         private int layoutId = R.layout.template_appinfo;
 
         public Builder showPosition(boolean b) {
@@ -97,6 +106,11 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
 
         public Builder layout(int resId) {
             this.layoutId = resId;
+            return this;
+        }
+
+        public Builder rxDownload(RxDownload rxDownload) {
+            this.mRxDownload = rxDownload;
             return this;
         }
 

@@ -2,15 +2,30 @@ package com.haoruigang.cniao5play.ui.widget.downloadbutton;
 
 import android.content.Context;
 
+import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppDownloadInfo;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
+import com.haoruigang.cniao5play.bean.BaseBean;
+import com.haoruigang.cniao5play.common.rx.RxHttpResponseCompat;
 import com.haoruigang.cniao5play.common.util.AppUtils;
+import com.haoruigang.cniao5play.common.util.PermissionUtil;
+import com.jakewharton.rxbinding3.view.RxView;
 
 import java.io.File;
 
 import io.reactivex.Observable;
-import zlc.season.rxdownload3.RxDownload;
-import zlc.season.rxdownload3.core.Status;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import zlc.season.rxdownload2.RxDownload;
+import zlc.season.rxdownload2.entity.DownloadEvent;
+import zlc.season.rxdownload2.entity.DownloadFlag;
+
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 /**
  * Date: 2019/4/1
@@ -22,20 +37,118 @@ public class DownloadButtonConntroller {
     private RxDownload rxDownload;
     private String mDownloadDir;// 文件下载的目录
 
-    public static void handClick(DownloadProgressButton btnDownload, AppInfoBean appInfo) {
+    private Api mApi;
 
+    public DownloadButtonConntroller(RxDownload rxDownload) {
+        this.rxDownload = rxDownload;
+        if (rxDownload != null) {
+            mApi = rxDownload.getRetrofit().create(Api.class);
+        }
+    }
+
+    public void handClick(final DownloadProgressButton btnDownload, final AppInfoBean appInfo) {
+        if (mApi == null) {
+            return;
+        }
+        bindClick(btnDownload, appInfo);
+        isAppInstalled(btnDownload.getContext(), appInfo)
+                .flatMap((Function<DownloadEvent, ObservableSource<DownloadEvent>>) downloadEvent -> {
+                    if (downloadEvent.getFlag() == DownloadFlag.UN_INSTALL) {// 未安装
+                        // 检查文件是否存在
+                        return isApkFileExsit(appInfo);
+                    }
+                    // 已安装 升级
+                    return Observable.just(downloadEvent);
+                })
+                .flatMap((Function<DownloadEvent, ObservableSource<DownloadEvent>>) downloadEvent -> {
+                    if (downloadEvent.getFlag() == DownloadFlag.FILE_EXIST) {// 文件存在
+                        return getAppDownloadInfo(appInfo)
+                                .flatMap((Function<AppDownloadInfo, ObservableSource<DownloadEvent>>)
+                                        downloadInfo -> {
+                                            appInfo.setAppDownloadInfo(downloadInfo);
+                                            return receiveDownloadStatus(downloadInfo);
+                                        });
+                    }
+                    // 未下载
+                    return Observable.just(downloadEvent);
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DownloadConsumer(btnDownload))
+                .isDisposed();
+    }
+
+    private void bindClick(final DownloadProgressButton btn, final AppInfoBean appInfo) {
+        RxView.clicks(btn).subscribe(unit -> {
+            int flag = (int) btn.getTag(R.id.tag_apk_flag);
+            switch (flag) {
+                case DownloadFlag.INSTALLED:// 已安装
+                    runApp(btn.getContext(), appInfo);
+                    break;
+                // 升级
+                case DownloadFlag.STARTED:// 正在下载
+                    pausedDownload(appInfo);
+                    break;
+                case DownloadFlag.PAUSED:// 已暂停
+                case DownloadFlag.NORMAL:// 未下载
+                    startDownload(btn, appInfo);
+                    break;
+                case DownloadFlag.COMPLETED:// 已完成
+                    installApp(btn.getContext(), appInfo);
+                    break;
+            }
+        }).isDisposed();
+    }
+
+    private void installApp(final Context mContext, final AppInfoBean appInfo) {
+//        rxDownload.getRealFiles()
+        String path = mDownloadDir + File.separator + appInfo.getReleaseKeyHash();
+        AppUtils.installApk(mContext, path);
+    }
+
+    private void startDownload(final DownloadProgressButton btnDownload, final AppInfoBean appInfo) {
+        PermissionUtil.requestPermisson(btnDownload.getContext(), WRITE_EXTERNAL_STORAGE)
+                .subscribe(aBoolean -> {
+                    if (aBoolean) {
+                        final AppDownloadInfo downloadInfo = appInfo.getAppDownloadInfo();
+                        if (downloadInfo == null) {
+                            getAppDownloadInfo(appInfo).subscribe(appdownloadInfo -> {
+                                appInfo.setAppDownloadInfo(appdownloadInfo);
+                                download(btnDownload, appdownloadInfo);
+                            }).isDisposed();
+                        } else {
+                            download(btnDownload, downloadInfo);
+                        }
+                    }
+                }).isDisposed();
+    }
+
+    public void download(final DownloadProgressButton btnDownload, final AppDownloadInfo info) {
+        rxDownload.serviceDownload(info.getDownloadUrl()).subscribe();
+        rxDownload.receiveDownloadStatus(info.getDownloadUrl())
+                .subscribe(new DownloadConsumer(btnDownload)).isDisposed();
+    }
+
+    private void pausedDownload(final AppInfoBean appInfo) {
+        rxDownload.pauseServiceDownload(appInfo.getAppDownloadInfo().getDownloadUrl());
+    }
+
+    private void runApp(final Context mContext, final AppInfoBean appInfo) {
+        AppUtils.runApp(mContext, appInfo.getPackageName());
     }
 
     /**
-     * 已经下载
+     * 已经下载(是否安装)
      *
      * @return
      */
-    public Observable<Status> isAppInstalled(Context context, AppInfoBean appInfo) {
+    public Observable<DownloadEvent> isAppInstalled(final Context context, final AppInfoBean appInfo) {
 
-        AppUtils.isInstalled(context, appInfo.getPackageName());
+        DownloadEvent event = new DownloadEvent();
+        event.setFlag(AppUtils.isInstalled(context, appInfo.getPackageName())
+                ? DownloadFlag.INSTALLED : DownloadFlag.UN_INSTALL);
 
-        return null;
+        return Observable.just(event);
     }
 
     /**
@@ -43,22 +156,57 @@ public class DownloadButtonConntroller {
      *
      * @return
      */
-    public Observable<Status> isApkFileExsit(AppInfoBean appinfo) {
+    public Observable<DownloadEvent> isApkFileExsit(final AppInfoBean appinfo) {
 
         String path = mDownloadDir + File.separator + appinfo.getReleaseKeyHash();
         File file = new File(path);
-        file.exists();
 
-        return null;
+        DownloadEvent event = new DownloadEvent();
+        event.setFlag(file.exists() ? DownloadFlag.FILE_EXIST : DownloadFlag.NORMAL);
+
+        return Observable.just(event);
     }
 
-//    public Observable<Status> getDownloadStatus() {
-//        return rxDownload.create(mDownloadDir, true);
-//    }
-
-    public Observable<AppDownloadInfo> getAppDownloadInfo() {
-
-        return null;
+    public Observable<DownloadEvent> receiveDownloadStatus(final AppDownloadInfo downloadInfo) {
+        return rxDownload.receiveDownloadStatus(downloadInfo.getDownloadUrl());
     }
 
+    public Observable<AppDownloadInfo> getAppDownloadInfo(final AppInfoBean infoBean) {
+        return mApi.getAppDownloadInfo(infoBean.getId()).compose(RxHttpResponseCompat.compatResult());
+    }
+
+}
+
+class DownloadConsumer implements Consumer<DownloadEvent> {
+    DownloadProgressButton btnDownload;
+
+    public DownloadConsumer(final DownloadProgressButton btnDownload) {
+        this.btnDownload = btnDownload;
+    }
+
+    @Override
+    public void accept(DownloadEvent downloadEvent) throws Exception {
+        int flag = downloadEvent.getFlag();
+        btnDownload.setTag(R.id.tag_apk_flag, flag);
+        switch (flag) {
+            case DownloadFlag.INSTALLED:// 已安装
+                btnDownload.setText("运行");
+                break;
+            case DownloadFlag.STARTED:// 正在下载
+                btnDownload.setProgress((int) downloadEvent.getDownloadStatus().getPercentNumber());
+                break;
+            case DownloadFlag.PAUSED:// 已暂停
+                btnDownload.paused();
+                break;
+            case DownloadFlag.NORMAL:// 未下载
+                btnDownload.download();
+                break;
+        }
+    }
+
+}
+
+interface Api {
+    @GET("download/{id}")
+    Observable<BaseBean<AppDownloadInfo>> getAppDownloadInfo(@Path("id") int id);
 }

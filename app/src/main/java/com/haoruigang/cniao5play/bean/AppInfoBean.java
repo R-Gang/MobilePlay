@@ -98,6 +98,8 @@ public class AppInfoBean extends PageBean {
     private List<AppInfoBean> sameDevAppInfoList;
     private String categoryId;
 
+    private AppDownloadInfo appDownloadInfo;
+
     @Data
     private static class AppTagsBean implements Serializable {
         /**

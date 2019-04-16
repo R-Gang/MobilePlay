@@ -1,10 +1,12 @@
 package com.haoruigang.cniao5play.ui.fragment;
 
 import android.content.Intent;
+
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -17,7 +19,10 @@ import com.haoruigang.cniao5play.presenter.contract.AppInfoContract;
 import com.haoruigang.cniao5play.ui.activity.AppDetailActivity;
 import com.haoruigang.cniao5play.ui.adapter.AppInfoAdapter;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import zlc.season.rxdownload2.RxDownload;
 
 /**
  * 排行/游戏 共用基类
@@ -27,6 +32,9 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+
+    @Inject
+    RxDownload mRxDownload;
 
     protected AppInfoAdapter mAdapter;
 

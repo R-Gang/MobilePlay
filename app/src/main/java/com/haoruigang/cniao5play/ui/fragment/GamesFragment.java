@@ -31,6 +31,7 @@ public class GamesFragment extends BaseAppInfoFragment {
                 .showPosition(false)
                 .showBrief(true)
                 .showCategoryName(true)
+                .rxDownload(mRxDownload)
                 .build();
     }
 }
