@@ -4,6 +4,7 @@ import android.app.Application;
 import android.net.SSLCertificateSocketFactory;
 
 import com.google.gson.Gson;
+import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.common.http.CommonParamsInterceptor;
 import com.haoruigang.cniao5play.common.rx.RxErrorHandler;
 import com.haoruigang.cniao5play.data.http.ApiService;
@@ -54,7 +55,7 @@ public class HttpModule {
     @Singleton
     public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
-                .baseUrl(ApiService.BASE_URL)
+                .baseUrl(Constant.BASE_URL)
                 //需引入依赖 com.squareup.retrofit2:converter-gson
                 .addConverterFactory(GsonConverterFactory.create())//自动转换JSON
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//与RxJava2结合使用

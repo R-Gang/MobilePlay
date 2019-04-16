@@ -21,10 +21,6 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-    String BASE_URL = "http://112.124.22.238:8081/course_api/cniaoplay/";
-
-    String BASE_IMG_URL = "http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
-
     //    @GET("featured2")
     @GET("featured")
     Observable<BaseBean<PageBean<AppInfoBean>>> getApps(@Query("page") int page);// p={"page":0}

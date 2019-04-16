@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
+import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.data.http.ApiService;
 import com.haoruigang.cniao5play.ui.widget.downloadbutton.DownloadProgressButton;
 import com.squareup.picasso.Picasso;
@@ -45,7 +46,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         AppInfoBean appInfo = datas.get(position);
-        Picasso.with(mContext).load(ApiService.BASE_IMG_URL + appInfo.getIcon()).into(holder.imgIcon);
+        Picasso.with(mContext).load(Constant.BASE_IMG_URL + appInfo.getIcon()).into(holder.imgIcon);
         holder.tvAppName.setText(appInfo.getDisplayName());
         holder.tvBrief.setText(String.format("%sMB", appInfo.getApkSize() / 1024 / 1024));
     }

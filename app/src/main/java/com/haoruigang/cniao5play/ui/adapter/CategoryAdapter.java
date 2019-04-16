@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.CategoryBean;
+import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.common.imageloader.ImageLoader;
 import com.haoruigang.cniao5play.data.http.ApiService;
 
@@ -27,7 +28,7 @@ public class CategoryAdapter extends BaseQuickAdapter<CategoryBean, CategoryAdap
 
     @Override
     protected void convert(ViewHolder helper, CategoryBean categoryBean) {
-        ImageLoader.load(ApiService.BASE_IMG_URL + categoryBean.getIcon(), helper.imgIcon);
+        ImageLoader.load(Constant.BASE_IMG_URL + categoryBean.getIcon(), helper.imgIcon);
         helper.textName.setText(categoryBean.getName());
     }
 

@@ -3,6 +3,9 @@ package com.haoruigang.cniao5play.di.module;
 import android.app.Application;
 import android.os.Environment;
 
+import com.haoruigang.cniao5play.common.Constant;
+import com.haoruigang.cniao5play.common.util.ACache;
+
 import java.io.File;
 
 import javax.inject.Singleton;
@@ -23,6 +26,7 @@ public class DownloadModule {
     @Provides
     @Singleton
     public RxDownload provideRxDownload(Application application, Retrofit retrofit, File downDir) {
+        ACache.get(application).put(Constant.APK_DOWNLOAD_DIR, downDir.getPath());
         return RxDownload.getInstance(application)
                 .defaultSavePath(downDir.getPath())
                 .retrofit(retrofit)

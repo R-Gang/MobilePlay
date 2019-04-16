@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
+import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.common.imageloader.ImageLoader;
 import com.haoruigang.cniao5play.common.util.DensityUtil;
 import com.haoruigang.cniao5play.data.http.ApiService;
@@ -61,7 +62,7 @@ public class AppDetailActivity extends BaseActivity {
 
         appInfo = (AppInfoBean) getIntent().getSerializableExtra("appInfo");
 
-        ImageLoader.load(ApiService.BASE_IMG_URL + appInfo.getIcon(), imgIcon);
+        ImageLoader.load(Constant.BASE_IMG_URL + appInfo.getIcon(), imgIcon);
         txtName.setText(appInfo.getDisplayName());
 
         toolbar.setTitle("");

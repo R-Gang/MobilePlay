@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
+import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.common.imageloader.ImageLoader;
 import com.haoruigang.cniao5play.data.http.ApiService;
 import com.haoruigang.cniao5play.ui.widget.downloadbutton.DownloadButtonConntroller;
@@ -35,7 +36,7 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
     @Override
     protected void convert(BaseViewHolder helper, AppInfoBean appInfo) {
         ImageView imgIcon = helper.itemView.findViewById(R.id.img_icon);
-        ImageLoader.load(ApiService.BASE_IMG_URL + appInfo.getIcon(), imgIcon);
+        ImageLoader.load(Constant.BASE_IMG_URL + appInfo.getIcon(), imgIcon);
 
         TextView tvAppName = helper.itemView.findViewById(R.id.tv_app_name);
         tvAppName.setText(appInfo.getDisplayName());
@@ -63,14 +64,14 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
             txtApkSize.setText(String.format("%s\tMb", appInfo.getApkSize() / 1014 / 1024));
         }
 
-        DownloadProgressButton btnDl = helper.itemView.findViewById(R.id.btn_download_progress);
+        final DownloadProgressButton btnDl = helper.itemView.findViewById(R.id.btn_download_progress);
         if (btnDl != null) {
-            helper.addOnClickListener(R.id.btn_download_progress);
+            helper.addOnClickListener(btnDl.getId());
             btnDl.setVisibility(View.VISIBLE);
             mDownloadButtonConntroller.handClick(btnDl, appInfo);
         }
 
-        Button btnDownload = helper.itemView.findViewById(R.id.btn_download);
+        final Button btnDownload = helper.itemView.findViewById(R.id.btn_download);
         if (btnDownload != null) {
             btnDownload.setVisibility(View.VISIBLE);
         }

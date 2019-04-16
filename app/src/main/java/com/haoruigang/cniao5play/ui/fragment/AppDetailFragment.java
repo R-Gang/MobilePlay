@@ -2,6 +2,7 @@ package com.haoruigang.cniao5play.ui.fragment;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
+import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.common.imageloader.ImageLoader;
 import com.haoruigang.cniao5play.common.util.DateUtils;
 import com.haoruigang.cniao5play.data.http.ApiService;
@@ -132,7 +134,7 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
 //                    DensityUtil.getScreenW(getActivity()) / 2,
 //                    ViewGroup.LayoutParams.WRAP_CONTENT);
             imageView.setLayoutParams(layoutParams);
-            ImageLoader.load(ApiService.BASE_IMG_URL + url, imageView);
+            ImageLoader.load(Constant.BASE_IMG_URL + url, imageView);
             viewGallery.addView(imageView);
         }
     }
