@@ -1,11 +1,10 @@
 {
-  "Code": 0,
-  "Msg": "",
-  "UpdateStatus": 1,
-  "VersionCode": 22,
-  "VersionName": "1.2.2",
-  "UploadTime": "2019-5-15 13:01:09",
-  "ModifyContent": "\r\n1、优化api接口。\r\n2、添加使用demo演示。\r\n3、新增自定义更新服务API接口。\r\n4、优化更新提示界面。",
-  "DownloadUrl": "https://newadmin.acz.1bu2bu.com/CareGrowtht_Test.apk",
-  "ApkSize": 2048
+  "update": "Yes",
+  "new_version_code":"22",
+  "new_version_name": "1.2.2",
+  "apk_file_url": "https://newadmin.acz.1bu2bu.com/CareGrowtht_Test.apk",
+  "update_log": "1，正式环境。\r\n2，修复已知Bug。\r\n3，优化用户体验。\r\n4，新增支付功能",
+  "target_size": "24MB",
+  "new_md5":"ab55ce55Ac4bcP408cPb8c1Aaeac179c5f6f",
+  "constraint": false
 }
