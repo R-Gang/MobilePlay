@@ -1,23 +1,13 @@
 package com.haoruigang.cniao5play.bean.requestbean;
 
+import lombok.Builder;
+import lombok.Data;
+
+@Builder
+@Data
 public class LoginRequestBean {
 
-    private String email;
+    private String phone;
     private String password;
 
-    public String getPhone() {
-        return email;
-    }
-
-    public void setPhone(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

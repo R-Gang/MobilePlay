@@ -44,8 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/pathView"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp">
 
         <EditText
             android:id="@+id/et_mobile"
@@ -66,8 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/view_mobile_wrapper"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp">
 
         <EditText
             android:id="@+id/et_password"
@@ -84,9 +84,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/view_password_wrapper"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/bg_btn1"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_btn"
         android:enabled="false"
         app:loadingText="登录中..."
         app:progressColor="@color/color_bg_guide3"
@@ -97,10 +97,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_below="@id/btn_login"
-        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
         android:text="注册功能未开放" />
 
 
@@ -128,8 +128,8 @@
         android:id="@+id/iv_telephone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp" />
 
 </RelativeLayout>

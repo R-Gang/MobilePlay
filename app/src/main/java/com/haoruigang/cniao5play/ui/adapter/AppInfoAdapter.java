@@ -34,6 +34,13 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
     }
 
     @Override
+    public void onBindViewHolder(BaseViewHolder viewHolder, int position) {
+        super.onBindViewHolder(viewHolder, position);
+        // 强行关闭复用
+        viewHolder.setIsRecyclable(false);
+    }
+
+    @Override
     protected void convert(BaseViewHolder helper, AppInfoBean appInfo) {
         ImageView imgIcon = helper.itemView.findViewById(R.id.img_icon);
         ImageLoader.load(Constant.BASE_IMG_URL + appInfo.getIcon(), imgIcon);

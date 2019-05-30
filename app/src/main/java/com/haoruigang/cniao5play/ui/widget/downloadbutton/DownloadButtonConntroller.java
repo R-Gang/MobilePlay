@@ -192,7 +192,7 @@ public class DownloadButtonConntroller {
         }
 
         @Override
-        public void accept(DownloadEvent downloadEvent) throws Exception {
+        public void accept(DownloadEvent downloadEvent) {
             int flag = downloadEvent.getFlag();
             btnDownload.setTag(R.id.tag_apk_flag, flag);
             bindClick(btnDownload, mAppInfo);

@@ -3,8 +3,11 @@ package com.haoruigang.cniao5play.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Generated;
+import lombok.Setter;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
