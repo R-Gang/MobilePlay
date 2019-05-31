@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/img_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="@dimen/dp_10"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_app_name"
+        style="@style/Text_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/img_icon"
+        android:text="微信" />
+
+    <TextView
+        android:id="@+id/tv_catenory"
+        style="@style/Text_Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_app_name"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/img_icon"
+        android:text="社交" />
+
+    <com.haoruigang.cniao5play.ui.widget.downloadbutton.DownloadProgressButton
+        android:id="@+id/btn_download_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:scaleType="centerCrop" />
+
+</RelativeLayout>

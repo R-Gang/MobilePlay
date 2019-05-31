@@ -27,7 +27,7 @@
     <group
         android:id="@+id/group2"
         android:checkableBehavior="single">
-        
+
         <item
             android:id="@+id/menu_logout"
             android:title="@string/logout" />

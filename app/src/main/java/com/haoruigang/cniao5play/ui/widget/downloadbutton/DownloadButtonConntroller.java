@@ -25,8 +25,10 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import zlc.season.rxdownload2.RxDownload;
+import zlc.season.rxdownload2.entity.DownloadBean;
 import zlc.season.rxdownload2.entity.DownloadEvent;
 import zlc.season.rxdownload2.entity.DownloadFlag;
+import zlc.season.rxdownload2.entity.DownloadRecord;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -49,6 +51,12 @@ public class DownloadButtonConntroller {
         }
     }
 
+    public void handClick(final DownloadProgressButton btnDownload, final DownloadRecord record) {
+        AppInfoBean appinfo = downloadRecord2AppInfo(record);
+        receiveDownloadStatus(appinfo.getAppDownloadInfo().getDownloadUrl())
+                .subscribe(new DownloadConsumer(btnDownload, appinfo));
+    }
+
     public void handClick(final DownloadProgressButton btnDownload, final AppInfoBean appInfo) {
         if (mApi == null) {
             return;
@@ -69,7 +77,7 @@ public class DownloadButtonConntroller {
                                 .flatMap((Function<AppDownloadInfo, ObservableSource<DownloadEvent>>)
                                         downloadInfo -> {
                                             appInfo.setAppDownloadInfo(downloadInfo);
-                                            return receiveDownloadStatus(downloadInfo);
+                                            return receiveDownloadStatus(downloadInfo.getDownloadUrl());
                                         });
                     }
                     // 未下载
@@ -87,11 +95,11 @@ public class DownloadButtonConntroller {
             Log.d("DownloadConntroller", "flag=" + flag);
             switch (flag) {
                 case DownloadFlag.INSTALLED:// 已安装
-                    runApp(btn.getContext(), appInfo);
+                    runApp(btn.getContext(), appInfo.getPackageName());
                     break;
                 // 升级
                 case DownloadFlag.STARTED:// 正在下载
-                    pausedDownload(appInfo);
+                    pausedDownload(appInfo.getAppDownloadInfo().getDownloadUrl());
                     break;
                 case DownloadFlag.PAUSED:// 已暂停
                 case DownloadFlag.NORMAL:// 未下载
@@ -130,17 +138,42 @@ public class DownloadButtonConntroller {
     }
 
     public void download(final DownloadProgressButton btnDownload, final AppInfoBean appInfo) {
-        rxDownload.serviceDownload(appInfo.getAppDownloadInfo().getDownloadUrl(), appInfo.getReleaseKeyHash()).subscribe();
+        rxDownload.serviceDownload(appInfo2DownloadRecord(appInfo)).subscribe();
+//        rxDownload.serviceDownload(appInfo.getAppDownloadInfo().getDownloadUrl(), appInfo.getReleaseKeyHash()).subscribe();
         rxDownload.receiveDownloadStatus(appInfo.getAppDownloadInfo().getDownloadUrl())
                 .subscribe(new DownloadConsumer(btnDownload, appInfo)).isDisposed();
     }
 
-    private void pausedDownload(final AppInfoBean appInfo) {
-        rxDownload.pauseServiceDownload(appInfo.getAppDownloadInfo().getDownloadUrl()).subscribe();
+    public DownloadBean appInfo2DownloadRecord(final AppInfoBean appInfo) {
+        DownloadBean downloadBean = new DownloadBean();
+        downloadBean.setUrl(appInfo.getAppDownloadInfo().getDownloadUrl());
+        downloadBean.setSaveName(appInfo.getReleaseKeyHash() + ".apk");
+        downloadBean.setExtra1(appInfo.getId() + "");
+        downloadBean.setExtra2(appInfo.getIcon());
+        downloadBean.setExtra3(appInfo.getDisplayName());
+        downloadBean.setExtra4(appInfo.getPackageName());
+        downloadBean.setExtra5(appInfo.getReleaseKeyHash());
+        return downloadBean;
     }
 
-    private void runApp(final Context mContext, final AppInfoBean appInfo) {
-        AppUtils.runApp(mContext, appInfo.getPackageName());
+    public AppInfoBean downloadRecord2AppInfo(final DownloadRecord downloadRecord) {
+        AppInfoBean appInfo = new AppInfoBean();
+        appInfo.getAppDownloadInfo().setDownloadUrl(downloadRecord.getUrl());
+        appInfo.setReleaseKeyHash(downloadRecord.getSaveName() + ".apk");
+        appInfo.setId(Integer.valueOf(downloadRecord.getExtra1()));
+        appInfo.setIcon(downloadRecord.getExtra2());
+        appInfo.setDisplayName(downloadRecord.getExtra3());
+        appInfo.setPackageName(downloadRecord.getExtra4());
+        appInfo.setReleaseKeyHash(downloadRecord.getExtra5());
+        return appInfo;
+    }
+
+    private void pausedDownload(final String url) {
+        rxDownload.pauseServiceDownload(url).subscribe();
+    }
+
+    private void runApp(final Context mContext, final String packageName) {
+        AppUtils.runApp(mContext, packageName);
     }
 
     /**
@@ -174,15 +207,19 @@ public class DownloadButtonConntroller {
         return Observable.just(event);
     }
 
-    public Observable<DownloadEvent> receiveDownloadStatus(final AppDownloadInfo downloadInfo) {
-        return rxDownload.receiveDownloadStatus(downloadInfo.getDownloadUrl());
+    public Observable<DownloadEvent> receiveDownloadStatus(final String url) {
+        return rxDownload.receiveDownloadStatus(url);
     }
+//    public Observable<DownloadEvent> receiveDownloadStatus(final AppDownloadInfo downloadInfo) {
+//        return rxDownload.receiveDownloadStatus(downloadInfo.getDownloadUrl());
+//    }
 
     public Observable<AppDownloadInfo> getAppDownloadInfo(final AppInfoBean infoBean) {
         return mApi.getAppDownloadInfo(infoBean.getId()).compose(RxHttpResponseCompat.compatResult());
     }
 
     class DownloadConsumer implements Consumer<DownloadEvent> {
+
         DownloadProgressButton btnDownload;
         AppInfoBean mAppInfo;
 

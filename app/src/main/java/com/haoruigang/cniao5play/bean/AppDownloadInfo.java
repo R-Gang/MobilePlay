@@ -57,11 +57,11 @@ public class AppDownloadInfo implements Serializable {
     private Disposable mDisposable;
 
 
-    private String dowanloadUrl;
+    private String downloadUrl;
 
     public String getDownloadUrl() {
-        if (dowanloadUrl != null)
-            return dowanloadUrl;
+        if (downloadUrl != null)
+            return downloadUrl;
         return this.getHost() + this.getApk();
     }
 

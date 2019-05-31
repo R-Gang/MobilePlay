@@ -21,4 +21,6 @@ public class Constant {
 
     public static final String APK_DOWNLOAD_DIR = "apk_dl_dir";
 
+    public static final String POSITION = "position";
+
 }

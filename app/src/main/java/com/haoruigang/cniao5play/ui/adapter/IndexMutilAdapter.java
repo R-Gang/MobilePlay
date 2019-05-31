@@ -2,11 +2,13 @@ package com.haoruigang.cniao5play.ui.adapter;
 
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,10 +70,8 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 urls.add(banner.getThumbnail());
             }
             bannerViewHolder.mBanner.setViewUrls(urls);
-            bannerViewHolder.mBanner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                }
+            bannerViewHolder.mBanner.setOnBannerItemClickListener(position1 -> {
+                // 轮播图
             });
         } else if (holder instanceof NavIconViewHolder) {// or position ==1
             NavIconViewHolder navIconViewHolder = (NavIconViewHolder) holder;

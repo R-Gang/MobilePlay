@@ -1,10 +1,20 @@
 package com.haoruigang.cniao5play.ui.activity;
 
 import android.content.Intent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.MenuItemCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
@@ -17,14 +27,19 @@ import com.haoruigang.cniao5play.common.imageloader.GlideCircleTransform;
 import com.haoruigang.cniao5play.common.util.ACache;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.ui.adapter.ViewPagerAdapter;
+import com.haoruigang.cniao5play.ui.bean.FragmentInfo;
+import com.haoruigang.cniao5play.ui.fragment.CategoryFragment;
+import com.haoruigang.cniao5play.ui.fragment.GamesFragment;
+import com.haoruigang.cniao5play.ui.fragment.RecommendFragment;
+import com.haoruigang.cniao5play.ui.fragment.TopListFragment;
+import com.haoruigang.cniao5play.ui.widget.BadgeActionProvider;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.ionicons_typeface_library.Ionicons;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 
 /**
@@ -47,6 +62,8 @@ public class MainActivity extends BaseActivity {
     ImageView ivUserHeadView;
     TextView tvUsername;
 
+    private BadgeActionProvider badgeActionProvider;
+
     @Override
     public int setLayout() {
         return R.layout.activity_main;
@@ -59,14 +76,55 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
+        initToolbar();
         initDrawerLayout();
         initTabLayout();
         initUser();
     }
 
+    private List<FragmentInfo> initFragment() {
+        List<FragmentInfo> mFragment = new ArrayList<>(4);
+        mFragment.add(new FragmentInfo("推荐", RecommendFragment.class));
+        mFragment.add(new FragmentInfo("排行", TopListFragment.class));
+        mFragment.add(new FragmentInfo("游戏", GamesFragment.class));
+        mFragment.add(new FragmentInfo("分类", CategoryFragment.class));
+        return mFragment;
+    }
+
+    private void initToolbar() {
+
+        // ----------------------------- 课时2：DrawerLayout + Toolbar 整合 start -------------------------------
+        toolbar.inflateMenu(R.menu.toolbar_menu);
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        //同步状态
+        drawerToggle.syncState();
+        //侧边栏监听交给ActionBarDrawerToggle
+        drawerLayout.addDrawerListener(drawerToggle);
+        // ------------------------------ 课时2：DrawerLayout + Toolbar 整合 end -------------------------------
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_search) {
+//                    startActivity(new Intent(MainActivity.this,SearchActivity.class));
+                }
+                return true;
+            }
+        });
+
+        MenuItem downloadMenuItem = toolbar.getMenu().findItem(R.id.action_download);
+        badgeActionProvider = (BadgeActionProvider) MenuItemCompat.getActionProvider(downloadMenuItem);
+        badgeActionProvider.setIcon(DrawableCompat.wrap(new IconicsDrawable(this, HrgFont.Icon.cniao_download)
+                .color(ContextCompat.getColor(this, R.color.white))));
+        badgeActionProvider.setOnClickListener(v ->
+                toAppManagerActivity(badgeActionProvider.getBadgeNum() > 0 ? 2 : 0)
+        );
+
+    }
+
     private void initTabLayout() {
         // -------------------- 课时3：TabLayout_ViewPager_Fragment可滑动的顶部菜单 start -----------------------
-        PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), initFragment());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         // -------------------- 课时3：TabLayout_ViewPager_Fragment可滑动的顶部菜单 end -----------------------
@@ -101,19 +159,24 @@ public class MainActivity extends BaseActivity {
                 new IconicsDrawable(this,
                         HrgFont.Icon.cniao_head).colorRes(R.color.white));
         tvUsername = headerView.findViewById(R.id.txt_username);
-        headerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }
-        });
+
+        headerView.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, LoginActivity.class)));
+
+        navigationView.getMenu().findItem(R.id.menu_app_update).setIcon(new IconicsDrawable(this, Ionicons.Icon.ion_ios_loop));
+        navigationView.getMenu().findItem(R.id.menu_download_manager).setIcon(new IconicsDrawable(this, HrgFont.Icon.cniao_download));
+        navigationView.getMenu().findItem(R.id.menu_app_uninstall).setIcon(new IconicsDrawable(this, Ionicons.Icon.ion_ios_trash_outline));
+        navigationView.getMenu().findItem(R.id.menu_setting).setIcon(new IconicsDrawable(this, Ionicons.Icon.ion_ios_gear_outline));
+
+        navigationView.getMenu().findItem(R.id.menu_logout).setIcon(new IconicsDrawable(this, HrgFont.Icon.cniao_shutdown));
+
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.menu_app_update:
                     Toast.makeText(MainActivity.this, "menu_app_update", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.menu_download_manager:
-                    Toast.makeText(MainActivity.this, "menu_message", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, AppManagerActivity.class));
                     break;
                 case R.id.menu_setting:
                     Toast.makeText(MainActivity.this, "menu_setting", Toast.LENGTH_SHORT).show();
@@ -125,15 +188,6 @@ public class MainActivity extends BaseActivity {
             return false;
         });
         // ----------------------- 课时1：DrawerLayout + NavigationView 实现侧滑菜单 end ------------------------
-
-        // ----------------------------- 课时2：DrawerLayout + Toolbar 整合 start -------------------------------
-        toolbar.inflateMenu(R.menu.toolbar_menu);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
-        //同步状态
-        drawerToggle.syncState();
-        //侧边栏监听交给ActionBarDrawerToggle
-        drawerLayout.addDrawerListener(drawerToggle);
-        // ------------------------------ 课时2：DrawerLayout + Toolbar 整合 end -------------------------------
     }
 
     @Subscribe
@@ -170,6 +224,12 @@ public class MainActivity extends BaseActivity {
         tvUsername.setText("未登录");
         headerView.setClickable(true);
         Toast.makeText(this, "已退出登录", Toast.LENGTH_SHORT).show();
+    }
+
+    private void toAppManagerActivity(int position) {
+        Intent intent = new Intent(MainActivity.this, AppManagerActivity.class);
+        intent.putExtra(Constant.POSITION, position);
+        startActivity(new Intent(intent));
     }
 
 }

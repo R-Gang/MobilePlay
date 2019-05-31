@@ -6,10 +6,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.haoruigang.cniao5play.ui.bean.FragmentInfo;
-import com.haoruigang.cniao5play.ui.fragment.CategoryFragment;
-import com.haoruigang.cniao5play.ui.fragment.GamesFragment;
-import com.haoruigang.cniao5play.ui.fragment.TopListFragment;
-import com.haoruigang.cniao5play.ui.fragment.RecommendFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +17,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     List<FragmentInfo> mFragment = new ArrayList<>();
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm, List<FragmentInfo> mFragment) {
         super(fm);
-        initFragment();
-    }
-
-    private void initFragment() {
-        mFragment.add(new FragmentInfo("推荐", RecommendFragment.class));
-        mFragment.add(new FragmentInfo("排行", TopListFragment.class));
-        mFragment.add(new FragmentInfo("游戏", GamesFragment.class));
-        mFragment.add(new FragmentInfo("分类", CategoryFragment.class));
+        this.mFragment.clear();
+        this.mFragment.addAll(mFragment);
     }
 
     @Override
