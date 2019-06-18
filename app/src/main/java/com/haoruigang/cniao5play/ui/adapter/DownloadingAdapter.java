@@ -1,6 +1,5 @@
 package com.haoruigang.cniao5play.ui.adapter;
 
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +20,7 @@ import zlc.season.rxdownload2.entity.DownloadRecord;
  */
 public class DownloadingAdapter extends BaseQuickAdapter<DownloadRecord, BaseViewHolder> {
 
-    private DownloadButtonConntroller mDownloadButtonConntroller;
+    public DownloadButtonConntroller mDownloadButtonConntroller;
 
     public DownloadingAdapter(RxDownload rxDownload) {
         super(R.layout.template_appinfo);
@@ -30,14 +29,9 @@ public class DownloadingAdapter extends BaseQuickAdapter<DownloadRecord, BaseVie
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder viewHolder, int position) {
-        super.onBindViewHolder(viewHolder, position);
-        // 强行关闭复用
-        viewHolder.setIsRecyclable(false);
-    }
-
-    @Override
     protected void convert(BaseViewHolder helper, DownloadRecord item) {
+        // 强行关闭复用
+        helper.setIsRecyclable(false);
         AppInfoBean appInfo = mDownloadButtonConntroller.downloadRecord2AppInfo(item);
 
         ImageView imgIcon = helper.itemView.findViewById(R.id.img_icon);

@@ -18,8 +18,9 @@ public class LoginModel implements LoginContract.ILoginModel {
 
     @Override
     public Observable<BaseBean<LoginBean>> login(String phone, String pwd) {
-        return apiService.login(LoginRequestBean.builder()
-                .phone(phone).password(pwd)
-                .build());
+        LoginRequestBean bean = new LoginRequestBean();
+        bean.setPhone(phone);
+        bean.setPassword(pwd);
+        return apiService.login(bean);
     }
 }

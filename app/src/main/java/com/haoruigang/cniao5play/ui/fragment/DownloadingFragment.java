@@ -1,5 +1,6 @@
 package com.haoruigang.cniao5play.ui.fragment;
 
+import android.content.Intent;
 import android.view.View;
 
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -10,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.haoruigang.cniao5play.R;
+import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.di.component.DaggerAppManagerComponent;
 import com.haoruigang.cniao5play.di.module.AppManagerModule;
 import com.haoruigang.cniao5play.presenter.AppManagerPresenter;
 import com.haoruigang.cniao5play.presenter.contract.AppManagerContract;
+import com.haoruigang.cniao5play.ui.activity.AppDetailActivity;
 import com.haoruigang.cniao5play.ui.adapter.DownloadingAdapter;
 
 import java.util.List;
@@ -56,10 +59,11 @@ public class DownloadingFragment extends ProgressFragment<AppManagerPresenter> i
         recyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                AppInfoBean appInfo = mAdapter.getItem(position);
-//                mApplication.setView(view);
-//                startActivity(new Intent(getActivity(), AppDetailActivity.class)
-//                        .putExtra("appInfo", appInfo));
+                AppInfoBean appInfo = mAdapter.mDownloadButtonConntroller
+                        .downloadRecord2AppInfo(mAdapter.getItem(position));
+                mApplication.setView(view);
+                startActivity(new Intent(getActivity(), AppDetailActivity.class)
+                        .putExtra("appInfo", appInfo));
             }
         });
     }
@@ -73,10 +77,11 @@ public class DownloadingFragment extends ProgressFragment<AppManagerPresenter> i
     @Override
     public void showDownloading(List<DownloadRecord> downloadRecords) {
         mAdapter.addData(downloadRecords);
+        mAdapter.setEnableLoadMore(false);// 是否开启加载
     }
 
     @Override
     public void onLoadMoreRequested() {
-
+        mAdapter.loadMoreComplete();// 加载完成
     }
 }

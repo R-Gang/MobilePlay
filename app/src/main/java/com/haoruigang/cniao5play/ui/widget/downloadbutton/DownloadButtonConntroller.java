@@ -53,8 +53,8 @@ public class DownloadButtonConntroller {
 
     public void handClick(final DownloadProgressButton btnDownload, final DownloadRecord record) {
         AppInfoBean appinfo = downloadRecord2AppInfo(record);
-        receiveDownloadStatus(appinfo.getAppDownloadInfo().getDownloadUrl())
-                .subscribe(new DownloadConsumer(btnDownload, appinfo));
+        receiveDownloadStatus(record.getUrl())// appinfo.getAppDownloadInfo().getDownloadUrl()
+                .subscribe(new DownloadConsumer(btnDownload, appinfo)).isDisposed();
     }
 
     public void handClick(final DownloadProgressButton btnDownload, final AppInfoBean appInfo) {
@@ -158,7 +158,10 @@ public class DownloadButtonConntroller {
 
     public AppInfoBean downloadRecord2AppInfo(final DownloadRecord downloadRecord) {
         AppInfoBean appInfo = new AppInfoBean();
-        appInfo.getAppDownloadInfo().setDownloadUrl(downloadRecord.getUrl());
+        AppDownloadInfo appDownloadInfo = appInfo.getAppDownloadInfo();
+        if (appDownloadInfo != null) {
+            appDownloadInfo.setDownloadUrl(downloadRecord.getUrl());
+        }
         appInfo.setReleaseKeyHash(downloadRecord.getSaveName() + ".apk");
         appInfo.setId(Integer.valueOf(downloadRecord.getExtra1()));
         appInfo.setIcon(downloadRecord.getExtra2());
