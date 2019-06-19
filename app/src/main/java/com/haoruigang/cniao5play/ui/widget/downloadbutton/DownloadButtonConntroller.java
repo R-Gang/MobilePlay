@@ -53,7 +53,7 @@ public class DownloadButtonConntroller {
 
     public void handClick(final DownloadProgressButton btnDownload, final DownloadRecord record) {
         AppInfoBean appinfo = downloadRecord2AppInfo(record);
-        receiveDownloadStatus(record.getUrl())// appinfo.getAppDownloadInfo().getDownloadUrl()
+        receiveDownloadStatus(record.getUrl())
                 .subscribe(new DownloadConsumer(btnDownload, appinfo)).isDisposed();
     }
 

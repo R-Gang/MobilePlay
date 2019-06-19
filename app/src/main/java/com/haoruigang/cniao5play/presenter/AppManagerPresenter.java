@@ -1,5 +1,6 @@
 package com.haoruigang.cniao5play.presenter;
 
+import com.haoruigang.cniao5play.common.apkparset.AndroidApk;
 import com.haoruigang.cniao5play.common.rx.RxSchedulers;
 import com.haoruigang.cniao5play.common.rx.observer.ProgressObserver;
 import com.haoruigang.cniao5play.presenter.contract.AppManagerContract;
@@ -29,6 +30,17 @@ public class AppManagerPresenter extends BasePresenter<AppManagerContract.IAppMa
                     }
                 });
     }
+
+    public void getLocalApks() {
+        mModel.getLocalApks().compose(RxSchedulers.<List<AndroidApk>>io_main())
+                .subscribe(new ProgressObserver<List<AndroidApk>>(mContext, mRootView) {
+                    @Override
+                    public void onNext(List<AndroidApk> androidApks) {
+                        mRootView.showApps(androidApks);
+                    }
+                });
+    }
+
 
     public RxDownload getRxDownload() {
         return mModel.getRxDownload();

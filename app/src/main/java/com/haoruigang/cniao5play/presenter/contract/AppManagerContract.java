@@ -1,5 +1,6 @@
 package com.haoruigang.cniao5play.presenter.contract;
 
+import com.haoruigang.cniao5play.common.apkparset.AndroidApk;
 import com.haoruigang.cniao5play.ui.BaseView;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public interface AppManagerContract {
 
         void showDownloading(List<DownloadRecord> downloadRecords);
 
+        void showApps(List<AndroidApk> androidApks);
     }
 
     interface IAppManagerModel {
@@ -22,6 +24,8 @@ public interface AppManagerContract {
         Observable<List<DownloadRecord>> getDownloadRecord();
 
         RxDownload getRxDownload();
+
+        Observable<List<AndroidApk>> getLocalApks();
     }
 
 }

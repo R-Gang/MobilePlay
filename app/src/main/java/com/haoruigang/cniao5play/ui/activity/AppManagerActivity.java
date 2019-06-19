@@ -13,6 +13,8 @@ import com.haoruigang.cniao5play.ui.fragment.CategoryFragment;
 import com.haoruigang.cniao5play.ui.fragment.DownloadingFragment;
 import com.haoruigang.cniao5play.ui.fragment.GamesFragment;
 import com.haoruigang.cniao5play.ui.fragment.TopListFragment;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,14 @@ public class AppManagerActivity extends BaseActivity {
     }
 
     private void initTabLayout() {
+        toolbar.setNavigationIcon(
+                new IconicsDrawable(this)
+                        .icon(Ionicons.Icon.ion_ios_arrow_back)
+                        .sizeDp(16)
+                        .color(getResources().getColor(R.color.md_white_1000)
+                        )
+        );
+        toolbar.setNavigationOnClickListener(v -> finish());
         // -------------------- 课时3：TabLayout_ViewPager_Fragment可滑动的顶部菜单 start -----------------------
         PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), initFragment());
         viewPager.setAdapter(adapter);

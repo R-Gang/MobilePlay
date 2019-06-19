@@ -26,7 +26,7 @@ public class AppManagerModule {
 
     @Provides
     public AppManagerContract.IAppManagerModel provideModule(RxDownload mRxDownload) {
-        return new AppManagerModel(mRxDownload);
+        return new AppManagerModel(((RecommendFragment) mView).getActivity(),mRxDownload);
     }
 
     @Provides
