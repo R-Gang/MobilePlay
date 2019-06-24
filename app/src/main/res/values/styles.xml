@@ -8,15 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
-    <style name="AppTheme.Notitle" parent="AppTheme">
-        <!-- Customize your theme here. -->
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-    </style>
-
-
-    <style name="AppTheme.Notitle.FullScreen" parent="AppTheme.Notitle">
+    <style name="AppTheme.Notitle.FullScreen" parent="AppTheme">
         <!-- Customize your theme here. -->
         <item name="android:windowFullscreen">true</item>
     </style>

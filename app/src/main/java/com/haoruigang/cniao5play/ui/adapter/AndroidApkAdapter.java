@@ -80,7 +80,7 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk, BaseViewHold
                             boolean isInstall = (boolean) obj;
                             if (isInstall) {
                                 if (deleteApk(item)) {
-                                    notifyDataSetChanged();
+                                    handle_Success(helper);
                                 }
                             } else {
                                 int install = PackageUtils.install(mContext, item.getApkPath());
@@ -115,7 +115,7 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk, BaseViewHold
                 @Override
                 public void accept(@NonNull Object o) throws Exception {
                     if (AppUtils.uninstallApk(mContext, item.getPackageName())) {
-                        notifyDataSetChanged();
+                        handle_Success(helper);
                     }
                 }
             }).isDisposed();
@@ -123,6 +123,12 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk, BaseViewHold
             txtStatus.setText("v" + item.getAppVersionName() + " " + (item.isSystem() ? "内置" : "第三方")); // size 加进来
         }
 
+    }
+
+    private void handle_Success(BaseViewHolder helper) {
+        getData().remove(helper.getAdapterPosition());
+        notifyItemRemoved(helper.getAdapterPosition());
+        notifyItemRangeChanged(helper.getAdapterPosition(), getData().size());
     }
 
 

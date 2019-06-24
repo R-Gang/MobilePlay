@@ -49,7 +49,7 @@ public class AppManagerActivity extends BaseActivity {
         List<FragmentInfo> mFragment = new ArrayList<>(4);
         mFragment.add(new FragmentInfo("下载", DownloadingFragment.class));
         mFragment.add(new FragmentInfo("已完成", DownloadedFragment.class));
-        mFragment.add(new FragmentInfo("更新", UpgradeAppFragment.class));
+        mFragment.add(new FragmentInfo("升级", UpgradeAppFragment.class));
         mFragment.add(new FragmentInfo("已安装", InstalledAppAppFragment.class));
         return mFragment;
     }
