@@ -21,6 +21,8 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
+import static com.haoruigang.cniao5play.common.util.PackageUtils.INSTALL_SUCCEEDED;
+
 
 /**
  * 菜鸟窝http://www.cniao5.com 一个高端的互联网技能学习平台
@@ -77,9 +79,14 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk, BaseViewHold
                         } else {
                             boolean isInstall = (boolean) obj;
                             if (isInstall) {
-                                deleteApk(item);
+                                if (deleteApk(item)) {
+                                    notifyDataSetChanged();
+                                }
                             } else {
-                                PackageUtils.install(mContext, item.getApkPath());
+                                int install = PackageUtils.install(mContext, item.getApkPath());
+                                if (install == INSTALL_SUCCEEDED) {
+                                    notifyDataSetChanged();
+                                }
                             }
                         }
                     }
@@ -90,7 +97,6 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk, BaseViewHold
                 @Override
                 public void accept(@NonNull Boolean aBoolean) throws Exception {
                     btn.setTag(aBoolean);
-
                     if (aBoolean) {
                         txtStatus.setText("已安装");
                         btn.setText("删除");
@@ -108,7 +114,9 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk, BaseViewHold
 
                 @Override
                 public void accept(@NonNull Object o) throws Exception {
-                    AppUtils.uninstallApk(mContext, item.getPackageName());
+                    if (AppUtils.uninstallApk(mContext, item.getPackageName())) {
+                        notifyDataSetChanged();
+                    }
                 }
             }).isDisposed();
 
@@ -118,10 +126,10 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk, BaseViewHold
     }
 
 
-    private void deleteApk(AndroidApk item) {
+    private boolean deleteApk(AndroidApk item) {
         // 1. 删除下载记录
         // 2. 删除文件
-        FileUtils.deleteFile(item.getApkPath());
+        return FileUtils.deleteFile(item.getApkPath());
     }
 
 
