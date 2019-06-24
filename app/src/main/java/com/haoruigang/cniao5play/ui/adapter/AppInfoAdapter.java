@@ -82,6 +82,7 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
         private boolean isShowPosition;
         private boolean isShowCategoryName;
         private boolean isShowBrief;
+        private boolean isUpdateStatus;
 
         private RxDownload mRxDownload;
 
@@ -113,6 +114,11 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
 
         public Builder rxDownload(RxDownload rxDownload) {
             this.mRxDownload = rxDownload;
+            return this;
+        }
+
+        public Builder updateStatus(boolean b) {
+            this.isUpdateStatus = b;
             return this;
         }
 

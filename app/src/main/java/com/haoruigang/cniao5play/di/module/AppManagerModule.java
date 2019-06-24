@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 
 import com.haoruigang.cniao5play.data.AppManagerModel;
 import com.haoruigang.cniao5play.presenter.contract.AppManagerContract;
-import com.haoruigang.cniao5play.ui.fragment.RecommendFragment;
+import com.haoruigang.cniao5play.ui.fragment.AppManagerFragment;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,12 +26,12 @@ public class AppManagerModule {
 
     @Provides
     public AppManagerContract.IAppManagerModel provideModule(RxDownload mRxDownload) {
-        return new AppManagerModel(((RecommendFragment) mView).getActivity(),mRxDownload);
+        return new AppManagerModel(((AppManagerFragment) mView).getActivity(), mRxDownload);
     }
 
     @Provides
     public ProgressDialog provideProgressDialog(AppManagerContract.AppManagerView view) {
-        return new ProgressDialog(((RecommendFragment) view).getActivity());
+        return new ProgressDialog(((AppManagerFragment) view).getActivity());
     }
 
 }

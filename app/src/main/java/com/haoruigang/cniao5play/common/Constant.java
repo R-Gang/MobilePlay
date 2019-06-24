@@ -17,9 +17,9 @@ public class Constant {
     public static String PARAM = "p";
     public static String TOKEN = "token";
     public static String USER = "user";
-    public static String CATEGORY = "Category";
-
+    public static String CATEGORY = "category";
     public static final String APK_DOWNLOAD_DIR = "apk_dl_dir";
+    public static final String APP_UPDATE_LIST = "app_update_list";
 
     public static final String POSITION = "position";
 

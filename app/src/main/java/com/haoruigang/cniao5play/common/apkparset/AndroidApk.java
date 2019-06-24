@@ -36,10 +36,10 @@ public class AndroidApk implements Comparable<AndroidApk> {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    public  static AndroidApk read(Context context, String path){
+    public static AndroidApk read(Context context, String path) {
 
-        AndroidApk androidApk =   AndroidApkParser.getUninstallAPK(context,path);
-        if(androidApk !=null){
+        AndroidApk androidApk = AndroidApkParser.getUninstallAPK(context, path);
+        if (androidApk != null) {
             androidApk.setApkPath(path);
         }
         return androidApk;
@@ -121,6 +121,6 @@ public class AndroidApk implements Comparable<AndroidApk> {
 
     @Override
     public int compareTo(AndroidApk o) {
-        return (int) (o.getLastUpdateTime()-this.getLastUpdateTime());
+        return (int) (o.getLastUpdateTime() - this.getLastUpdateTime());
     }
 }

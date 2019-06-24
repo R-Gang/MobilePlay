@@ -9,10 +9,10 @@ import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.ui.adapter.ViewPagerAdapter;
 import com.haoruigang.cniao5play.ui.bean.FragmentInfo;
-import com.haoruigang.cniao5play.ui.fragment.CategoryFragment;
+import com.haoruigang.cniao5play.ui.fragment.DownloadedFragment;
 import com.haoruigang.cniao5play.ui.fragment.DownloadingFragment;
-import com.haoruigang.cniao5play.ui.fragment.GamesFragment;
-import com.haoruigang.cniao5play.ui.fragment.TopListFragment;
+import com.haoruigang.cniao5play.ui.fragment.InstalledAppAppFragment;
+import com.haoruigang.cniao5play.ui.fragment.UpgradeAppFragment;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
@@ -48,6 +48,9 @@ public class AppManagerActivity extends BaseActivity {
     private List<FragmentInfo> initFragment() {
         List<FragmentInfo> mFragment = new ArrayList<>(4);
         mFragment.add(new FragmentInfo("下载", DownloadingFragment.class));
+        mFragment.add(new FragmentInfo("已完成", DownloadedFragment.class));
+        mFragment.add(new FragmentInfo("更新", UpgradeAppFragment.class));
+        mFragment.add(new FragmentInfo("安装", InstalledAppAppFragment.class));
         return mFragment;
     }
 

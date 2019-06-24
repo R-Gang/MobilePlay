@@ -5,6 +5,7 @@ import android.content.Context;
 import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.common.apkparset.AndroidApk;
 import com.haoruigang.cniao5play.common.util.ACache;
+import com.haoruigang.cniao5play.common.util.AppUtils;
 import com.haoruigang.cniao5play.presenter.contract.AppManagerContract;
 
 import java.io.File;
@@ -44,6 +45,14 @@ public class AppManagerModel implements AppManagerContract.IAppManagerModel {
         });
     }
 
+    @Override
+    public Observable<List<AndroidApk>> getInstalledApps() {
+        return Observable.create(e -> {
+            e.onNext(AppUtils.getInstalledApps(context));
+            e.onComplete();
+        });
+    }
+
     private List<AndroidApk> scanApks(String dir) {
         File file = new File(dir);
         if (!file.isDirectory()) {
@@ -58,7 +67,9 @@ public class AppManagerModel implements AppManagerContract.IAppManagerModel {
         List<AndroidApk> androidApks = new ArrayList<>();
         for (File apk : apks) {
             AndroidApk androidApk = AndroidApk.read(context, apk.getPath());
-            androidApks.add(androidApk);
+            if (androidApk != null) {
+                androidApks.add(androidApk);
+            }
         }
         return androidApks;
     }

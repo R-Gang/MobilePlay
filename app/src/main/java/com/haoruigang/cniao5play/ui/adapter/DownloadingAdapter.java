@@ -1,5 +1,6 @@
 package com.haoruigang.cniao5play.ui.adapter;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,18 +35,20 @@ public class DownloadingAdapter extends BaseQuickAdapter<DownloadRecord, BaseVie
         helper.setIsRecyclable(false);
         AppInfoBean appInfo = mDownloadButtonConntroller.downloadRecord2AppInfo(item);
 
-        ImageView imgIcon = helper.itemView.findViewById(R.id.img_icon);
+        helper.getView(R.id.tv_position).setVisibility(View.GONE);
+        helper.getView(R.id.tv_brief).setVisibility(View.GONE);
+        ImageView imgIcon = helper.getView(R.id.img_icon);
         ImageLoader.load(Constant.BASE_IMG_URL + appInfo.getIcon(), imgIcon);
 
-        TextView tvAppName = helper.itemView.findViewById(R.id.tv_app_name);
+        TextView tvAppName = helper.getView(R.id.tv_app_name);
         tvAppName.setText(appInfo.getDisplayName());
 
-        TextView tvCatenory = helper.itemView.findViewById(R.id.tv_catenory);
+        TextView tvCatenory = helper.getView(R.id.tv_catenory);
         if (tvCatenory != null) {
             tvCatenory.setText(appInfo.getLevel1CategoryName());
         }
 
-        final DownloadProgressButton btnDl = helper.itemView.findViewById(R.id.btn_download_progress);
+        final DownloadProgressButton btnDl = helper.getView(R.id.btn_download_progress);
         if (btnDl != null) {
             helper.addOnClickListener(btnDl.getId());
             mDownloadButtonConntroller.handClick(btnDl, item);
