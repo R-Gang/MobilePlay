@@ -29,6 +29,8 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.core.content.FileProvider;
+
 import com.haoruigang.cniao5play.common.apkparset.AndroidApk;
 import com.haoruigang.cniao5play.service.InstallAccessibilityService;
 
@@ -225,7 +227,8 @@ public class AppUtils {
                 return false;
             }
             Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setDataAndType(Uri.parse("file://" + filePath), "application/vnd.android.package-archive");
+            Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", file);
+            i.setDataAndType(photoURI, "application/vnd.android.package-archive");
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
 

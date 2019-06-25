@@ -6,6 +6,7 @@ import android.content.Context;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import androidx.fragment.app.FragmentActivity;
+
 import io.reactivex.Observable;
 
 
@@ -21,7 +22,7 @@ import io.reactivex.Observable;
 
 public class PermissionUtil {
 
-    public static Observable<Boolean> requestPermisson(Context activity, String permission) {
+    public static Observable<Boolean> requestPermisson(Context activity, String... permission) {
         RxPermissions rxPermissions = new RxPermissions((FragmentActivity) activity);
         return rxPermissions.request(permission);
     }

@@ -16,12 +16,8 @@ import com.haoruigang.cniao5play.ui.widget.downloadbutton.DownloadProgressButton
 import com.jakewharton.rxbinding3.view.RxView;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
-
-import static com.haoruigang.cniao5play.common.util.PackageUtils.INSTALL_SUCCEEDED;
 
 
 /**
@@ -67,56 +63,44 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk, BaseViewHold
             btn.setTag(R.id.tag_package_name, item.getPackageName());
             btn.setText("删除");
 
-            RxView.clicks(btn).subscribe(new Consumer<Object>() {
+            RxView.clicks(btn).subscribe((Consumer<Object>) o -> {
 
-                @Override
-                public void accept(@NonNull Object o) throws Exception {
-
-                    if (btn.getTag(R.id.tag_package_name).toString().equals(item.getPackageName())) {
-                        Object obj = btn.getTag();
-                        if (obj == null) {
-                            PackageUtils.install(mContext, item.getApkPath());
+                if (btn.getTag(R.id.tag_package_name).toString().equals(item.getPackageName())) {
+                    Object obj = btn.getTag();
+                    if (obj == null) {
+                        PackageUtils.install(mContext, item.getApkPath());
+                    } else {
+                        boolean isInstall = (boolean) obj;
+                        if (isInstall) {
+                            if (deleteApk(item)) {
+                                handle_Success(helper);
+                            }
                         } else {
-                            boolean isInstall = (boolean) obj;
-                            if (isInstall) {
-                                if (deleteApk(item)) {
-                                    handle_Success(helper);
-                                }
-                            } else {
-                                int install = PackageUtils.install(mContext, item.getApkPath());
-                                if (install == INSTALL_SUCCEEDED) {
-                                    notifyDataSetChanged();
-                                }
+                            int install = PackageUtils.install(mContext, item.getApkPath());
+                            if (install == PackageUtils.INSTALL_SUCCEEDED) {
+                                notifyDataSetChanged();
                             }
                         }
                     }
                 }
             }).isDisposed();
-            isInstalled(mContext, item.getPackageName()).subscribe(new Consumer<Boolean>() {
-
-                @Override
-                public void accept(@NonNull Boolean aBoolean) throws Exception {
-                    btn.setTag(aBoolean);
-                    if (aBoolean) {
-                        txtStatus.setText("已安装");
-                        btn.setText("删除");
-                    } else {
-                        txtStatus.setText("等待安装");
-                        btn.setText("安装");
-                    }
+            isInstalled(mContext, item.getPackageName()).subscribe(aBoolean -> {
+                btn.setTag(aBoolean);
+                if (aBoolean) {
+                    txtStatus.setText("已安装");
+                    btn.setText("删除");
+                } else {
+                    txtStatus.setText("等待安装");
+                    btn.setText("安装");
                 }
             }).isDisposed();
 
         } else if (flag == FLAG_APP) {
 
             btn.setText("卸载");
-            RxView.clicks(btn).subscribe(new Consumer<Object>() {
-
-                @Override
-                public void accept(@NonNull Object o) throws Exception {
-                    if (AppUtils.uninstallApk(mContext, item.getPackageName())) {
-                        handle_Success(helper);
-                    }
+            RxView.clicks(btn).subscribe((Consumer<Object>) o -> {
+                if (AppUtils.uninstallApk(mContext, item.getPackageName())) {
+                    handle_Success(helper);
                 }
             }).isDisposed();
 
@@ -141,14 +125,8 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk, BaseViewHold
 
     public Observable<Boolean> isInstalled(final Context context, final String packageName) {
 
-        return Observable.create(new ObservableOnSubscribe<Boolean>() {
-
-            @Override
-            public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
-
-                e.onNext(AppUtils.isInstalled(context, packageName));
-            }
-        }).compose(RxSchedulers.<Boolean>io_main());
+        return Observable.create((ObservableOnSubscribe<Boolean>) e ->
+                e.onNext(AppUtils.isInstalled(context, packageName))).compose(RxSchedulers.io_main());
 
     }
 

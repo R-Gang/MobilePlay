@@ -2,6 +2,7 @@ package com.haoruigang.cniao5play.ui.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -11,6 +12,11 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.eftimoff.androipathview.PathView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -28,10 +34,6 @@ import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import butterknife.BindView;
 import io.reactivex.Observable;
 
@@ -136,6 +138,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 String imes = DeviceUtils.getIMEI(this);
                 Toast.makeText(this, imes, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finish();
             } else {
                 Toast.makeText(this, "授权失败", Toast.LENGTH_LONG).show();
             }
@@ -160,10 +164,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 != PackageManager.PERMISSION_GRANTED) { // 检查权限,没有授权
             // 授权
             ActivityCompat.requestPermissions(LoginActivity.this,
-                    new String[]{Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATE_CODE);
+                    new String[]{Manifest.permission.READ_PHONE_STATE}
+                    , READ_PHONE_STATE_CODE);
         } else {
             // 授权成功
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
     }

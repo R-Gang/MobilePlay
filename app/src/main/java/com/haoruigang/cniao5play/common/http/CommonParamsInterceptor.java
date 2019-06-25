@@ -2,10 +2,11 @@ package com.haoruigang.cniao5play.common.http;
 
 import android.content.Context;
 import android.os.Build;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -61,14 +62,14 @@ public class CommonParamsInterceptor implements Interceptor {
 
             String token = ACache.get(mContext).getAsString(Constant.TOKEN);
 
-            Log.i("IMEI", imei);
-            Log.i("Model", model);
-            Log.i("LANGUAGE", language);
-            Log.i("OS", os);
-            Log.i("RESOLUTION", resolution);
-            Log.i("SDK", sdk);
-            Log.i("DENSITY_SCALE_FACTOR", densityScaleFactor);
-            Log.i("TOKEN", token);
+            Log.i(Constant.IMEI, imei);
+            Log.i(Constant.MODEL, model);
+            Log.i(Constant.LANGUAGE, language);
+            Log.i(Constant.OS, os);
+            Log.i(Constant.RESOLUTION, resolution);
+            Log.i(Constant.SDK, sdk);
+            Log.i(Constant.DENSITY_SCALE_FACTOR, densityScaleFactor);
+            Log.i(Constant.TOKEN, token);
 
             HashMap<String, Object> commomParamesMap = new HashMap<>();
             commomParamesMap.put(Constant.IMEI, imei);

@@ -14,6 +14,8 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.core.content.FileProvider;
+
 import com.haoruigang.cniao5play.service.InstallAccessibilityService;
 
 import java.io.File;
@@ -71,21 +73,19 @@ public class PackageUtils {
      */
     public static boolean installNormal(Context context, String filePath) {
 
-
         if (isAccessibilityEnabled(context, InstallAccessibilityService.class.getCanonicalName())) {
 
             Intent i = new Intent(Intent.ACTION_VIEW);
             File file = new File(filePath);
-            if (file == null || !file.exists() || !file.isFile() || file.length() <= 0) {
+            if (!file.exists() || !file.isFile() || file.length() <= 0) {
                 return false;
             }
-
-            i.setDataAndType(Uri.parse("file://" + filePath), "application/vnd.android.package-archive");
+            Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", file);
+            i.setDataAndType(photoURI, "application/vnd.android.package-archive");
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
             return true;
         } else {
-
             context.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
             return true;
         }

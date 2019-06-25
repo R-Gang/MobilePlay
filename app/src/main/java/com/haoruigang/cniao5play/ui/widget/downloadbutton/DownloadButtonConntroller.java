@@ -30,8 +30,6 @@ import zlc.season.rxdownload2.entity.DownloadEvent;
 import zlc.season.rxdownload2.entity.DownloadFlag;
 import zlc.season.rxdownload2.entity.DownloadRecord;
 
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-
 /**
  * Date: 2019/4/1
  * Author: haoruigang
@@ -120,7 +118,9 @@ public class DownloadButtonConntroller {
     }
 
     private void startDownload(final DownloadProgressButton btnDownload, final AppInfoBean appInfo) {
-        PermissionUtil.requestPermisson(btnDownload.getContext(), WRITE_EXTERNAL_STORAGE)
+        PermissionUtil.requestPermisson(btnDownload.getContext(),
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(aBoolean -> {
                     if (aBoolean) {
                         final AppDownloadInfo downloadInfo = appInfo.getAppDownloadInfo();
