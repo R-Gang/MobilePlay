@@ -3,11 +3,12 @@ package com.haoruigang.cniao5play.ui.fragment;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
+import android.view.View;
+
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -27,6 +28,9 @@ import java.util.Objects;
 
 import butterknife.BindView;
 
+/**
+ * 分类
+ */
 public class CategoryFragment extends ProgressFragment<CategoryPresenter> implements CategoryContract.CategoryView {
 
     @BindView(R.id.recycler_view)

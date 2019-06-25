@@ -9,7 +9,7 @@ public class Constant {
 
     public static String MODEL = "model";
     public static String IMEI = "imei";
-    public static String LANGUAGE = "language";
+    public static String LANGUAGE = "la";
     public static String OS = "os";
     public static String RESOLUTION = "resolution";
     public static String SDK = "sdk";

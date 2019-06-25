@@ -52,6 +52,11 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
         mPresenter.requestDatas();
     }
 
+    @Override
+    public void onEmptyViewClick() {
+        mPresenter.requestDatas();
+    }
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void initRecyclerView() {
         //为RecyClerView设置布局管理器

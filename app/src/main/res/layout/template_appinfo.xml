@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
@@ -67,5 +68,36 @@
         android:layout_centerVertical="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:scaleType="centerCrop" />
+
+    <com.ms.square.android.expandabletextview.ExpandableTextView
+        android:id="@+id/view_changelog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        app:animDuration="200"
+        app:maxCollapsedLines="1">
+
+
+        <TextView
+            android:id="@+id/expandable_text"
+            style="@style/Text_Content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+
+            />
+
+
+        <ImageButton
+            android:id="@+id/expand_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:background="@android:color/transparent"
+            android:padding="16dp" />
+
+
+    </com.ms.square.android.expandabletextview.ExpandableTextView>
 
 </RelativeLayout>

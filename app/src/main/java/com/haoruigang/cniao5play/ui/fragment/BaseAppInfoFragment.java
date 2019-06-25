@@ -14,6 +14,9 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.haoruigang.cniao5play.R;
 import com.haoruigang.cniao5play.bean.AppInfoBean;
 import com.haoruigang.cniao5play.bean.PageBean;
+import com.haoruigang.cniao5play.di.component.AppComponent;
+import com.haoruigang.cniao5play.di.component.DaggerAppInfoComponent;
+import com.haoruigang.cniao5play.di.module.AppInfoModule;
 import com.haoruigang.cniao5play.presenter.AppInfoPresenter;
 import com.haoruigang.cniao5play.presenter.contract.AppInfoContract;
 import com.haoruigang.cniao5play.ui.activity.AppDetailActivity;
@@ -55,6 +58,15 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
 
     abstract AppInfoAdapter buildAdapter();
 
+    @Override
+    public void setupActivityComponent(AppComponent appComponent) {
+        DaggerAppInfoComponent.builder()
+                .appComponent(appComponent)
+                .appInfoModule(new AppInfoModule(this))
+                .build().inject(this);
+
+    }
+
     protected void initRecyclerView() {
         //为RecyClerView设置布局管理器
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -93,6 +105,11 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
 
     @Override
     public void onLoadMoreRequested() {
+        mPresenter.requestData(type(), page);
+    }
+
+    @Override
+    public void onEmptyViewClick() {
         mPresenter.requestData(type(), page);
     }
 }

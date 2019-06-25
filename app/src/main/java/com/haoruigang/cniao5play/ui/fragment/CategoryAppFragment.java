@@ -25,14 +25,6 @@ public class CategoryAppFragment extends BaseAppInfoFragment {
     }
 
     @Override
-    public void setupActivityComponent(AppComponent appComponent) {
-        DaggerAppInfoComponent.builder()
-                .appComponent(appComponent)
-                .appInfoModule(new AppInfoModule(this))
-                .build().injectC(this);
-    }
-
-    @Override
     public void init() {
         mPresenter.requestData(type(), page, categoryId);
         initRecyclerView();

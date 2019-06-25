@@ -39,7 +39,7 @@ public class HttpModule {
         //如果使用HTTPS,我们需要创建SSLSocketFactory,并设置到client
 //        SSLSocketFactory sslSocketFactory = new SSLCertificateSocketFactory(DEFAULT_MILLISECONDS);
         return new OkHttpClient.Builder()
-                .addInterceptor(logging)
+//                .addInterceptor(logging)
                 .addInterceptor(new CommonParamsInterceptor(application, gson))
 //                .socketFactory(sslSocketFactory)
                 // 连接超时时间设置
@@ -50,6 +50,7 @@ public class HttpModule {
                 .writeTimeout(DEFAULT_MILLISECONDS, TimeUnit.SECONDS)
                 .build();
     }
+
 
     @Provides
     @Singleton
