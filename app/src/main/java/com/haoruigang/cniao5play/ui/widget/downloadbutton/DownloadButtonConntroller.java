@@ -11,6 +11,7 @@ import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.common.rx.RxHttpResponseCompat;
 import com.haoruigang.cniao5play.common.util.ACache;
 import com.haoruigang.cniao5play.common.util.AppUtils;
+import com.haoruigang.cniao5play.common.util.PackageUtils;
 import com.haoruigang.cniao5play.common.util.PermissionUtil;
 import com.jakewharton.rxbinding3.view.RxView;
 
@@ -114,7 +115,8 @@ public class DownloadButtonConntroller {
 //        rxDownload.getRealFiles()
         String path = ACache.get(mContext).getAsString(Constant.APK_DOWNLOAD_DIR)
                 + File.separator + appInfo.getReleaseKeyHash();
-        AppUtils.installApk(mContext, path);
+//        AppUtils.installApk(mContext, path);
+        PackageUtils.install(mContext, path);
     }
 
     private void startDownload(final DownloadProgressButton btnDownload, final AppInfoBean appInfo) {

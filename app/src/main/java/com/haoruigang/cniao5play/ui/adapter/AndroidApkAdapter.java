@@ -104,7 +104,7 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk, BaseViewHold
                 }
             }).isDisposed();
 
-            txtStatus.setText("v" + item.getAppVersionName() + " " + (item.isSystem() ? "内置" : "第三方")); // size 加进来
+            txtStatus.setText(String.format("v%s\t\t%s", item.getAppVersionName(), (item.isSystem() ? "内置" : "第三方"))); // size 加进来
         }
 
     }
@@ -112,7 +112,8 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk, BaseViewHold
     private void handle_Success(BaseViewHolder helper) {
         getData().remove(helper.getAdapterPosition());
         notifyItemRemoved(helper.getAdapterPosition());
-        notifyItemRangeChanged(helper.getAdapterPosition(), getData().size());
+        notifyItemRangeChanged(helper.getAdapterPosition(),
+                getData().size() - helper.getAdapterPosition());
     }
 
 

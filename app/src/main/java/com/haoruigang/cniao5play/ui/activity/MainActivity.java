@@ -116,6 +116,7 @@ public class MainActivity extends BaseActivity {
         badgeActionProvider = (BadgeActionProvider) MenuItemCompat.getActionProvider(downloadMenuItem);
         badgeActionProvider.setIcon(DrawableCompat.wrap(new IconicsDrawable(this, HrgFont.Icon.cniao_download)
                 .color(ContextCompat.getColor(this, R.color.white))));
+        badgeActionProvider.setText("6");
         badgeActionProvider.setOnClickListener(v ->
                 toAppManagerActivity(badgeActionProvider.getBadgeNum() > 0 ? 2 : 0)
         );
