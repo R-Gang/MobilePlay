@@ -81,4 +81,7 @@ public interface ApiService {
 
     @GET("app/{id}")
     Observable<BaseBean<AppInfoBean>> getAppDetail(@Path("id") int id);
+
+    @GET("apps/updateinfo")
+    Observable<BaseBean<List<AppInfoBean>>> getAppsUpdateinfo(@Query("packageName") String packageName, @Query("versionCode") String versionCode);
 }

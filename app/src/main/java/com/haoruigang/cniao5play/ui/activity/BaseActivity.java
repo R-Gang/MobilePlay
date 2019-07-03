@@ -1,13 +1,15 @@
 package com.haoruigang.cniao5play.ui.activity;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
-import androidx.core.view.LayoutInflaterCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.LayoutInflaterCompat;
 
 import com.haoruigang.cniao5play.AppApplication;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.presenter.BasePresenter;
+import com.haoruigang.cniao5play.ui.BaseView;
 import com.hwangjr.rxbus.RxBus;
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 
@@ -21,7 +23,7 @@ import butterknife.Unbinder;
  *
  * @param <T>
  */
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView {
 
     private Unbinder mUnbinder;
     public AppApplication mApplication;
@@ -56,5 +58,20 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             mUnbinder.unbind();
         }
         RxBus.get().unregister(this);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+        
     }
 }

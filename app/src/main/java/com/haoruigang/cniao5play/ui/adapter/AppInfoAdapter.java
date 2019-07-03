@@ -35,8 +35,6 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, AppInfoBean appInfo) {
-        // 强行关闭复用
-        helper.setIsRecyclable(false);
         final ImageView imgIcon = helper.itemView.findViewById(R.id.img_icon);
         ImageLoader.load(Constant.BASE_IMG_URL + appInfo.getIcon(), imgIcon);
 
@@ -45,6 +43,18 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
 
         final TextView tvBrief = helper.itemView.findViewById(R.id.tv_brief);
         final DownloadProgressButton btnDl = helper.itemView.findViewById(R.id.btn_download_progress);
+
+        TextView tvPosition = helper.itemView.findViewById(R.id.tv_position);
+        if (tvPosition != null) {
+            tvPosition.setVisibility(builder.isShowPosition ? View.VISIBLE : View.GONE);
+            tvPosition.setText(String.format("%s.", appInfo.getPosition() + 1));
+        }
+
+        TextView tvCatenory = helper.itemView.findViewById(R.id.tv_catenory);
+        if (tvCatenory != null) {
+            tvCatenory.setVisibility(builder.isShowCategoryName ? View.VISIBLE : View.GONE);
+            tvCatenory.setText(appInfo.getLevel1CategoryName());
+        }
 
         if (builder.isUpdateStatus) {
 
@@ -63,18 +73,6 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
             if (tvBrief != null) {
                 tvBrief.setVisibility(builder.isShowBrief ? View.VISIBLE : View.GONE);
                 tvBrief.setText(appInfo.getPublisherName());
-            }
-
-            TextView tvCatenory = helper.itemView.findViewById(R.id.tv_catenory);
-            if (tvCatenory != null) {
-                tvCatenory.setVisibility(builder.isShowCategoryName ? View.VISIBLE : View.GONE);
-                tvCatenory.setText(appInfo.getLevel1CategoryName());
-            }
-
-            TextView tvPosition = helper.itemView.findViewById(R.id.tv_position);
-            if (tvPosition != null) {
-                tvPosition.setVisibility(builder.isShowPosition ? View.VISIBLE : View.GONE);
-                tvPosition.setText(String.format("%s.", appInfo.getPosition() + 1));
             }
 
             TextView txtApkSize = helper.itemView.findViewById(R.id.txt_apk_size);

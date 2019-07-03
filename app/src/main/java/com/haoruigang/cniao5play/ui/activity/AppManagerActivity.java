@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.haoruigang.cniao5play.R;
+import com.haoruigang.cniao5play.common.Constant;
 import com.haoruigang.cniao5play.di.component.AppComponent;
 import com.haoruigang.cniao5play.ui.adapter.ViewPagerAdapter;
 import com.haoruigang.cniao5play.ui.bean.FragmentInfo;
@@ -30,6 +31,8 @@ public class AppManagerActivity extends BaseActivity {
     @BindView(R.id.view_pager)
     ViewPager viewPager;
 
+    private int position;
+
     @Override
     public int setLayout() {
         return R.layout.activity_app_manager;
@@ -42,6 +45,7 @@ public class AppManagerActivity extends BaseActivity {
 
     @Override
     public void init() {
+        position = getIntent().getIntExtra(Constant.POSITION, 0);
         initTabLayout();
     }
 
@@ -67,6 +71,9 @@ public class AppManagerActivity extends BaseActivity {
         PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), initFragment());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        viewPager.setCurrentItem(position);
+        tabLayout.getTabAt(position).select();
         // -------------------- 课时3：TabLayout_ViewPager_Fragment可滑动的顶部菜单 end -----------------------
     }
 

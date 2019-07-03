@@ -22,7 +22,12 @@ public class UpgradeAppFragment extends AppManagerFragment {
 
     @Override
     protected RecyclerView.Adapter setupAdapter() {
-        return AppInfoAdapter.builder().updateStatus(true).rxDownload(mPresenter.getRxDownload()).build();
+        return AppInfoAdapter.builder()
+                .updateStatus(true)
+                .showPosition(false)
+                .showCategoryName(false)
+                .rxDownload(mPresenter.getRxDownload())
+                .build();
     }
 
     @Override

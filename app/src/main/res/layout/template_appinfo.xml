@@ -64,8 +64,8 @@
         android:id="@+id/btn_download_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tv_app_name"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:scaleType="centerCrop" />
 
@@ -73,7 +73,9 @@
         android:id="@+id/view_changelog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/tv_brief"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/img_icon"
         android:background="@color/white"
         app:animDuration="200"
         app:maxCollapsedLines="1">

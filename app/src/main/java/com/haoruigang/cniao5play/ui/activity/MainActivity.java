@@ -26,6 +26,10 @@ import com.haoruigang.cniao5play.common.font.HrgFont;
 import com.haoruigang.cniao5play.common.imageloader.GlideCircleTransform;
 import com.haoruigang.cniao5play.common.util.ACache;
 import com.haoruigang.cniao5play.di.component.AppComponent;
+import com.haoruigang.cniao5play.di.component.DaggerMainComponent;
+import com.haoruigang.cniao5play.di.module.MainModule;
+import com.haoruigang.cniao5play.presenter.MainPresenter;
+import com.haoruigang.cniao5play.presenter.contract.MainContract;
 import com.haoruigang.cniao5play.ui.adapter.ViewPagerAdapter;
 import com.haoruigang.cniao5play.ui.bean.FragmentInfo;
 import com.haoruigang.cniao5play.ui.fragment.CategoryFragment;
@@ -45,7 +49,7 @@ import butterknife.BindView;
 /**
  * 主页
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.MainView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -71,15 +75,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerMainComponent.builder()
+                .appComponent(appComponent)
+                .mainModule(new MainModule(this))
+                .build().inject(this);
     }
 
     @Override
     public void init() {
-        initToolbar();
-        initDrawerLayout();
-        initTabLayout();
-        initUser();
+        mPresenter.requestPermisson();
+        mPresenter.getAppUpdateInfo();
     }
 
     private List<FragmentInfo> initFragment() {
@@ -116,7 +121,6 @@ public class MainActivity extends BaseActivity {
         badgeActionProvider = (BadgeActionProvider) MenuItemCompat.getActionProvider(downloadMenuItem);
         badgeActionProvider.setIcon(DrawableCompat.wrap(new IconicsDrawable(this, HrgFont.Icon.cniao_download)
                 .color(ContextCompat.getColor(this, R.color.white))));
-        badgeActionProvider.setText("6");
         badgeActionProvider.setOnClickListener(v ->
                 toAppManagerActivity(badgeActionProvider.getBadgeNum() > 0 ? 2 : 0)
         );
@@ -233,4 +237,25 @@ public class MainActivity extends BaseActivity {
         startActivity(new Intent(intent));
     }
 
+    @Override
+    public void requestPermissonSuccess() {
+        initToolbar();
+        initDrawerLayout();
+        initTabLayout();
+        initUser();
+    }
+
+    @Override
+    public void requestPermissonFail() {
+
+    }
+
+    @Override
+    public void changeAppNeedUpdateCount(int count) {
+        if (count > 0) {
+            badgeActionProvider.setText(String.valueOf(count));
+        } else {
+            badgeActionProvider.hideBadge();
+        }
+    }
 }
