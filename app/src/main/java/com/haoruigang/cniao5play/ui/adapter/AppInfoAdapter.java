@@ -63,7 +63,8 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
 
             if (tvBrief != null) {
                 tvBrief.setVisibility(View.VISIBLE);
-                tvBrief.setText("v" + appInfo.getVersionName() + "  " + (appInfo.getApkSize() / 1014 / 1024) + "Mb");
+                tvBrief.setText(String.format("v%s\t\t%s", appInfo.getVersionName()
+                        , (appInfo.getApkSize() / 1014 / 1024) + "Mb"));
             }
 
             btnDl.setText("升级");
@@ -75,15 +76,15 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfoBean, BaseViewHolder
                 tvBrief.setText(appInfo.getPublisherName());
             }
 
-            TextView txtApkSize = helper.itemView.findViewById(R.id.txt_apk_size);
-            if (txtApkSize != null) {
-                txtApkSize.setText(String.format("%s\tMb", appInfo.getApkSize() / 1014 / 1024));
-            }
-
             if (btnDl != null) {
                 helper.addOnClickListener(btnDl.getId());
                 btnDl.setVisibility(View.VISIBLE);
                 mDownloadButtonConntroller.handClick(btnDl, appInfo);
+            }
+
+            TextView txtApkSize = helper.itemView.findViewById(R.id.txt_apk_size);
+            if (txtApkSize != null) {
+                txtApkSize.setText(String.format("%s\tMb", appInfo.getApkSize() / 1014 / 1024));
             }
 
             final Button btnDownload = helper.itemView.findViewById(R.id.btn_download);
