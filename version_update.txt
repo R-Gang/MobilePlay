@@ -1,13 +1,12 @@
 {
   "update": "Yes",
-  "new_version_code":"25",
-  "new_version_name": "1.2.5",
+  "new_version_code":"26",
+  "new_version_name": "1.2.6",
   "apk_file_url": "https://admin.ilovegrowth.cn/CareGrowtht.apk",
-  "update_log": "更新内容：\r\n结合用户的使用反馈，我们进一步提升了整个软件的易用性。
-        \r\n1）将“动态”模块升级为“我的助理”模块。把众多提醒重新分类且合并，增加图形化设计，使得提醒功能更加简洁明确， 一目了然。
-        \r\n2）学员解绑课时卡，可以自定义输入解绑原因和解绑信息。
-        \r\n3）日报更加美观和明确。\r\n\n4）APP端支持人工消课。",
-  "target_size": "24.1MB",
+  "update_log": "更新内容：
+        \r\n1）APP端增加“收与支”功能， 您在手机上可以记录机构的一天的消费和收入。
+        \r\n2）学员的购卡收入会自动添加到收与支记录。",
+  "target_size": "24.17MB",
   "new_md5":"ab55ce55Ac4bcP408cPb8c1Aaeac179c5f6f",
   "constraint": false
 }
