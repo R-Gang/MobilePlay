@@ -1,11 +1,10 @@
 {
   "update": "Yes",
-  "new_version_code":"26",
-  "new_version_name": "1.2.6",
+  "new_version_code":"27",
+  "new_version_name": "1.2.7",
   "apk_file_url": "https://admin.ilovegrowth.cn/CareGrowtht.apk",
   "update_log": "更新内容：
-        \r\n1）APP端增加“收与支”功能， 您在手机上可以记录机构的一天的消费和收入。
-        \r\n2）学员的购卡收入会自动添加到收与支记录。",
+        \r\n1）优化了学员详情非活跃课时卡的显示方式。",
   "target_size": "24.17MB",
   "new_md5":"ab55ce55Ac4bcP408cPb8c1Aaeac179c5f6f",
   "constraint": false
