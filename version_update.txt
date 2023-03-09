@@ -1,11 +1,1 @@
-{
-  "update": "Yes",
-  "new_version_code":"30",
-  "new_version_name": "1.3.0",
-  "apk_file_url": "https://admin.ilovegrowth.cn/CareGrowtht.apk",
-  "update_log": "更新内容：
-        \r\n1)优化不同类型课时卡消课显示问题。",
-  "target_size": "24.2MB",
-  "new_md5":"ab55ce55Ac4bcP408cPb8c1Aaeac179c5f6f",
-  "constraint": false
-}
+{"update":"Yes","new_version_code":"32","new_version_name":"1.3.2","apk_file_url":"https://1bu2butest1.oss-cn-beijing.aliyuncs.com/1bu2butest1/CareGrowtht.apk","update_log":"更新内容：\r\n1) 修复已知问题。 ","target_size":"25.4MB","new_md5":"ab55ce55Ac4bcP408cPb8c1Aaeac179c5f6f","constraint":false}
